@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P01W3 Pop Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --teal: #0891B2;
+    --accent: #F59E0B;
+    --red: #DC2626;
+    --green: #059669;
+    --light: #F0F4F8;
+    --dark: #0F172A;
+    --white: #FFFFFF;
+    --gray: #64748B;
+    --card: #FFFFFF;
+    --correct-bg: #ECFDF5;
+    --wrong-bg: #FEF2F2;
+    --correct-border: #059669;
+    --wrong-border: #DC2626;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--navy);
+    padding: 1.5rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .header h1 {
+    font-family: 'Space Mono', monospace;
+    color: var(--white);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .header .sub {
+    color: var(--teal);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+
+  .progress-bar {
+    background: rgba(255,255,255,0.1);
+    height: 4px;
+    margin-top: 0.75rem;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    background: var(--teal);
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 2px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 1.25rem;
+  }
+
+  .question-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--teal);
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .question-card.correct {
+    border-left-color: var(--correct-border);
+    background: var(--correct-bg);
+  }
+
+  .question-card.wrong {
+    border-left-color: var(--wrong-border);
+    background: var(--wrong-bg);
+  }
+
+  .q-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .q-text {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: var(--dark);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    background: var(--white);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .option:hover:not(.locked) {
+    border-color: var(--teal);
+    background: #F0FDFA;
+  }
+
+  .option.selected {
+    border-color: var(--teal);
+    background: #ECFEFF;
+    font-weight: 500;
+  }
+
+  .option.locked { cursor: default; }
+  .option.locked.selected.right {
+    border-color: var(--correct-border);
+    background: #D1FAE5;
+  }
+  .option.locked.selected.wrong-pick {
+    border-color: var(--wrong-border);
+    background: #FEE2E2;
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+  .option.locked.show-correct {
+    border-color: var(--correct-border);
+    background: #D1FAE5;
+    font-weight: 600;
+  }
+
+  .option-letter {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--gray);
+    transition: all 0.2s ease;
+  }
+
+  .option.selected .option-letter {
+    background: var(--teal);
+    color: var(--white);
+  }
+
+  .option.locked.selected.right .option-letter,
+  .option.locked.show-correct .option-letter {
+    background: var(--correct-border);
+    color: var(--white);
+  }
+
+  .option.locked.selected.wrong-pick .option-letter {
+    background: var(--wrong-border);
+    color: var(--white);
+  }
+
+  .feedback {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    display: none;
+  }
+
+  .feedback.show { display: block; }
+  .feedback.correct-fb {
+    background: #D1FAE5;
+    color: #065F46;
+  }
+  .feedback.wrong-fb {
+    background: #FEE2E2;
+    color: #991B1B;
+  }
+
+  .submit-area {
+    text-align: center;
+    padding: 1.5rem 0 3rem;
+  }
+
+  .btn-submit {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    padding: 0.85rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(8,145,178,0.3);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-submit:hover { background: #0E7490; transform: translateY(-1px); }
+  .btn-submit:disabled {
+    background: #94A3B8;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .results-banner {
+    display: none;
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+
+  .results-banner.show { display: block; }
+
+  .results-banner .score {
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .results-banner .score-label {
+    color: var(--white);
+    font-size: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  .results-banner .verdict {
+    color: var(--teal);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .name-input-area {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--accent);
+  }
+
+  .name-input-area label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .name-input-area input {
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .name-input-area input:focus {
+    border-color: var(--teal);
+  }
+
+  @media (max-width: 480px) {
+    .header h1 { font-size: 1.1rem; }
+    .q-text { font-size: 0.95rem; }
+    .option { padding: 0.65rem 0.75rem; font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>P01W3 — Pop Quiz</h1>
+  <div class="sub">Period 1, Week 3 • District 8</div>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+</div>
+
+<div class="container">
+  <div class="name-input-area">
+    <label>Your Name</label>
+    <input type="text" id="quizName" placeholder="First and last name" autocomplete="off" />
+  </div>
+
+  <div id="quizBody"></div>
+
+  <div class="results-banner" id="results">
+    <div class="score" id="scoreDisplay"></div>
+    <div class="score-label">out of 10</div>
+    <div class="verdict" id="verdict"></div>
+  </div>
+
+  <div class="submit-area">
+    <button class="btn-submit" id="submitBtn" disabled onclick="gradeQuiz()">Submit Quiz</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "What is the biggest set this week by hours?",
+    opts: [
+      "Category 166 Hair Care — 10 hrs",
+      "Category 029 Carbonated Soft Drinks — 16 hrs",
+      "Category 018 Baking Mixes — 8 hrs",
+      "Category 055 Salty Snacks — 18 hrs"
+    ],
+    answer: 1,
+    explanation: "Category 029 CSD is 16 hours this week. Category 055 Salty Snacks is next week."
+  },
+  {
+    q: "Which two platinum launches should you focus on during the CSD reset?",
+    opts: [
+      "Pepsi Probiotic Cola & MTN DEW Baja Blast",
+      "Diet Cherry Coke & MTN DEW Cabo Citrus",
+      "Cherry Vanilla Coke & Pepsi Mango",
+      "Diet Cherry Coke & Pepsi Probiotic Cola"
+    ],
+    answer: 1,
+    explanation: "Diet Cherry Coke and MTN DEW Cabo Citrus are the platinum launches."
+  },
+  {
+    q: "Why is it critical to remove all discontinued product FIRST in the Category 167 Multicultural HBC set?",
+    opts: [
+      "The planogram requires empty shelves before starting",
+      "The warehouse pushed out discontinued SKUs that need to be cleared",
+      "Vendor racks can't be installed until shelves are empty",
+      "Discontinued items are being recalled for safety"
+    ],
+    answer: 1,
+    explanation: "The warehouse pushed out discontinued SKUs — clear those before beginning the set."
+  },
+  {
+    q: "Which District 8 stores need shelves saved for the Period 2 Week 2 Category 032 Specialty Soda reset from the CSD set?",
+    opts: [
+      "23, 31, and 215",
+      "19 and 28",
+      "53, 391, and 682",
+      "459 and 658"
+    ],
+    answer: 1,
+    explanation: "Stores 19 and 28 are our District 8 stores on the CSD save-shelves list."
+  },
+  {
+    q: "What is the action item you need to take THIS WEEK to prepare for next week's Category 055 Salty Snacks reset?",
+    opts: [
+      "Order extra shelf clips from the warehouse",
+      "Pre-pull all deleted items from the snack aisle",
+      "Ask Frito-Lay, Utz, and other DSD vendors to save delivery boxes",
+      "Print planograms and stage them on the Kompass cart"
+    ],
+    answer: 2,
+    explanation: "Talk to chip vendors now and ask them to save delivery boxes for the 18-hour reset."
+  },
+  {
+    q: "What is the correct new flow order for Category 018 Baking Mixes?",
+    opts: [
+      "Cake → Frosting → Brownies → Cornbread → Muffins",
+      "Muffins → Cake → Brownies → Frosting → Cornbread",
+      "Cornbread → Muffins/Cookies → Cake → Frosting → Brownies",
+      "Brownies → Cake → Frosting → Muffins → Cornbread"
+    ],
+    answer: 2,
+    explanation: "Cornbread, then Muffins/Cookies, then Cake, Frosting, and Brownies."
+  },
+  {
+    q: "When is the Wave 7 Deli Layout hitting, and which District 8 stores are affected?",
+    opts: [
+      "February 23 — Store 215",
+      "March 2 — Stores 28, 31, 53, and 682",
+      "March 9 — Stores 23, 391, 459, and 658",
+      "March 2 — Stores 23, 215, 459, and 682"
+    ],
+    answer: 1,
+    explanation: "Wave 7 is March 2nd at Stores 28, 31, 53, and 682."
+  },
+  {
+    q: "Who should all Kompass Hotline issue emails be copied to?",
+    opts: [
+      "Your district manager and store manager",
+      "Tyson and mashabranner@retailodyssey.com",
+      "The Kompass Hotline inbox and your team lead",
+      "Crossmark and Advantage Solutions contacts"
+    ],
+    answer: 1,
+    explanation: "Copy both Tyson and Masha Branner (mashabranner@retailodyssey.com) on every Hotline issue email."
+  },
+  {
+    q: "Store 459 has a strip verification this week for Category 121 Cigarettes. Who was asked to handle it?",
+    opts: [
+      "James",
+      "Auston",
+      "Ruth",
+      "Whoever is scheduled at that store"
+    ],
+    answer: 2,
+    explanation: "Ruth was specifically asked to take care of the Store 459 strip verification this week."
+  },
+  {
+    q: "What should you start looking for NOW to prepare for the Period 2 Week 1 Category 185 Sun Care Seasonal set?",
+    opts: [
+      "End cap signage and promotional materials",
+      "Sun care product from the warehouse",
+      "The sun care display rack — confirm stores have a 4x4 or end cap",
+      "Clearance tags for outgoing seasonal items"
+    ],
+    answer: 2,
+    explanation: "Start looking for the sun care rack and confirm stores have a 4x4 or end cap ready."
+  }
+];
+
+let selections = {};
+let graded = false;
+
+function renderQuiz() {
+  const body = document.getElementById('quizBody');
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `card-${i}`;
+
+    let optsHtml = q.opts.map((o, j) => {
+      const letter = String.fromCharCode(65 + j);
+      return `<div class="option" data-q="${i}" data-o="${j}" onclick="selectOption(${i}, ${j})">
+        <span class="option-letter">${letter}</span>
+        <span>${o}</span>
+      </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="q-number">Question ${i + 1} of 10</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHtml}</div>
+      <div class="feedback" id="fb-${i}"></div>
+    `;
+    body.appendChild(card);
+  });
+}
+
+function selectOption(qi, oi) {
+  if (graded) return;
+  selections[qi] = oi;
+
+  document.querySelectorAll(`.option[data-q="${qi}"]`).forEach(el => {
+    el.classList.remove('selected');
+  });
+  document.querySelector(`.option[data-q="${qi}"][data-o="${oi}"]`).classList.add('selected');
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const answered = Object.keys(selections).length;
+  const pct = (answered / questions.length) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+
+  const nameVal = document.getElementById('quizName').value.trim();
+  document.getElementById('submitBtn').disabled = !(answered === questions.length && nameVal.length > 0);
+}
+
+function gradeQuiz() {
+  if (graded) return;
+  graded = true;
+
+  let score = 0;
+
+  questions.forEach((q, i) => {
+    const card = document.getElementById(`card-${i}`);
+    const fb = document.getElementById(`fb-${i}`);
+    const picked = selections[i];
+    const isCorrect = picked === q.answer;
+
+    if (isCorrect) {
+      score++;
+      card.classList.add('correct');
+      fb.className = 'feedback show correct-fb';
+      fb.textContent = '✓ Correct';
+    } else {
+      card.classList.add('wrong');
+      fb.className = 'feedback show wrong-fb';
+      fb.textContent = '✗ ' + q.explanation;
+    }
+
+    document.querySelectorAll(`.option[data-q="${i}"]`).forEach(el => {
+      el.classList.add('locked');
+      const oi = parseInt(el.dataset.o);
+      if (oi === picked && isCorrect) el.classList.add('right');
+      else if (oi === picked && !isCorrect) el.classList.add('wrong-pick');
+      if (oi === q.answer && !isCorrect) el.classList.add('show-correct');
+    });
+  });
+
+  const results = document.getElementById('results');
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  const verdict = document.getElementById('verdict');
+
+  scoreDisplay.textContent = score;
+  if (score === 10) verdict.textContent = "Perfect. You were paying attention.";
+  else if (score >= 8) verdict.textContent = "Solid. Review the ones you missed.";
+  else if (score >= 6) verdict.textContent = "Watch the presentation again — key details were missed.";
+  else verdict.textContent = "Go back and rewatch the full presentation before your next shift.";
+
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  const nameVal = document.getElementById('quizName').value.trim();
+  document.getElementById('submitBtn').textContent = `${score}/10 — ${nameVal}`;
+  document.getElementById('submitBtn').disabled = true;
+
+  // Build missed questions list
+  const missed = [];
+  questions.forEach((q, i) => {
+    if (selections[i] !== q.answer) {
+      missed.push(`Q${i + 1}: ${q.q}`);
+    }
+  });
+
+  // POST to Google Sheets
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+
+  if (SHEET_URL) {
+    fetch(SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: nameVal,
+        score: score,
+        total: questions.length,
+        percent: Math.round((score / questions.length) * 100),
+        missed: missed.join(" | ") || "None"
+      })
+    }).then(() => {
+      verdict.textContent += " — Results submitted.";
+    }).catch(() => {
+      verdict.textContent += " — Screenshot this and send to Tyson.";
+    });
+  }
+}
+
+document.getElementById('quizName').addEventListener('input', updateProgress);
+renderQuiz();
+</script>
+
+</body>
+</html>
