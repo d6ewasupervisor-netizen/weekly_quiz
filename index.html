@@ -3,116 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P02W3 Weekly Quiz</title>
+<title>P02W4 Weekly Quiz</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:16px}
-.container{max-width:640px;margin:0 auto}
-.header{text-align:center;padding:24px 0 16px}
-.header h1{font-family:'Space Mono',monospace;font-size:1.4rem;color:#0891b2;margin-bottom:4px}
-.header p{font-size:0.85rem;color:#94a3b8}
-.progress-bar{width:100%;height:6px;background:#1e293b;border-radius:3px;margin-bottom:24px;overflow:hidden}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#0891b2,#f59e0b);border-radius:3px;transition:width 0.4s ease}
-.name-field{margin-bottom:24px}
-.name-field label{font-family:'Space Mono',monospace;font-size:0.75rem;color:#0891b2;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px}
-.name-field input{width:100%;padding:10px 14px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-family:'DM Sans',sans-serif;font-size:1rem;outline:none}
-.name-field input:focus{border-color:#0891b2}
-.question-card{background:#1e293b;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #334155}
-.question-card.correct{border-color:#22c55e}
-.question-card.wrong{border-color:#dc2626}
-.q-number{font-family:'Space Mono',monospace;font-size:0.7rem;color:#0891b2;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.q-text{font-size:0.95rem;font-weight:500;line-height:1.5;margin-bottom:14px;color:#f1f5f9}
-.option{display:flex;align-items:center;padding:10px 14px;margin-bottom:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;cursor:pointer;transition:all 0.2s}
-.option:hover{border-color:#0891b2}
-.option.selected{border-color:#0891b2;background:#0c4a6e}
-.option.locked{pointer-events:none}
-.option.show-correct{border-color:#22c55e;background:#14532d}
-.option.show-wrong{border-color:#dc2626;background:#450a0a;text-decoration:line-through;opacity:0.7}
-.option input{display:none}
-.option .letter{font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:700;color:#0891b2;margin-right:12px;min-width:18px}
-.option .label{font-size:0.9rem;line-height:1.4}
-.feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:0.85rem;line-height:1.5;display:none}
-.feedback.correct-fb{background:#14532d;color:#86efac;display:block}
-.feedback.wrong-fb{background:#450a0a;color:#fca5a5;display:block}
-.submit-btn{width:100%;padding:14px;background:#0891b2;color:#fff;font-family:'Space Mono',monospace;font-size:0.95rem;font-weight:700;border:none;border-radius:10px;cursor:pointer;margin-top:8px;text-transform:uppercase;letter-spacing:1px;transition:all 0.2s}
-.submit-btn:disabled{background:#334155;color:#64748b;cursor:not-allowed}
-.submit-btn:not(:disabled):hover{background:#0e7490}
-.result-box{text-align:center;padding:24px;background:#1e293b;border-radius:12px;margin-top:16px;border:1px solid #334155;display:none}
-.result-box .score{font-family:'Space Mono',monospace;font-size:2.4rem;font-weight:700;color:#0891b2}
-.result-box .verdict{font-size:1rem;margin-top:8px;color:#f1f5f9}
-.result-box .sub-note{font-size:0.8rem;color:#94a3b8;margin-top:8px}
+body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:#1E293B;padding:16px;max-width:640px;margin:0 auto}
+h1{font-family:'Space Mono',monospace;color:#1B2A4A;font-size:1.5rem;margin-bottom:4px}
+.subtitle{color:#0891B2;font-size:.85rem;margin-bottom:20px;font-family:'Space Mono',monospace}
+.progress-bar{width:100%;height:8px;background:#CBD5E1;border-radius:4px;margin-bottom:24px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#0891B2,#F59E0B);width:0%;transition:width .3s}
+.name-input{width:100%;padding:12px;border:2px solid #CBD5E1;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif;margin-bottom:24px}
+.name-input:focus{outline:none;border-color:#0891B2}
+.question{background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.q-label{font-family:'Space Mono',monospace;font-size:.75rem;color:#0891B2;margin-bottom:6px}
+.q-text{font-weight:700;margin-bottom:12px;line-height:1.4}
+.option{display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:6px;border:2px solid #E2E8F0;border-radius:8px;background:#fff;cursor:pointer;font-size:.9rem;font-family:'DM Sans',sans-serif;transition:all .15s}
+.option:hover{border-color:#0891B2;background:#ECFEFF}
+.option.selected{border-color:#0891B2;background:#ECFEFF;font-weight:700}
+.option.correct{border-color:#16A34A;background:#DCFCE7;font-weight:700}
+.option.wrong{border-color:#DC2626;background:#FEE2E2;text-decoration:line-through}
+.option.show-correct{border-color:#16A34A;background:#DCFCE7;font-weight:700}
+.feedback{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.85rem;display:none}
+.feedback.show{display:block}
+.feedback.correct-fb{background:#DCFCE7;color:#166534}
+.feedback.wrong-fb{background:#FEE2E2;color:#991B1B}
+#submitBtn{width:100%;padding:14px;background:#1B2A4A;color:#fff;border:none;border-radius:10px;font-size:1.1rem;font-family:'Space Mono',monospace;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s}
+#submitBtn:disabled{background:#94A3B8;cursor:not-allowed}
+#submitBtn:not(:disabled):hover{background:#0891B2}
+.verdict{margin-top:20px;padding:20px;border-radius:12px;text-align:center;font-family:'Space Mono',monospace;display:none}
+.verdict.show{display:block}
+.score-num{font-size:2.5rem;font-weight:700;color:#1B2A4A}
+.score-msg{margin-top:8px;font-size:.95rem;color:#475569}
 </style>
 </head>
 <body>
-<div class="container">
-<div class="header">
-<h1>P02W3 Quiz</h1>
-<p>Period 2 &bull; Week 3 &bull; 10 Questions</p>
-</div>
+<h1>P02W4 Pop Quiz</h1>
+<p class="subtitle">Period 2 Week 4 — 10 Questions</p>
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-<div class="name-field">
-<label>Your Name</label>
-<input type="text" id="nameInput" placeholder="Enter your name">
-</div>
-<div id="quizBody"></div>
-<button class="submit-btn" id="submitBtn" disabled>Submit Quiz</button>
-<div class="result-box" id="resultBox">
-<div class="score" id="scoreDisplay"></div>
-<div class="verdict" id="verdictDisplay"></div>
-<div class="sub-note" id="subNote"></div>
-</div>
-</div>
+<input type="text" class="name-input" id="nameInput" placeholder="Enter your name">
+<div id="quizContainer"></div>
+<button id="submitBtn" disabled>Submit Quiz</button>
+<div class="verdict" id="verdict"></div>
+
 <script>
 const questions=[
-{q:"How many total hours are on the calendar for P02W3?",opts:["30 hours","36 hours","35.5 hours","42 hours"],ans:1,explain:"This week has 36 hours across Districts 6, 8, and 9."},
-{q:"What should you do if you receive strips for the Keurig Corner floor stand or Islander floor stand?",opts:["Set them as shown on your tablet","Hold them on the Kompass cart for next week","Toss them — they were accidentally added and removed from SI","Email the hotline for guidance"],ans:2,explain:"Both were mistakenly added to the event and removed from SI. They are duplicate assortment — toss the strips."},
-{q:"Why is Peet's Coffee showing deletes in the Bag and K-Cup sets?",opts:["Peet's is being discontinued","Peet's is transitioning from DSD to warehouse delivery — those are UPC changes, not true deletes","Peet's is being replaced by a new brand","The K-Cup sets are shrinking overall"],ans:1,explain:"Peet's, Stumptown, Caribou, and Intelligentsia are transitioning from DSD to warehouse. The deletes are UPC changes — do not pull the product."},
-{q:"Dish Detergent is adding a shelf to every bay this week. What should you do if the new shelves haven't arrived yet?",opts:["Skip the set and roll it to next week","Wait until shelves arrive before starting","Check with the store for alternatives like top stock shelves or endcap shelves","Call the hotline to request an extension"],ans:2,explain:"Shelves are late. Check with the store — use top stock, endcap shelves with cardboard signage (4ft wide), or shelves from other departments. Let the store know replacements are on the way."},
-{q:"For Dish Detergent, what height should Shelf 5 be set to?",opts:["55 inches as the planogram states","52 inches — one inch lower than the planogram","50 inches","54 inches"],ans:1,explain:"Shelves 5 and 6 must be set one inch lower than the POG calls for. Shelf 5 at 52 inches, Shelf 6 at 64 inches. Otherwise the large Cascade liquid locks up."},
-{q:"What is the biggest callout for Salad Dressing this week?",opts:["New shelving fixtures are required","Code dates — watch for out-of-dates and close-dates","A full aisle reset with new brand flow","Cross-commodity strips need to be run separately"],ans:1,explain:"Testing found a significant amount of outdated and close-dated product. Pay close attention to proper rotation."},
-{q:"During the Cigarettes reset, what should you do with the On! Plus product?",opts:["Force it into the existing classic tray","Place it flat on the shelf with the shelf tag — do not put it in a tray","Hold it in the back room until Altria arrives","Set it on an endcap display near tobacco"],ans:1,explain:"On! Plus uses a larger round can that will not fit the classic tray. Place it flat on the shelf in the correct position. Altria field sales will come in afterward to install the new trays."},
-{q:"When moving the On Classic tray hardware in a 12-foot core set, how many shelves do you move it down?",opts:["2 shelves","3 shelves","1 shelf","It stays on the same shelf"],ans:2,explain:"In a 12-foot core set, move the existing tray hardware down 1 shelf. In an 8-foot core set, it moves down 2 shelves."},
-{q:"If you have a complicated issue with a set, what should you do?",opts:["Send it straight to the hotline","Leave it incomplete and note it in your EOD email","Bring it to me first — sign the set out, treat it as an NII, and get it reloaded when a fix comes through","Skip it and move to the next set"],ans:2,explain:"Bring issues to Tyson first. Sign the set out even if there's a problem, treat it as an NII, and it can be reloaded when a fix is obtained. Goal is zero backlog."},
-{q:"What special project is coming up that I mentioned at the end of the meeting?",opts:["A full store remodel blitz","Spring Adult Beverage resets","Fuel coolers","Deli layout expansion"],ans:2,explain:"Fuel coolers are coming up as a special project. Details will be in the dump bin. They need to be scheduled and completed the same week — high priority."}
+{q:"The Taylor Farms Mango Lemonade Salad Kit in C640 has been cancelled. What are you supposed to do with that shelf position?",opts:["Leave it empty and flag it in your EOD email","Double-face an adjacent Taylor Farms kit — do NOT hang the shelf ID or retail tag","Place a Dole kit in the space and hang the original tag","Backstock the tags and wait for a replacement item"],ans:1,exp:"Double-face an adjacent Taylor Farms Salad Kit to maintain set integrity. The shelf identifier and retail tag should not be hung. The item is coded as a delete."},
+{q:"In C107 Household Cleaning, what happens to Shelves 2–5 in planograms that feature a 4FT offset of wipes?",opts:["They stay in place — only Shelf 1 adjusts","They must be adjusted downward per the planogram","They are removed entirely for the new flow","They shift upward to create clearance for multipacks"],ans:1,exp:"In planograms with a 4FT offset of wipes, Shelves 2 through 5 must be adjusted downward. Follow the precise shelf heights listed on your specific planogram."},
+{q:"What should you do if the new Suja shot rack has not arrived at your store yet for C661 Super Premium Juice?",opts:["Skip the juice section and move to the next set","Hold the reset until the rack is delivered","Complete the reset normally — do not wait for the rack","Call Tyson for approval before proceeding"],ans:2,exp:"Complete the reset even if the additional rack is not yet in your store. Suja/Empire will install it separately. Also — do NOT discard empty Suja racks."},
+{q:"Which District 8 stores are targeted for the Fresh Pet cooler conversions this week?",opts:["19, 23, 28, 31","28, 31, 53, 391","53, 215, 391, 658","31, 53, 459, 682"],ans:1,exp:"The Fresh Pet conversions apply to stores 28, 31, 53, and 391. Two pathways — Pathway A for 2-sided coolers, Pathway B for 3-sided."},
+{q:"In C156 Ref/Frozen Pet Food, what must you do with the educational signage clipped to the top shelf of the Blue Buffalo Cooler?",opts:["Leave it — it stays for the new layout","Slide it to the side shelf","Unclip it, remove it, and dispose of it immediately","Relocate it to the bottom shelf"],ans:2,exp:"Unclip and immediately dispose of the educational signage on the top shelf. Once pulled, the clip comes off. This creates space for 6 new items."},
+{q:"What is the strict directive regarding product transport between the main store and the fuel center for C142/C223?",opts:["Transport is allowed before the store opens","Only backstock can be moved between the two","Absolutely NO transport of product in either direction","Transport is permitted with manager sign-off"],ans:2,exp:"Strict directive — absolutely no product transport between the main store and fuel center in either direction. Coordinate with store management for delivery and disco/backstock handling."},
+{q:"For the Retail Cut-Ins at stores 391, 215, and 53, how should ALL hours, details, and photos be coded?",opts:["Everything under DIV SHIFT","Hours under DIV SHIFT, details under CUT-IN at 0 hours","Everything under CUT-IN — do not log in Store Intelligence","Log normally in Store Intelligence under the COM#"],ans:2,exp:"For the Retail Cut-Ins (391, 215, 53), everything goes under CUT-IN — hours, details, and photos. Do NOT log in Store Intelligence."},
+{q:"In C031 Baby Wipes, what condition cancels the shelving reflow in that section?",opts:["If the store has fewer than 8 feet of wipes","If the planogram contains pushers","If Comforts Wipes are already merchandised flat","If the store is a test set location"],ans:1,exp:"If the planogram contains pushers, the reflow is cancelled for that section. Otherwise, shelves 2-5 shift down and multipacks move to the top."},
+{q:"When facing a fuel center kiosk from the outside customer view, where must the lighters be positioned on the window wrap around racks?",opts:["Center column","Left side","Right side","Behind the register counter"],ans:2,exp:"Lighters must ALWAYS be positioned on the right side when facing the kiosk from the outside. Follow the POG PDF view, which represents the customer's point of view."},
+{q:"For the Fresh Kitchen Fruit Expansion at stores 31 and 215, how is the labor coded differently from the Retail Cut-Ins?",opts:["Everything goes under CUT-IN, same as the cut-ins","Hours under DIV SHIFT, details and photos under CUT-IN with 0 hours","Hours and details both under DIV SHIFT","Log everything in Store Intelligence under C408"],ans:1,exp:"Fresh Kitchen Fruit Expansion: hours go under DIV SHIFT, but details and photos are logged under CUT-IN with 0 hours. Do NOT log in Store Intelligence. This is different from the Retail Cut-Ins where everything goes under CUT-IN."}
 ];
-let answered={},locked=false;
-const body=document.getElementById('quizBody'),btn=document.getElementById('submitBtn'),nameInput=document.getElementById('nameInput'),progressFill=document.getElementById('progressFill');
-function render(){questions.forEach((q,i)=>{const card=document.createElement('div');card.className='question-card';card.id='card-'+i;card.innerHTML='<div class="q-number">Question '+(i+1)+'</div><div class="q-text">'+q.q+'</div>'+q.opts.map((o,j)=>'<div class="option" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+'ABCD'[j]+'</span><span class="label">'+o+'</span></div>').join('')+'<div class="feedback" id="fb-'+i+'"></div>';body.appendChild(card);})}
-render();
-document.querySelectorAll('.option').forEach(function(o){o.addEventListener('click',function(){if(locked)return;var qi=+this.dataset.q,oi=+this.dataset.o;document.querySelectorAll('[data-q="'+qi+'"]').forEach(function(el){el.classList.remove('selected');});this.classList.add('selected');answered[qi]=oi;updateProgress();checkReady();});});
-nameInput.addEventListener('input',checkReady);
-function updateProgress(){var count=Object.keys(answered).length;progressFill.style.width=(count/questions.length*100)+'%';}
-function checkReady(){btn.disabled=!(Object.keys(answered).length===questions.length&&nameInput.value.trim());}
-btn.addEventListener('click',function(){
-if(locked)return;locked=true;
-var score=0,missed=[];
-questions.forEach(function(q,i){
-var card=document.getElementById('card-'+i),fb=document.getElementById('fb-'+i),sel=answered[i],correct=q.ans;
-document.querySelectorAll('[data-q="'+i+'"]').forEach(function(o){
-o.classList.add('locked');
-var oi=+o.dataset.o;
-if(oi===correct)o.classList.add('show-correct');
-if(oi===sel&&sel!==correct)o.classList.add('show-wrong');
-});
-if(sel===correct){score++;card.classList.add('correct');fb.className='feedback correct-fb';fb.textContent='Correct!';}
-else{card.classList.add('wrong');fb.className='feedback wrong-fb';fb.textContent=q.explain;missed.push('Q'+(i+1));}
-});
-var pct=Math.round(score/questions.length*100);
-var verdict='';
-if(score===10)verdict="Perfect. You were paying attention.";
-else if(score>=8)verdict="Solid. Review the ones you missed.";
-else if(score>=6)verdict="Watch the presentation again — key details were missed.";
-else verdict="Go back and rewatch the full presentation before your next shift.";
-var resultBox=document.getElementById('resultBox');
-document.getElementById('scoreDisplay').textContent=score+' / '+questions.length;
-document.getElementById('verdictDisplay').textContent=verdict;
-resultBox.style.display='block';
-btn.disabled=true;btn.textContent='Submitted';
-var payload={periodWeek:"P02W3",name:nameInput.value.trim(),score:score,outOf:questions.length,percent:pct,missed:missed.join(', ')||'None'};
-fetch('https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(function(){document.getElementById('subNote').textContent='Results submitted.';}).catch(function(){document.getElementById('subNote').textContent='Submission failed — screenshot this and send to Tyson.';});
-resultBox.scrollIntoView({behavior:'smooth'});
-});
+
+const container=document.getElementById("quizContainer");
+const submitBtn=document.getElementById("submitBtn");
+const nameInput=document.getElementById("nameInput");
+const progressFill=document.getElementById("progressFill");
+const verdictDiv=document.getElementById("verdict");
+let answers=new Array(questions.length).fill(-1);
+let submitted=false;
+
+questions.forEach((q,i)=>{
+const div=document.createElement("div");div.className="question";div.id="q"+i;
+div.innerHTML=`<div class="q-label">QUESTION ${i+1}</div><div class="q-text">${q.q}</div>`;
+q.opts.forEach((opt,j)=>{
+const btn=document.createElement("button");btn.className="option";btn.textContent=String.fromCharCode(65+j)+". "+opt;
+btn.onclick=()=>{if(submitted)return;answers[i]=j;
+div.querySelectorAll(".option").forEach(b=>b.classList.remove("selected"));btn.classList.add("selected");updateProgress();};
+div.appendChild(btn);});
+const fb=document.createElement("div");fb.className="feedback";fb.id="fb"+i;div.appendChild(fb);
+container.appendChild(div);});
+
+function updateProgress(){
+const answered=answers.filter(a=>a>=0).length;
+progressFill.style.width=(answered/questions.length*100)+"%";
+submitBtn.disabled=!(answered===questions.length&&nameInput.value.trim().length>0);}
+nameInput.addEventListener("input",updateProgress);
+
+submitBtn.onclick=()=>{
+if(submitted)return;submitted=true;submitBtn.disabled=true;
+let score=0;const missed=[];
+questions.forEach((q,i)=>{
+const div=document.getElementById("q"+i);const opts=div.querySelectorAll(".option");const fb=document.getElementById("fb"+i);
+if(answers[i]===q.ans){score++;opts[answers[i]].classList.add("correct");fb.className="feedback show correct-fb";fb.textContent="✓ Correct!";}
+else{opts[answers[i]].classList.add("wrong");opts[q.ans].classList.add("show-correct");fb.className="feedback show wrong-fb";fb.textContent="✗ "+q.exp;
+missed.push("Q"+(i+1));}});
+
+const pct=Math.round(score/questions.length*100);
+let msg="";
+if(score===10)msg="Perfect. You were paying attention.";
+else if(score>=8)msg="Solid. Review the ones you missed.";
+else if(score>=6)msg="Watch the presentation again — key details were missed.";
+else msg="Go back and rewatch the full presentation before your next shift.";
+
+verdictDiv.className="verdict show";verdictDiv.style.background=score>=8?"#DCFCE7":score>=6?"#FEF3C7":"#FEE2E2";
+verdictDiv.innerHTML=`<div class="score-num">${score}/10</div><div class="score-msg">${msg}</div>`;
+
+const payload={periodWeek:"P02W4",name:nameInput.value.trim(),score:score,outOf:10,percent:pct,missed:missed.join(", ")||"None"};
+fetch("https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec",{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+.catch(()=>{verdictDiv.innerHTML+=`<p style="margin-top:12px;font-size:.8rem;color:#991B1B">Results could not be sent automatically. Screenshot this and send to Tyson.</p>`;});
+verdictDiv.scrollIntoView({behavior:"smooth"});};
 </script>
 </body>
 </html>
