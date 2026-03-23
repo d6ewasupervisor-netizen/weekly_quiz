@@ -34,6 +34,13 @@ h1{font-family:'Space Mono',monospace;color:#1B2A4A;font-size:1.5rem;margin-bott
 .verdict.show{display:block}
 .score-num{font-size:2.5rem;font-weight:700;color:#1B2A4A}
 .score-msg{margin-top:8px;font-size:.95rem;color:#475569}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.6);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;transition:opacity .3s;pointer-events:none}
+.overlay.show{opacity:1;pointer-events:auto}
+.overlay-box{background:#fff;border-radius:16px;padding:40px;text-align:center;font-family:'Space Mono',monospace;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.spinner{width:48px;height:48px;border:4px solid #CBD5E1;border-top-color:#0891B2;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.overlay-text{color:#1B2A4A;font-size:1rem;font-weight:700}
+.sync-msg{color:#16A34A;font-size:1rem;font-weight:700;margin-top:12px}
 </style>
 </head>
 <body>
@@ -44,6 +51,7 @@ h1{font-family:'Space Mono',monospace;color:#1B2A4A;font-size:1.5rem;margin-bott
 <div id="quizContainer"></div>
 <button id="submitBtn" disabled>Submit Quiz</button>
 <div class="verdict" id="verdict"></div>
+<div class="overlay" id="overlay"><div class="overlay-box"><div class="spinner" id="spinnerEl"></div><div class="overlay-text" id="overlayText">Buffering...</div></div></div>
 
 <script>
 const questions=[
@@ -84,8 +92,17 @@ progressFill.style.width=(answered/questions.length*100)+"%";
 submitBtn.disabled=!(answered===questions.length&&nameInput.value.trim().length>0);}
 nameInput.addEventListener("input",updateProgress);
 
+const overlay=document.getElementById("overlay");
+const spinnerEl=document.getElementById("spinnerEl");
+const overlayText=document.getElementById("overlayText");
+
 submitBtn.onclick=()=>{
 if(submitted)return;submitted=true;submitBtn.disabled=true;
+
+// Show buffering overlay
+overlay.classList.add("show");
+
+// Score the quiz while buffering
 let score=0;const missed=[];
 questions.forEach((q,i)=>{
 const div=document.getElementById("q"+i);const opts=div.querySelectorAll(".option");const fb=document.getElementById("fb"+i);
@@ -100,13 +117,24 @@ else if(score>=8)msg="Solid. Review the ones you missed.";
 else if(score>=6)msg="Watch the presentation again — key details were missed.";
 else msg="Go back and rewatch the full presentation before your next shift.";
 
-verdictDiv.className="verdict show";verdictDiv.style.background=score>=8?"#DCFCE7":score>=6?"#FEF3C7":"#FEE2E2";
-verdictDiv.innerHTML=`<div class="score-num">${score}/10</div><div class="score-msg">${msg}</div>`;
-
+// Send results to backend
 const payload={periodWeek:"P02W4",name:nameInput.value.trim(),score:score,outOf:10,percent:pct,missed:missed.join(", ")||"None"};
 fetch("https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec",{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
 .catch(()=>{verdictDiv.innerHTML+=`<p style="margin-top:12px;font-size:.8rem;color:#991B1B">Results could not be sent automatically. Screenshot this and send to Tyson.</p>`;});
-verdictDiv.scrollIntoView({behavior:"smooth"});};
+
+// After 1.5s buffering, show sync confirmation
+setTimeout(()=>{
+spinnerEl.style.display="none";
+overlayText.innerHTML='<div class="sync-msg">Your results have been submitted.</div>';
+
+// After 2s, dismiss overlay and show results
+setTimeout(()=>{
+overlay.classList.remove("show");
+verdictDiv.className="verdict show";verdictDiv.style.background=score>=8?"#DCFCE7":score>=6?"#FEF3C7":"#FEE2E2";
+verdictDiv.innerHTML=`<div class="score-num">${score}/10</div><div class="score-msg">${msg}</div>`;
+verdictDiv.scrollIntoView({behavior:"smooth"});
+},2000);
+},1500);};
 </script>
 </body>
 </html>
