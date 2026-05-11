@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P04W1 Pop Quiz — District 8</title>
+<title>P04W3 District 8 Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -11,86 +11,415 @@
   :root {
     --navy: #1B2A4A;
     --teal: #0891B2;
+    --teal-dark: #0E7490;
     --orange: #F59E0B;
-    --bg: #F0F4F8;
+    --light: #F0F4F8;
+    --bg: #FFFFFF;
     --red: #DC2626;
-    --green: #059669;
-    --card: #ffffff;
-    --muted: #5B6B80;
-    --border: #D6DEE8;
+    --red-light: #FEE2E2;
+    --green: #15803D;
+    --green-light: #DCFCE7;
+    --text: #1B2A4A;
+    --text-muted: #475569;
+    --border: #E2E8F0;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--navy); font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 20px 16px 80px; }
-  header { background: var(--navy); color: #fff; border-radius: 12px; padding: 20px 18px; margin-bottom: 16px; }
-  header .tag { font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 2px; color: var(--teal); text-transform: uppercase; }
-  header h1 { font-family: 'Space Mono', monospace; font-size: 22px; margin: 4px 0 6px; font-weight: 700; }
-  header p { margin: 0; font-size: 14px; color: #CBD5E1; }
-  .progress-wrap { background: var(--border); height: 6px; border-radius: 999px; overflow: hidden; margin: 14px 0 18px; }
-  .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--orange)); transition: width .25s ease; }
-  .name-card { background: var(--card); border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); }
-  .name-card label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
-  .name-card input { width: 100%; padding: 12px 14px; font-size: 16px; font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: 8px; outline: none; }
-  .name-card input:focus { border-color: var(--teal); }
-  .q { background: var(--card); border-radius: 12px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--border); }
-  .q-num { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--teal); text-transform: uppercase; margin-bottom: 6px; }
-  .q-text { font-size: 16px; font-weight: 500; line-height: 1.4; margin-bottom: 14px; }
-  .opt { display: block; padding: 12px 14px; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 15px; line-height: 1.35; transition: all .15s ease; background: #fff; }
-  .opt:hover { border-color: var(--teal); background: #F8FAFB; }
-  .opt input { margin-right: 10px; accent-color: var(--teal); }
-  .opt.selected { border-color: var(--teal); background: #ECFEFF; }
-  .opt.correct { border-color: var(--green); background: #D1FAE5; color: #064E3B; }
-  .opt.wrong { border-color: var(--red); background: #FEE2E2; color: #7F1D1D; text-decoration: line-through; }
-  .feedback { margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; line-height: 1.4; display: none; }
-  .feedback.show { display: block; }
-  .feedback.good { background: #D1FAE5; color: #064E3B; }
-  .feedback.bad { background: #FEF3C7; color: #7C2D12; }
-  .submit-btn { width: 100%; padding: 16px; font-size: 16px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; background: var(--orange); color: var(--navy); border: none; border-radius: 12px; cursor: pointer; transition: all .2s ease; }
-  .submit-btn:disabled { background: #D6DEE8; color: #94A3B8; cursor: not-allowed; }
-  .submit-btn:not(:disabled):hover { background: #D97706; color: #fff; }
-  .result-card { background: var(--navy); color: #fff; border-radius: 12px; padding: 24px 18px; margin-top: 18px; display: none; text-align: center; }
-  .result-card.show { display: block; }
-  .result-card .score { font-family: 'Space Mono', monospace; font-size: 42px; font-weight: 700; color: var(--orange); margin: 0; }
-  .result-card .pct { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--teal); letter-spacing: 2px; }
-  .result-card .verdict { font-size: 16px; line-height: 1.5; margin-top: 12px; }
-  .locked .opt { cursor: default; }
-  .locked .opt:hover { border-color: var(--border); background: #fff; }
-  .locked .opt.selected:hover { border-color: var(--teal); background: #ECFEFF; }
 
-  /* Submit overlay */
-  .overlay { position: fixed; inset: 0; background: rgba(27, 42, 74, 0.92); display: none; align-items: center; justify-content: center; z-index: 1000; }
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--light);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px;
+    padding-bottom: 120px;
+  }
+
+  /* Header */
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 24px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  header .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  header h1 {
+    margin: 0 0 4px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  header .sub {
+    color: #CADCFC;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  /* Progress */
+  .progress-wrap {
+    margin-bottom: 18px;
+  }
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .progress-bar {
+    height: 6px;
+    background: #E2E8F0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--orange));
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  /* Name field */
+  .name-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .name-card label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .name-card input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: #fff;
+    transition: border-color 0.15s;
+  }
+  .name-card input:focus {
+    outline: none;
+    border-color: var(--teal);
+  }
+
+  /* Question card */
+  .q {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .q-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .q-text {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 14px;
+    line-height: 1.4;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .option:hover {
+    border-color: var(--teal);
+    background: #F0FBFD;
+  }
+  .option input {
+    margin: 0;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--teal);
+    width: 16px;
+    height: 16px;
+  }
+  .option .letter {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    color: var(--teal);
+    margin-right: 2px;
+    font-size: 14px;
+  }
+  .option .text {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .option.selected {
+    border-color: var(--teal);
+    background: #F0FBFD;
+  }
+
+  /* Locked state — after submit */
+  .locked .option {
+    cursor: default;
+    pointer-events: none;
+  }
+  .option.correct {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+  .option.correct .letter { color: var(--green); }
+  .option.wrong {
+    border-color: var(--red);
+    background: var(--red-light);
+  }
+  .option.wrong .letter { color: var(--red); }
+  .option.wrong .text {
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .feedback {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct {
+    background: var(--green-light);
+    color: var(--green);
+    border-left: 3px solid var(--green);
+  }
+  .feedback.wrong {
+    background: var(--red-light);
+    color: var(--red);
+    border-left: 3px solid var(--red);
+  }
+  .feedback strong { font-weight: 700; }
+
+  /* Submit bar */
+  .submit-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+    z-index: 100;
+  }
+  .submit-bar .inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .submit-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    flex: 1;
+  }
+  button.submit-btn {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+  button.submit-btn:hover:not(:disabled) {
+    background: #D97706;
+    transform: translateY(-1px);
+  }
+  button.submit-btn:disabled {
+    background: #CBD5E1;
+    color: #94A3B8;
+    cursor: not-allowed;
+  }
+
+  /* Results */
+  .results {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 18px;
+    text-align: center;
+    display: none;
+  }
+  .results.show { display: block; }
+  .results .score {
+    font-family: 'Space Mono', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .results .score-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #CADCFC;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .results .verdict {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 42, 74, 0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+  }
   .overlay.show { display: flex; }
-  .overlay-box { background: #fff; border-radius: 16px; padding: 32px 28px; text-align: center; min-width: 260px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-  .spinner { width: 48px; height: 48px; border: 4px solid #E5E7EB; border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
-  .spinner.hidden { display: none; }
-  .sync-msg { font-family: 'Space Mono', monospace; font-size: 14px; letter-spacing: 1px; color: var(--navy); }
-  .sync-msg.done { color: var(--green); font-weight: 700; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .overlay-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 36px 40px;
+    min-width: 240px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid var(--border);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  .spinner.hide { display: none; }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .sync-msg {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .sync-msg.success {
+    color: var(--green);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
+
 <div class="wrap">
+
   <header>
-    <div class="tag">Period 04 / Week 1</div>
-    <h1>District 8 Pop Quiz</h1>
-    <p>10 questions. Takes about 3 minutes. Results come to Tyson automatically.</p>
+    <div class="eyebrow">District 8 Quiz</div>
+    <h1>Period 4 · Week 3</h1>
+    <div class="sub">10 questions · sourced from this week's meeting · ~3 minutes</div>
   </header>
 
-  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progressText">0 / 11</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
 
   <div class="name-card">
     <label for="nameInput">Your Name</label>
     <input type="text" id="nameInput" placeholder="First and last" autocomplete="name">
   </div>
 
-  <div id="quiz"></div>
+  <div id="results" class="results">
+    <div class="score" id="scoreNum">0 / 10</div>
+    <div class="score-sub" id="scorePct">0%</div>
+    <div class="verdict" id="verdict"></div>
+  </div>
 
-  <button class="submit-btn" id="submitBtn" disabled>Submit Quiz</button>
+  <div id="questions"></div>
 
-  <div class="result-card" id="resultCard">
-    <div class="pct" id="pctLine">SCORE</div>
-    <div class="score" id="scoreLine">0 / 10</div>
-    <div class="verdict" id="verdictLine"></div>
+  <footer>P04W3 · District 8 · Retail Odyssey</footer>
+</div>
+
+<div class="submit-bar">
+  <div class="inner">
+    <div class="submit-status" id="submitStatus">Answer all questions to submit</div>
+    <button class="submit-btn" id="submitBtn" disabled>Submit Quiz</button>
   </div>
 </div>
 
@@ -102,250 +431,331 @@
 </div>
 
 <script>
-const PERIOD_WEEK = "P04W1";
+const PERIOD_WEEK = "P04W3";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
 
-const questions = [
+const QUESTIONS = [
   {
-    q: "How many deletes does C202 Gondola Candy have this week?",
-    opts: ["46", "60", "112", "49"],
-    a: 2,
-    exp: "C202 has 112 deletes — the biggest single number of the week, which is why 'pull deletes first' is the action item."
-  },
-  {
-    q: "What's the action item for C202 Gondola Candy?",
-    opts: [
-      "Set new items first, then pull deletes at the end",
-      "Pull deletes first before setting, using the Kompass delete list",
-      "Wait for closeout tags before pulling any product",
-      "Reset the checklane strips before touching the gondola"
+    q: "I called out that most locations will receive materials this week that don't match the signoff sheet. Which two commodities does this affect?",
+    options: [
+      "C024 Coffee and C056 Convenient Breakfast",
+      "C100 Pasta Sauce and C630 NF Fitness",
+      "C462 Specialty Cheese and C646 NF Cereal Bars",
+      "C807 Household Electric and C892 Lightbulbs"
     ],
-    a: 1,
-    exp: "Not all deletes have closeout tags, so pull them first using the Kompass delete list to clear space before you start setting."
+    correct: 1,
+    explain: "C100 Pasta Sauce and C630 NF Fitness are the two affected commodities this week. I'm working on getting updated signoff sheets back out to the team."
   },
   {
-    q: "Which District 8 store gets UPDATE strips on C388 NF Milk instead of a standard NII?",
-    opts: ["Store 658", "Store 391", "Store 459", "Store 682"],
-    a: 2,
-    exp: "Store 459 is the exception — C388 NF Milk runs as UPDATE strips as part of the C060 Milkhouse reflow. Every other District 8 store executes C388 as a standard new item introduction."
-  },
-  {
-    q: "Where does Almond Roca end up on the new C202 set?",
-    opts: [
-      "Shifts 2 bays toward the chocolate section, stays on the bottom shelf",
-      "Shifts 2 bays toward chocolate and moves up to the top shelf",
-      "Stays in place — no movement this reset",
-      "Moves to the checklane NII strips"
+    q: "If the materials you receive don't match what's printed on your signoff sheet, what should you do?",
+    options: [
+      "Wait until the updated signoff sheet arrives before starting the reset",
+      "Set the section based on the signoff sheet, not the materials",
+      "Use what you actually received — set per the materials in hand",
+      "Call the hotline and request the correct materials before proceeding"
     ],
-    a: 0,
-    exp: "Movement on C202 is mostly lateral. Almond Roca shifts 2 bays toward chocolate but stays on the bottom shelf."
+    correct: 2,
+    explain: "Use what you actually received. The signoff sheets will get updated and sent out after the fact. Only escalate if something is wildly off — wrong commodity entirely."
   },
   {
-    q: "How are the hours budgeted for C050 Baked Breads, and what does it run with?",
-    opts: [
-      "Runs with C671 NF Bread; hours are NOT included — budget extra time separately",
-      "Runs with C671 NF Bread; the 12 hours ALREADY includes the C671 update strips",
-      "Runs with C201 Checklane; C671 hours are a separate line item",
-      "Runs as a standalone set with no cross-commodity work"
+    q: "Strip verification this week is at which District 8 store?",
+    options: [
+      "Store 459 — Renton",
+      "Store 53 — Covington",
+      "Store 215 — Kent",
+      "Store 31 — Benson Plaza"
     ],
-    a: 1,
-    exp: "C050 runs with C671 NF Bread, and the 12 hours already covers the C671 update strips. Don't treat them separately or budget extra time."
+    correct: 3,
+    explain: "Store 31 Benson Plaza has the C062 Yogurt 6-shelf reverse flow strip verification this week. Materials are in the dump bin. Stores 53 and 459 are already complete in the list."
   },
   {
-    q: "What leads the top shelf on the new C011 RTD Tea set?",
-    opts: ["Starbucks", "Pure Leaf", "Arizona 22oz", "Guayaki Yerba Mate"],
-    a: 3,
-    exp: "Guayaki Yerba Mate takes the top shelf. Pure Leaf drops to shelf 5, Arizona 22oz moves to SRP, and Shelves 1 & 2 mirror each other in a Starbucks/Arizona flow."
-  },
-  {
-    q: "What's changing on Bitchin Dips in C466 Hummus/Salsa?",
-    opts: [
-      "Adding 3 SKUs of new 9oz Bitchin Dips (replacing 7oz); squeeze bottles coming out",
-      "Adding 3 SKUs of new 7oz Bitchin Dips (replacing 9oz); squeeze bottles staying",
-      "Removing Bitchin from the set entirely",
-      "Adding new squeeze bottles; discontinuing the 9oz size"
+    q: "On C630 NF Fitness, which three brands move to LEAD the set after the reflow?",
+    options: [
+      "Larabar, Luna, and Clif",
+      "Quest, Built, and Pure Protein",
+      "Think, Barebells, and David",
+      "Gatorade, KIND, and Simple Truth"
     ],
-    a: 0,
-    exp: "Three new 9oz Bitchin Dip SKUs replace the 7oz, and the Bitchin squeeze bottles are being removed. Queso and cheese dip also move off Hummus-only POGs onto Salsa/Guac POGs."
+    correct: 1,
+    explain: "Quest, Built, and Pure Protein move up to lead the set. Larabar and Luna slide toward the Clif bars, and Think bars move to the right."
   },
   {
-    q: "On the C060 Fluid Milk reflow, what document should you use to execute correctly?",
-    opts: [
-      "The Kompass delete list",
-      "The conversion file in OneDrive",
-      "The Vestcom box label",
-      "The Enterprise mapping printout from the back room"
+    q: "What's the test-store sequencing trick that makes C630 NF Fitness go smoothly?",
+    options: [
+      "Start with the Quest bars and work outward in both directions",
+      "Pull all Luna out first, then pull Think — that opens space to slide everything else into position",
+      "Reset shelf by shelf from top to bottom, leaving overstock in place",
+      "Work the Above Core items first, then come back to the main set"
     ],
-    a: 1,
-    exp: "Use the conversion file in OneDrive. The flow is being adjusted to match Enterprise mapping, conventional milk flows by milk fat tier, and Alpenrose is completely eliminated — the door expands to another milk brand."
+    correct: 1,
+    explain: "Pull all the Luna out, then pull the Think bars. That opens up the space to slide Larabar over and drop Pure Protein and Built into the lead positions. Test team ran roughly 2.25 hrs per bay."
   },
   {
-    q: "Where do non-Kompass vendor and NOK materials go?",
-    opts: [
-      "Thrown away after the reset is complete",
-      "Left on the backroom receiving dock",
-      "In the Vestcom boxes on the Kompass cart, set aside for vendors",
-      "Emailed as a photo to the vendor rep"
+    q: "On C100 Pasta Sauce, which brand becomes a strong vertical block from top to bottom across all 7 shelves?",
+    options: [
+      "Bertolli",
+      "Prego",
+      "Rao's",
+      "Classico"
     ],
-    a: 2,
-    exp: "Leave non-Kompass POGs, strips, and tags in the Vestcom boxes on the Kompass cart. Teams should specifically set these aside so vendors can grab them."
+    correct: 2,
+    explain: "Rao's becomes the vertical block top to bottom across all 7 shelves — that fixes the shelf-lock issue with the two Rao's 40oz jars. Bertolli moves in next to Classico after Ragu, Prego, Kroger, and Classico condense."
   },
   {
-    q: "Looking ahead to P04W2 Fresh Meat Blitz — what's the exception on C563 Convenient Meals?",
-    opts: [
-      "All stores add 4ft to C563",
-      "29 stores decrease C563 by 4ft to add a new Kevin's/Amylu set in C559 Heat & Serve",
-      "All stores skip C559 Heat & Serve entirely",
-      "29 stores remove the Kevin's/Amylu set from C559"
+    q: "On C024 Coffee, what's the critical UPC issue you need to verify before walking away from the set?",
+    options: [
+      "Only the Starbucks Wing items have new UPCs",
+      "Every Kroger and Private Selection KCup has a UPC change — 16 Kroger and 8 Private Selection",
+      "The 120ct Kroger KCups have new UPCs but nothing else changed",
+      "Only the new Lavazza and Black Rifle adds have UPC changes"
     ],
-    a: 1,
-    exp: "29 stores will decrease C563 Convenient Meals by 4ft to make room for a new Kevin's/Amylu set in C559 Heat & Serve. Check the mapping files to see if you're one of the 29."
+    correct: 1,
+    explain: "All Kroger and Private Selection KCups have UPC changes — 16 Kroger items and 8 Private Selection skews getting new case and consumer UPCs. Verify every scan."
+  },
+  {
+    q: "On C892 Lightbulbs (home side), where does the FIRST tag of the run — the one with the set information — get placed?",
+    options: [
+      "On the second shelf, centered above the first product",
+      "On the bottom deck plate, lower-front right corner",
+      "On the first bay deck plate, upper-front left corner, under the first product on the shelf",
+      "On the shelf edge directly above the leftmost product on the top shelf"
+    ],
+    correct: 2,
+    explain: "First bay deck plate, upper-front left corner, on top of the deck. Easy reference: stand in front of the first bay, find the first product on the left side, and the descriptor tag goes right underneath it, up front."
+  },
+  {
+    q: "What's the standard for handling overstock and not-in-set product at the end of every reset?",
+    options: [
+      "Stack it neatly on the shelf above the set and notify the next shift",
+      "Leave it on the floor of the aisle clearly labeled for store stocking",
+      "Box it in banana boxes, palletize neatly, label clearly with commodity / store / date, and walk the PIC through it at signout",
+      "Bring it back to the truck so the team can sort it before the next store visit"
+    ],
+    correct: 2,
+    explain: "Banana boxes, palletize, label every box and the pallet with commodity / store / date, then walk the PIC through it when you sign out. Some stores want top-stock instead — that's fine, but it has to be a consistent call across the whole team after a conversation with the PIC."
+  },
+  {
+    q: "Looking ahead to P04W4, what photo am I asking the team to grab after the C630 reset?",
+    options: [
+      "A photo of the leftover overstock on the pallet at signout",
+      "A photo of the Quest, Built, and Pure Protein lead positioning after the reset — for the audit reference set",
+      "A photo of the Larabar 6-count items in their new placement",
+      "A photo of the Above Core only items so we know which stores got them"
+    ],
+    correct: 1,
+    explain: "I'd like a photo of the Quest, Built, and Pure Protein lead positioning after your reset — I want a reference set for the audit."
   }
 ];
 
-const quizEl = document.getElementById('quiz');
-const submitBtn = document.getElementById('submitBtn');
-const nameInput = document.getElementById('nameInput');
-const progressBar = document.getElementById('progressBar');
-const resultCard = document.getElementById('resultCard');
-const answers = new Array(questions.length).fill(null);
-let locked = false;
+// ---- State
+const state = {
+  answers: new Array(QUESTIONS.length).fill(null),
+  locked: false
+};
 
-questions.forEach((item, i) => {
-  const qDiv = document.createElement('div');
-  qDiv.className = 'q';
-  qDiv.innerHTML = `
-    <div class="q-num">Question ${i + 1} of ${questions.length}</div>
-    <div class="q-text">${item.q}</div>
-    <div class="opts" data-qi="${i}">
-      ${item.opts.map((opt, j) => `
-        <label class="opt" data-oi="${j}">
-          <input type="radio" name="q${i}" value="${j}">
-          ${String.fromCharCode(65 + j)}. ${opt}
-        </label>
-      `).join('')}
-    </div>
-    <div class="feedback" id="fb-${i}"></div>
-  `;
-  quizEl.appendChild(qDiv);
-});
+const $questions = document.getElementById('questions');
+const $submitBtn = document.getElementById('submitBtn');
+const $submitStatus = document.getElementById('submitStatus');
+const $nameInput = document.getElementById('nameInput');
+const $progressFill = document.getElementById('progressFill');
+const $progressText = document.getElementById('progressText');
+const $results = document.getElementById('results');
+const $scoreNum = document.getElementById('scoreNum');
+const $scorePct = document.getElementById('scorePct');
+const $verdict = document.getElementById('verdict');
+const $overlay = document.getElementById('overlay');
+const $spinner = document.getElementById('spinner');
+const $syncMsg = document.getElementById('syncMsg');
 
-quizEl.addEventListener('change', (e) => {
-  if (locked) return;
-  if (e.target.type === 'radio') {
-    const qi = parseInt(e.target.name.slice(1));
-    answers[qi] = parseInt(e.target.value);
-    // Visual selection
-    const opts = quizEl.querySelectorAll(`[data-qi="${qi}"] .opt`);
-    opts.forEach((o, j) => o.classList.toggle('selected', j === answers[qi]));
-    updateProgress();
-  }
-});
+// ---- Render questions
+function renderQuestions() {
+  QUESTIONS.forEach((item, qi) => {
+    const card = document.createElement('div');
+    card.className = 'q';
+    card.id = 'q' + qi;
+    const letters = ['A', 'B', 'C', 'D'];
+    card.innerHTML = `
+      <div class="q-num">Question ${qi + 1} of ${QUESTIONS.length}</div>
+      <p class="q-text">${item.q}</p>
+      <div class="options">
+        ${item.options.map((opt, oi) => `
+          <label class="option" data-q="${qi}" data-o="${oi}">
+            <input type="radio" name="q${qi}" value="${oi}">
+            <span class="letter">${letters[oi]}.</span>
+            <span class="text">${opt}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="feedback" id="fb${qi}"></div>
+    `;
+    $questions.appendChild(card);
+  });
 
-nameInput.addEventListener('input', updateProgress);
-
-function updateProgress() {
-  const answered = answers.filter(a => a !== null).length;
-  const pct = (answered / questions.length) * 100;
-  progressBar.style.width = pct + '%';
-  const allAnswered = answered === questions.length;
-  const hasName = nameInput.value.trim().length >= 2;
-  submitBtn.disabled = !(allAnswered && hasName) || locked;
+  // Wire up clicks
+  document.querySelectorAll('.option').forEach(el => {
+    el.addEventListener('click', e => {
+      if (state.locked) return;
+      const qi = parseInt(el.dataset.q);
+      const oi = parseInt(el.dataset.o);
+      state.answers[qi] = oi;
+      // Visual selected
+      document.querySelectorAll(`.option[data-q="${qi}"]`).forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      // Check radio
+      el.querySelector('input').checked = true;
+      updateProgress();
+    });
+  });
 }
 
-submitBtn.addEventListener('click', () => {
-  if (locked) return;
-  locked = true;
-  submitBtn.disabled = true;
+function updateProgress() {
+  const answered = state.answers.filter(a => a !== null).length;
+  const hasName = $nameInput.value.trim().length > 0;
+  const total = QUESTIONS.length + 1; // +1 for name
+  const completed = answered + (hasName ? 1 : 0);
+  const pct = Math.round((completed / total) * 100);
+  $progressFill.style.width = pct + '%';
+  $progressText.textContent = `${completed} / ${total}`;
 
-  // Show overlay with spinner
-  const overlay = document.getElementById('overlay');
-  const spinner = document.getElementById('spinner');
-  const syncMsg = document.getElementById('syncMsg');
-  overlay.classList.add('show');
-  spinner.classList.remove('hidden');
-  syncMsg.textContent = 'Buffering...';
-  syncMsg.classList.remove('done');
+  if (answered === QUESTIONS.length && hasName) {
+    $submitBtn.disabled = false;
+    $submitStatus.textContent = "Ready to submit";
+  } else {
+    $submitBtn.disabled = true;
+    const remaining = QUESTIONS.length - answered;
+    if (!hasName && remaining > 0) {
+      $submitStatus.textContent = `Enter name + ${remaining} question${remaining !== 1 ? 's' : ''} left`;
+    } else if (!hasName) {
+      $submitStatus.textContent = "Enter your name to submit";
+    } else {
+      $submitStatus.textContent = `${remaining} question${remaining !== 1 ? 's' : ''} left`;
+    }
+  }
+}
 
-  // Grade in background
+$nameInput.addEventListener('input', updateProgress);
+
+// ---- Submit flow
+function getVerdict(score) {
+  if (score === 10) return "Perfect. You were paying attention.";
+  if (score >= 8) return "Solid. Review the ones you missed.";
+  if (score >= 6) return "Watch the presentation again — key details were missed.";
+  return "Go back and rewatch the full presentation before your next shift.";
+}
+
+function lockAndShow() {
+  state.locked = true;
+  document.querySelectorAll('.q').forEach(q => q.classList.add('locked'));
+
   let score = 0;
   const missed = [];
-  questions.forEach((item, i) => {
-    const opts = quizEl.querySelectorAll(`[data-qi="${i}"] .opt`);
-    const fb = document.getElementById(`fb-${i}`);
-    opts.forEach(o => {
-      const input = o.querySelector('input');
-      input.disabled = true;
+
+  QUESTIONS.forEach((item, qi) => {
+    const picked = state.answers[qi];
+    const correct = item.correct;
+    const opts = document.querySelectorAll(`.option[data-q="${qi}"]`);
+    opts.forEach((el, oi) => {
+      if (oi === correct) el.classList.add('correct');
+      else if (oi === picked) el.classList.add('wrong');
     });
-    if (answers[i] === item.a) {
+
+    const $fb = document.getElementById('fb' + qi);
+    if (picked === correct) {
       score++;
-      opts[answers[i]].classList.add('correct');
-      opts[answers[i]].classList.remove('selected');
-      fb.className = 'feedback show good';
-      fb.textContent = '✓ Correct. ' + item.exp;
+      $fb.className = 'feedback correct show';
+      $fb.innerHTML = `<strong>Correct.</strong> ${item.explain}`;
     } else {
-      missed.push(i + 1);
-      if (answers[i] !== null) {
-        opts[answers[i]].classList.add('wrong');
-        opts[answers[i]].classList.remove('selected');
-      }
-      opts[item.a].classList.add('correct');
-      fb.className = 'feedback show bad';
-      fb.textContent = `Correct answer: ${String.fromCharCode(65 + item.a)}. ${item.exp}`;
+      missed.push(qi + 1);
+      $fb.className = 'feedback wrong show';
+      const correctLetter = ['A','B','C','D'][correct];
+      $fb.innerHTML = `<strong>Missed.</strong> Correct answer: ${correctLetter}. ${item.explain}`;
     }
   });
-  quizEl.classList.add('locked');
 
-  const pct = Math.round((score / questions.length) * 100);
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+  $scoreNum.textContent = `${score} / ${QUESTIONS.length}`;
+  $scorePct.textContent = `${pct}%`;
+  $verdict.textContent = getVerdict(score);
+  $results.classList.add('show');
+
+  // Hide submit bar
+  document.querySelector('.submit-bar').style.display = 'none';
+  // Scroll to top so they see results
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  return { score, missed, pct };
+}
+
+async function postResults(payload) {
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+$submitBtn.addEventListener('click', async () => {
+  if (state.locked) return;
+  $submitBtn.disabled = true;
+
+  // Show overlay with spinner + Buffering...
+  $spinner.classList.remove('hide');
+  $syncMsg.classList.remove('success');
+  $syncMsg.textContent = "Buffering...";
+  $overlay.classList.add('show');
+
+  // Build payload
+  const name = $nameInput.value.trim();
+  // Compute score now so we can include in payload (before reveal)
+  let scorePre = 0;
+  const missedPre = [];
+  QUESTIONS.forEach((item, qi) => {
+    if (state.answers[qi] === item.correct) scorePre++;
+    else missedPre.push(qi + 1);
+  });
+
   const payload = {
     timestamp: new Date().toISOString(),
     periodWeek: PERIOD_WEEK,
-    name: nameInput.value.trim(),
-    score: score,
-    outOf: questions.length,
-    percent: pct,
-    missed: missed.join(',')
+    name: name,
+    score: scorePre,
+    outOf: QUESTIONS.length,
+    percent: Math.round((scorePre / QUESTIONS.length) * 100),
+    missedQuestions: missedPre.join(',')
   };
 
-  // POST (no-cors, fire-and-forget)
-  let postSucceeded = true;
-  try {
-    fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload)
-    }).catch(() => { postSucceeded = false; });
-  } catch (err) {
-    postSucceeded = false;
+  // Kick off the POST
+  const postPromise = postResults(payload);
+
+  // After 1.5s: switch overlay to success state
+  await new Promise(r => setTimeout(r, 1500));
+  $spinner.classList.add('hide');
+  $syncMsg.classList.add('success');
+  $syncMsg.textContent = "Your results have been submitted.";
+
+  // Wait for POST to settle so we can update verdict if it failed
+  const postOk = await postPromise;
+
+  // After 2s more: dismiss overlay and reveal results
+  await new Promise(r => setTimeout(r, 2000));
+  $overlay.classList.remove('show');
+
+  const reveal = lockAndShow();
+  if (!postOk) {
+    $verdict.textContent = getVerdict(reveal.score) + " Screenshot this and send to me.";
   }
-
-  // Overlay choreography: 1.5s spinner → "submitted" → 2s later reveal results
-  setTimeout(() => {
-    spinner.classList.add('hidden');
-    syncMsg.textContent = 'Your results have been submitted.';
-    syncMsg.classList.add('done');
-  }, 1500);
-
-  setTimeout(() => {
-    overlay.classList.remove('show');
-    renderResult(score, questions.length, pct, postSucceeded);
-    resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 3500);
 });
 
-function renderResult(score, total, pct, postOk) {
-  document.getElementById('scoreLine').textContent = `${score} / ${total}`;
-  document.getElementById('pctLine').textContent = `${pct}%`;
-  let verdict = '';
-  if (score === 10) verdict = 'Perfect. You were paying attention.';
-  else if (score >= 8) verdict = 'Solid. Review the ones you missed.';
-  else if (score >= 6) verdict = 'Watch the presentation again — key details were missed.';
-  else verdict = 'Go back and rewatch the full presentation before your next shift.';
-  if (!postOk) verdict += ' Screenshot this and send to Tyson.';
-  document.getElementById('verdictLine').textContent = verdict;
-  resultCard.classList.add('show');
-}
+// ---- Init
+renderQuestions();
+updateProgress();
 </script>
+
 </body>
 </html>
