@@ -1,471 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P06W1 Team Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>P06W2 Pop Quiz — District 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     --navy:#1B2A4A;
     --teal:#0891B2;
     --orange:#F59E0B;
-    --light:#F0F4F8;
-    --red:#DC2626;
     --green:#16A34A;
-    --ink:#1B2A4A;
-    --card:#FFFFFF;
+    --red:#DC2626;
+    --ink:#0f172a;
+    --paper:#F0F4F8;
+    --card:#ffffff;
+    --line:#dbe3ec;
+    --muted:#5b6b80;
   }
   *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
   body{
-    margin:0;
-    background:var(--light);
-    color:var(--ink);
     font-family:'DM Sans',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
     line-height:1.5;
-    padding:0 0 64px;
+    -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:760px;margin:0 auto;padding:0 16px;}
-  header{
+  .wrap{max-width:680px;margin:0 auto;padding:18px 16px 64px;}
+
+  header.head{
     background:var(--navy);
     color:#fff;
-    padding:28px 16px 24px;
-    border-bottom:4px solid var(--teal);
+    border-radius:14px;
+    padding:22px 20px;
+    box-shadow:0 8px 24px rgba(27,42,74,.18);
+    border-left:6px solid var(--orange);
   }
-  header .wrap{padding:0 16px;}
   .kicker{
     font-family:'Space Mono',monospace;
-    font-weight:700;
+    font-size:12px;
     letter-spacing:2px;
     text-transform:uppercase;
     color:var(--orange);
-    font-size:13px;
-    margin:0 0 6px;
   }
-  header h1{
-    font-family:'Space Mono',monospace;
+  header.head h1{
+    font-size:26px;
+    margin:6px 0 4px;
     font-weight:700;
-    font-size:24px;
-    margin:0 0 6px;
+    line-height:1.15;
   }
-  header p{margin:0;font-size:15px;color:#cbd5e1;}
+  header.head p{margin:0;color:#c7d2e0;font-size:14px;}
+
   .namebox{
     background:var(--card);
-    border:1px solid #d8e0ea;
+    border:1px solid var(--line);
     border-radius:12px;
     padding:16px;
-    margin:18px 0;
+    margin-top:16px;
   }
-  label.fieldlabel{
-    display:block;
+  .namebox label{
     font-family:'Space Mono',monospace;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:1px;
     font-size:12px;
-    color:var(--teal);
-    margin:0 0 8px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:8px;
   }
-  #name{
+  .namebox input{
     width:100%;
-    padding:12px 14px;
-    font-family:'DM Sans',sans-serif;
+    padding:13px 14px;
     font-size:16px;
-    border:1px solid #cbd5e1;
-    border-radius:8px;
+    font-family:'DM Sans',sans-serif;
+    border:1.5px solid var(--line);
+    border-radius:9px;
     outline:none;
   }
-  #name:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,145,178,.15);}
+  .namebox input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,145,178,.15);}
+
   .progress-shell{
-    position:sticky;top:0;z-index:5;
-    background:var(--light);
-    padding:12px 0 10px;
+    position:sticky;top:0;z-index:20;
+    background:var(--paper);
+    padding:12px 0 8px;
+    margin-top:8px;
   }
-  .progress-track{
-    height:10px;background:#dbe3ee;border-radius:999px;overflow:hidden;
-    border:1px solid #cbd5e1;
+  .progress-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'Space Mono',monospace;
+    font-size:12px;letter-spacing:1px;color:var(--muted);
+    margin-bottom:6px;
   }
-  .progress-fill{
-    height:100%;width:0;background:var(--teal);
+  .bar{height:8px;background:#dde6ef;border-radius:99px;overflow:hidden;}
+  .bar > i{
+    display:block;height:100%;width:0%;
+    background:linear-gradient(90deg,var(--teal),var(--orange));
     transition:width .25s ease;
   }
-  .progress-label{
-    font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
-    color:var(--navy);margin-top:6px;letter-spacing:1px;
-  }
+
   .q{
     background:var(--card);
-    border:1px solid #d8e0ea;
+    border:1px solid var(--line);
     border-radius:12px;
     padding:18px 16px;
-    margin:14px 0;
+    margin-top:14px;
   }
-  .q-num{
-    font-family:'Space Mono',monospace;font-weight:700;font-size:12px;
-    color:var(--orange);letter-spacing:1px;text-transform:uppercase;
+  .q .qnum{
+    font-family:'Space Mono',monospace;
+    font-size:12px;letter-spacing:1px;color:var(--teal);font-weight:700;
   }
-  .q-text{font-weight:700;font-size:17px;margin:6px 0 14px;}
+  .q .qtext{font-size:17px;font-weight:500;margin:6px 0 14px;}
+
   .opt{
-    display:flex;align-items:flex-start;gap:10px;
-    border:1px solid #d8e0ea;border-radius:8px;
-    padding:12px;margin:8px 0;cursor:pointer;
-    transition:border-color .15s,background .15s;
+    display:flex;align-items:flex-start;gap:11px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:12px 13px;
+    margin-bottom:9px;
+    cursor:pointer;
+    transition:border-color .12s, background .12s;
+    background:#fff;
   }
   .opt:hover{border-color:var(--teal);}
-  .opt input{margin-top:3px;accent-color:var(--teal);width:18px;height:18px;flex:0 0 auto;}
-  .opt .opt-letter{font-family:'Space Mono',monospace;font-weight:700;color:var(--teal);}
-  .opt.correct{background:#e9f9ef;border-color:var(--green);}
-  .opt.wrong{background:#fdecec;border-color:var(--red);}
-  .opt.wrong .opt-body{text-decoration:line-through;color:#9b1c1c;}
-  .opt.correct .opt-letter{color:var(--green);}
+  .opt input{margin-top:3px;accent-color:var(--teal);width:17px;height:17px;flex:0 0 auto;}
+  .opt .lbl{font-family:'Space Mono',monospace;font-weight:700;color:var(--navy);flex:0 0 auto;}
+  .opt .txt{font-size:15px;}
+  .opt.chosen{border-color:var(--teal);background:#ECFEFF;}
+
+  /* graded states */
+  .opt.correct{border-color:var(--green);background:#e9faef;}
+  .opt.correct .lbl{color:var(--green);}
+  .opt.wrong{border-color:var(--red);background:#fdecec;}
+  .opt.wrong .txt{text-decoration:line-through;color:#8a2b2b;}
+  .opt.wrong .lbl{color:var(--red);}
+
   .feedback{
-    margin-top:10px;padding:11px 12px;border-radius:8px;
-    font-size:14px;display:none;
+    margin-top:10px;
+    border-left:4px solid var(--teal);
+    background:#f4f9fb;
+    padding:11px 13px;
+    border-radius:0 8px 8px 0;
+    font-size:14px;
+    display:none;
   }
   .feedback.show{display:block;}
-  .feedback.good{background:#e9f9ef;border-left:4px solid var(--green);}
-  .feedback.bad{background:#fdecec;border-left:4px solid var(--red);}
-  .feedback .tag{
-    font-family:'Space Mono',monospace;font-weight:700;font-size:12px;
-    text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:3px;
+  .feedback .tag{font-family:'Space Mono',monospace;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+  .feedback.ok{border-left-color:var(--green);background:#eef9f1;}
+  .feedback.ok .tag{color:var(--green);}
+  .feedback.no{border-left-color:var(--red);background:#fdf0f0;}
+  .feedback.no .tag{color:var(--red);}
+
+  .submit{
+    width:100%;
+    margin-top:22px;
+    padding:16px;
+    font-family:'Space Mono',monospace;
+    font-size:15px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+    color:#fff;background:var(--orange);
+    border:none;border-radius:11px;cursor:pointer;
+    transition:opacity .15s, transform .05s;
   }
-  .feedback.good .tag{color:var(--green);}
-  .feedback.bad .tag{color:var(--red);}
-  #submitBtn{
-    display:block;width:100%;
-    background:var(--orange);color:#1a1a1a;
-    font-family:'Space Mono',monospace;font-weight:700;
-    text-transform:uppercase;letter-spacing:1px;font-size:16px;
-    border:none;border-radius:10px;padding:16px;margin:22px 0 8px;
-    cursor:pointer;
+  .submit:disabled{background:#c3ccd8;cursor:not-allowed;}
+  .submit:not(:disabled):active{transform:translateY(1px);}
+
+  /* result summary */
+  .result{
+    display:none;
+    margin-top:22px;
+    background:var(--navy);
+    color:#fff;
+    border-radius:14px;
+    padding:22px 20px;
+    border-left:6px solid var(--orange);
   }
-  #submitBtn:disabled{background:#cbd5e1;color:#7b8794;cursor:not-allowed;}
-  #results{
-    display:none;background:var(--navy);color:#fff;
-    border-radius:14px;padding:24px 18px;margin:18px 0;text-align:center;
-  }
-  #results.show{display:block;}
-  .score-big{font-family:'Space Mono',monospace;font-weight:700;font-size:46px;line-height:1;}
-  .score-sub{color:var(--teal);font-family:'Space Mono',monospace;font-weight:700;letter-spacing:1px;margin:6px 0 14px;}
-  .verdict{font-size:17px;font-weight:500;}
-  /* overlay */
+  .result.show{display:block;}
+  .result .score{font-family:'Space Mono',monospace;font-size:40px;font-weight:700;line-height:1;}
+  .result .pct{color:var(--orange);font-family:'Space Mono',monospace;font-size:15px;margin-top:4px;}
+  .result .verdict{margin-top:14px;font-size:16px;line-height:1.45;}
+  .result .who{color:#c7d2e0;font-size:13px;margin-top:10px;font-family:'Space Mono',monospace;}
+
+  /* buffering overlay */
   .overlay{
-    position:fixed;inset:0;background:rgba(27,42,74,.92);
-    display:none;align-items:center;justify-content:center;z-index:50;
+    position:fixed;inset:0;z-index:100;
+    background:rgba(15,23,42,.78);
+    backdrop-filter:blur(3px);
+    display:none;align-items:center;justify-content:center;
   }
   .overlay.show{display:flex;}
   .overlay-box{
-    background:var(--card);border-radius:16px;padding:34px 30px;
-    text-align:center;min-width:240px;
+    background:#fff;border-radius:16px;
+    padding:30px 36px;text-align:center;
+    min-width:240px;
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
   }
   .spinner{
-    width:46px;height:46px;margin:0 auto 16px;
-    border:5px solid #d8e0ea;border-top-color:var(--teal);
-    border-radius:50%;animation:spin .8s linear infinite;
+    width:42px;height:42px;margin:0 auto 16px;
+    border:4px solid #e2e8f0;border-top-color:var(--teal);
+    border-radius:50%;
+    animation:spin .8s linear infinite;
   }
   @keyframes spin{to{transform:rotate(360deg);}}
   .sync-msg{
-    font-family:'Space Mono',monospace;font-weight:700;font-size:16px;
-    color:var(--navy);letter-spacing:.5px;
+    font-family:'Space Mono',monospace;
+    font-size:15px;font-weight:700;letter-spacing:.5px;
+    color:var(--ink);
   }
   .sync-msg.done{color:var(--green);}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <p class="kicker">Field Execution &mdash; Districts 6 &amp; 8</p>
-    <h1>P06W1 Team Quiz</h1>
-    <p>Ten questions on this week's briefing. Takes about three minutes.</p>
-  </div>
-</header>
-
 <div class="wrap">
+
+  <header class="head">
+    <div class="kicker">District 8 // Division 701</div>
+    <h1>P06W2 Pop Quiz</h1>
+    <p>Watch the briefing first, then knock this out — 10 questions, about 3 minutes.</p>
+  </header>
+
   <div class="namebox">
-    <label class="fieldlabel" for="name">Your Name</label>
-    <input id="name" type="text" autocomplete="name" placeholder="First and last name" />
+    <label for="name">Your name</label>
+    <input id="name" type="text" placeholder="First and last name" autocomplete="name" />
   </div>
 
   <div class="progress-shell">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-label" id="progressLabel">0 of 10 answered</div>
+    <div class="progress-meta">
+      <span id="pcount">0 of 10 answered</span>
+      <span id="ppct">0%</span>
+    </div>
+    <div class="bar"><i id="pbar"></i></div>
   </div>
 
   <div id="quiz"></div>
 
-  <button id="submitBtn" disabled>Answer all questions to submit</button>
+  <button id="submit" class="submit" disabled>Complete all questions to submit</button>
 
-  <div id="results">
-    <div class="score-big" id="scoreBig">0 / 10</div>
-    <div class="score-sub" id="scoreSub">0%</div>
-    <div class="verdict" id="verdict"></div>
+  <div id="result" class="result">
+    <div class="score" id="rScore">0/10</div>
+    <div class="pct" id="rPct">0%</div>
+    <div class="verdict" id="rVerdict"></div>
+    <div class="who" id="rWho"></div>
   </div>
+
 </div>
 
+<!-- buffering overlay -->
 <div class="overlay" id="overlay">
   <div class="overlay-box">
     <div class="spinner" id="spinner"></div>
-    <div class="sync-msg" id="syncMsg">Buffering&hellip;</div>
+    <div class="sync-msg" id="syncMsg">Buffering…</div>
   </div>
 </div>
 
 <script>
-  const PERIOD_WEEK = "P06W1";
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+  const ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+  const PERIOD_WEEK = "P06W2";
 
   const QUESTIONS = [
     {
-      q: "Why do wet cat and cat treats have to be completed on the same visit?",
-      options: [
-        "Because the lickable treat complements are migrating out of wet cat and into treats.",
-        "Because they ship in the same Vestcom box.",
-        "Because they're both eight-hour sets.",
-        "Because the store won't sign off one without the other."
+      q:"Which two sets are flagged priority this week and go first?",
+      options:[
+        "C642 Dry Processed and C643 Produce Nuts",
+        "C190 Specialty Bath and C191 Bath Shop",
+        "C102 Soap and C190 Specialty Bath",
+        "C643 Produce Nuts and C190 Specialty Bath"
       ],
-      correct: 0,
-      why: "The lickable treat complements \u2014 sixteen UPCs \u2014 are moving permanently out of wet cat into treats. Split them across visits and you'll leave a gap on the shelf."
+      correct:0,
+      explain:"C642 Dry Processed and C643 Produce Nuts are the flagged priorities — produce sets come first unless something else is already locked in for your store."
     },
     {
-      q: "On the wet cat set, where does most of your movement happen?",
-      options: [
-        "Shelves 3 through 8.",
-        "Shelves 1 and 2.",
-        "The top two shelves only.",
-        "The endcaps."
+      q:"On C643 Produce Nuts, what new item gets added to the set?",
+      options:[
+        "Private Selection Apple Chips",
+        "Simple Truth Protein Trail Mix",
+        "Spice World Garlic seasoning",
+        "Tajín Toasted Corn"
       ],
-      correct: 0,
-      why: "Shelves 1 and 2 have minimal movement \u2014 shelves 3 through 8 carry most of the work, so plan your time there."
+      correct:1,
+      explain:"C643 is a quick one: add the Simple Truth Protein Trail Mix and pull the three discontinued items per the planogram."
     },
     {
-      q: "Dry cat is a straightforward write \u2014 except at which stores?",
-      options: [
-        "Twenty-foot-plus automated stores, which get a store-specific planogram.",
-        "Eight-foot and smaller stores.",
-        "Stores with a glass-shelf conversion.",
-        "Stores renaming to Department 03."
+      q:"C642 Dry Processed carries a new item introduction — which one, and where does it install?",
+      options:[
+        "C633 Cereal NII on the base deck",
+        "C676 NF Frozen NII on the endcap",
+        "C613 Mushroom NII on the Spice World garlic four-shelf rack",
+        "C613 Mushroom NII on the grid wall"
       ],
-      correct: 0,
-      why: "Twenty-foot-plus automated stores receive store-specific planograms and more movement. Everywhere else it's a standard four-new, six-delete write."
+      correct:2,
+      explain:"C642 carries the C613 Mushroom NII. Those strips are in your box, you record the work under C642, and the mushroom piece installs on the Spice World garlic four-shelf rack."
     },
     {
-      q: "On self-checkout kits A and D, how is candy and salty snack set?",
-      options: [
-        "Alternating in runs of three or more, with salty snack on the top shelf.",
-        "Candy on top, salty snack on the bottom.",
-        "All candy on kit A, all salty snack on kit D.",
-        "Alternating every other facing."
+      q:"What is the single most important action item on C190 Specialty Bath before you start the reset?",
+      options:[
+        "Set the Tree Hut fixture first",
+        "Do a closeout walk against the planogram and remove list, and pull closeouts first",
+        "Install all the new strips before pulling anything",
+        "Reflow the liquids to the left"
       ],
-      correct: 0,
-      why: "Kits A and D alternate candy and salty snack in runs of three or more, and the salty snack sits on the top shelf."
+      correct:1,
+      explain:"Before touching the C190 reset, do a closeout walk against the planogram and remove list and pull closeouts first. The delete count is heavy and you need the space to reflow."
     },
     {
-      q: "At conversion stores where the glass shelves were discarded, where do specialty bath items WITHOUT a hanger go?",
-      options: [
-        "On the base deck.",
-        "On the grid wall, doubled up.",
-        "Back in the Vestcom box for return.",
-        "Set aside and sent to the hotline."
+      q:"On the C190 test set, how much closeout product came out — and what was the catch?",
+      options:[
+        "8 banana boxes, all tagged",
+        "12 banana boxes, none tagged",
+        "18 banana boxes, over half untagged",
+        "24 banana boxes, all tagged"
       ],
-      correct: 0,
-      why: "Items with a hanger go on the grid wall in the lower-left two-foot space; anything without a hanger sits on the base deck."
+      correct:2,
+      explain:"The test set pulled 18 banana boxes of closeout product, and over half came through untagged. That's exactly why the closeout walk happens before you start."
     },
     {
-      q: "At store 391, the Innovations location change moves the set to where?",
-      options: [
-        "From the back end (end 15) to the middle end (end 19), at aisle 20L.3.",
-        "From the middle end (end 19) to the back end (end 15).",
-        "To the front-of-store endcap.",
-        "To the checkstand at aisle 1."
+      q:"On C190, which District 8 stores run STANDARD flow versus REVERSE flow?",
+      options:[
+        "Standard 215, 459 / Reverse 19, 23, 28",
+        "Standard 19, 23, 28 / Reverse 215, 459",
+        "Standard 31, 459 / Reverse 19, 23",
+        "Standard 28, 31 / Reverse 215, 658"
       ],
-      correct: 0,
-      why: "At store 391, move Innovations from the back end, end 15, to the middle end, end 19, at aisle 20L.3 \u2014 and verify placement."
+      correct:1,
+      explain:"Standard flow is stores 19, 23, and 28; reverse flow is 215 and 459. Several stores were remapped, so always check your version before starting."
     },
     {
-      q: "Which District 6 stores are missing fruit photos and need action this week?",
-      options: [
-        "214, 351, 652, and 654.",
-        "163, 286, 486, and 657.",
-        "19, 28, and 459.",
-        "49, 652, and 657."
+      q:"In the C190 glass-shelf discard stores (31 and 459), what is the universal placement rule?",
+      options:[
+        "Everything goes on the base deck",
+        "Everything hangs on the grid wall",
+        "If it has a hanger it goes on the grid wall; if not, it goes on the base deck",
+        "If it's liquid it goes on the grid wall; if not, the base deck"
       ],
-      correct: 0,
-      why: "Stores 214, 351, 652, and 654 are missing fruit photos as of this report. I've sent the reminder and signup emails \u2014 please get those handled."
+      correct:2,
+      explain:"In stores 31 and 459: if an item has a hanger it goes on the grid wall, and if it doesn't, it goes on the base deck. That rule covers anything that comes up."
     },
     {
-      q: "This week's call-downs are all Spirits and all in District 6. Which schedule is right?",
-      options: [
-        "657 Tuesday, 214 Wednesday, 351 Thursday.",
-        "214 Tuesday, 351 Wednesday, 657 Thursday.",
-        "351 Monday, 657 Tuesday, 214 Wednesday.",
-        "459 Tuesday, 214 Wednesday, 351 Thursday."
+      q:"What does the C102 Soap set actually fix?",
+      options:[
+        "A pricing error on Softsoap",
+        "The Mrs. Meyer's hand soap dual-location issue we've been chasing for five months",
+        "A missing planogram for Natural soap",
+        "An overstock of bar soap"
       ],
-      correct: 0,
-      why: "All three are District 6 Spirits call-downs: store 657 Tuesday, store 214 Wednesday, store 351 Thursday. Store 459 in District 8 is a Spirits call-down later, on the ninth."
+      correct:1,
+      explain:"C102 resolves the Mrs. Meyer's hand soap dual-location issue from Period One — it landed next to the Natural soap in some stores. The 3-hour estimate is the cleanup; without the dual issue it's closer to an hour."
     },
     {
-      q: "Under the new process, what do you do with Empire materials (Fresh Meat and Telecom) that show up in your boxes?",
-      options: [
-        "Hand them directly to the department head or the vendor \u2014 don't leave them on the Kompass cart.",
-        "Leave them on the Kompass cart for Empire to grab.",
-        "Box them up and send them to the hotline.",
-        "Hold them until the Monday call."
+      q:"On C191 Bath Shop, the Kroger assorted poufs need to be…",
+      options:[
+        "Deleted from both sets",
+        "Placed only in C191",
+        "Dual-placed in both C191 and C190",
+        "Moved to the grid wall"
       ],
-      correct: 0,
-      why: "Empire materials no longer go on the Kompass cart. Hand them straight to the department head, or directly to the vendor."
+      correct:2,
+      explain:"The Kroger assorted poufs now dual-place in both C191 and C190. The UPC is on screen in the briefing."
     },
     {
-      q: "What's the look-ahead heads-up for store 23, and what should you NOT do yet?",
-      options: [
-        "A cookies-and-crackers remapping is coming \u2014 don't install the strips until I confirm labor ownership.",
-        "A specialty bath test is coming \u2014 set it this week.",
-        "A new checklane blitz starts \u2014 begin immediately.",
-        "A dry cat automation update \u2014 install as soon as the box arrives."
+      q:"Looking ahead to Week Three — what's the projected workload, and what's your action item now?",
+      options:[
+        "About 20 hours; no action needed",
+        "About 40 hours; clear as much backlog as you can this week",
+        "About 14 hours; same as this week",
+        "About 40 hours; wait until Week Three to start"
       ],
-      correct: 0,
-      why: "Store 23 has a cookies-and-crackers remapping slated for next week, pulling product behind the column. The strips arrive in your next box \u2014 but don't install them until I confirm labor ownership."
+      correct:1,
+      explain:"Week Three jumps to roughly 40 hours — about triple this week. Use this week to clear every bit of backlog you can so you're not buried when the spike hits."
     }
   ];
 
   const LETTERS = ["A","B","C","D"];
+  const quizEl = document.getElementById('quiz');
+  const nameEl = document.getElementById('name');
+  const submitEl = document.getElementById('submit');
   const answers = new Array(QUESTIONS.length).fill(null);
-  let locked = false;
+  let graded = false;
 
-  const quizEl = document.getElementById("quiz");
-  const nameEl = document.getElementById("name");
-  const submitBtn = document.getElementById("submitBtn");
-  const progressFill = document.getElementById("progressFill");
-  const progressLabel = document.getElementById("progressLabel");
-
+  // build questions
   QUESTIONS.forEach((item, qi) => {
-    const card = document.createElement("div");
-    card.className = "q";
-    card.id = "q" + qi;
-    let html = '<div class="q-num">Question ' + (qi + 1) + '</div>';
-    html += '<div class="q-text">' + item.q + '</div>';
+    const card = document.createElement('div');
+    card.className = 'q';
+    card.id = 'q'+qi;
+    let opts = '';
     item.options.forEach((opt, oi) => {
-      html += '<label class="opt" id="opt-' + qi + '-' + oi + '">' +
-                '<input type="radio" name="q' + qi + '" value="' + oi + '">' +
-                '<span class="opt-letter">' + LETTERS[oi] + '</span>' +
-                '<span class="opt-body">' + opt + '</span>' +
-              '</label>';
+      opts += `
+        <label class="opt" data-q="${qi}" data-o="${oi}">
+          <input type="radio" name="q${qi}" value="${oi}" />
+          <span class="lbl">${LETTERS[oi]}</span>
+          <span class="txt">${opt}</span>
+        </label>`;
     });
-    html += '<div class="feedback" id="fb-' + qi + '"></div>';
-    card.innerHTML = html;
+    card.innerHTML = `
+      <div class="qnum">QUESTION ${qi+1}</div>
+      <div class="qtext">${item.q}</div>
+      ${opts}
+      <div class="feedback" id="fb${qi}"></div>`;
     quizEl.appendChild(card);
   });
 
-  quizEl.addEventListener("change", function (e) {
-    if (locked) return;
-    if (e.target && e.target.type === "radio") {
-      const qi = parseInt(e.target.name.slice(1), 10);
-      answers[qi] = parseInt(e.target.value, 10);
+  // selection handling
+  quizEl.addEventListener('change', (e) => {
+    if (graded) return;
+    const input = e.target;
+    if (input.name && input.name.startsWith('q')) {
+      const qi = parseInt(input.name.slice(1), 10);
+      answers[qi] = parseInt(input.value, 10);
+      // visual chosen state
+      document.querySelectorAll(`.opt[data-q="${qi}"]`).forEach(l => l.classList.remove('chosen'));
+      input.closest('.opt').classList.add('chosen');
       updateProgress();
     }
   });
-  nameEl.addEventListener("input", updateProgress);
 
-  function updateProgress() {
-    const answered = answers.filter(a => a !== null).length;
-    const pct = Math.round((answered / QUESTIONS.length) * 100);
-    progressFill.style.width = pct + "%";
-    progressLabel.textContent = answered + " of " + QUESTIONS.length + " answered";
-    const ready = answered === QUESTIONS.length && nameEl.value.trim().length > 0;
-    submitBtn.disabled = !ready;
-    submitBtn.textContent = ready ? "Submit Quiz"
-      : (nameEl.value.trim().length === 0 ? "Enter your name to submit" : "Answer all questions to submit");
+  nameEl.addEventListener('input', updateProgress);
+
+  function answeredCount(){
+    return answers.filter(a => a !== null).length;
   }
 
-  submitBtn.addEventListener("click", function () {
-    if (submitBtn.disabled || locked) return;
-    locked = true;
-    submitBtn.disabled = true;
+  function updateProgress(){
+    const n = answeredCount();
+    const pct = Math.round((n / QUESTIONS.length) * 100);
+    document.getElementById('pbar').style.width = pct + '%';
+    document.getElementById('pcount').textContent = `${n} of ${QUESTIONS.length} answered`;
+    document.getElementById('ppct').textContent = pct + '%';
+    const ready = n === QUESTIONS.length && nameEl.value.trim().length > 0;
+    submitEl.disabled = !ready;
+    submitEl.textContent = ready ? 'Submit Quiz' :
+      (nameEl.value.trim().length === 0 ? 'Enter your name to submit' : 'Complete all questions to submit');
+  }
 
-    const overlay = document.getElementById("overlay");
-    const spinner = document.getElementById("spinner");
-    const syncMsg = document.getElementById("syncMsg");
-    spinner.style.display = "block";
-    syncMsg.className = "sync-msg";
-    syncMsg.innerHTML = "Buffering&hellip;";
-    overlay.classList.add("show");
+  function verdictFor(score){
+    if (score === 10) return "Perfect. You were paying attention.";
+    if (score >= 8)  return "Solid. Review the ones you missed.";
+    if (score >= 6)  return "Watch the presentation again — key details were missed.";
+    return "Go back and rewatch the full presentation before your next shift.";
+  }
 
-    let postFailed = false;
-    const result = gradeAndBuildPayload();
-
-    fetch(SCRIPT_URL, {
+  function postResults(payload){
+    return fetch(ENDPOINT, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(result.payload)
-    }).catch(function () { postFailed = true; });
+      body: JSON.stringify(payload)
+    });
+  }
 
-    setTimeout(function () {
-      spinner.style.display = "none";
-      syncMsg.className = "sync-msg done";
-      syncMsg.textContent = "Your results have been submitted.";
-      setTimeout(function () {
-        overlay.classList.remove("show");
-        revealResults(result, postFailed);
-      }, 2000);
-    }, 1500);
-  });
+  submitEl.addEventListener('click', () => {
+    if (graded || submitEl.disabled) return;
+    graded = true;
 
-  function gradeAndBuildPayload() {
+    // score
     let score = 0;
     const missed = [];
     QUESTIONS.forEach((item, qi) => {
-      if (answers[qi] === item.correct) score += 1;
-      else missed.push(qi + 1);
+      if (answers[qi] === item.correct) score++;
+      else missed.push('Q' + (qi + 1));
     });
-    const outOf = QUESTIONS.length;
-    const percent = Math.round((score / outOf) * 100);
-    const payload = {
-      "Timestamp": new Date().toISOString(),
+    const pct = Math.round((score / QUESTIONS.length) * 100);
+    const name = nameEl.value.trim();
+
+    // POST (no-cors: can't read response; catch network failures)
+    let postFailed = false;
+    postResults({
+      "Timestamp": new Date().toLocaleString(),
       "Period/Week": PERIOD_WEEK,
-      "Name": nameEl.value.trim(),
+      "Name": name,
       "Score": score,
-      "Out Of": outOf,
-      "Percent": percent,
+      "Out Of": QUESTIONS.length,
+      "Percent": pct + "%",
       "Missed Questions": missed.length ? missed.join(", ") : "None"
-    };
-    return { score: score, outOf: outOf, percent: percent, missed: missed, payload: payload };
-  }
+    }).catch(() => { postFailed = true; });
 
-  function revealResults(result, postFailed) {
+    // overlay sequence: spinner + Buffering -> submitted -> reveal
+    const overlay = document.getElementById('overlay');
+    const spinner = document.getElementById('spinner');
+    const syncMsg = document.getElementById('syncMsg');
+    overlay.classList.add('show');
+
+    setTimeout(() => {
+      spinner.style.display = 'none';
+      syncMsg.textContent = 'Your results have been submitted.';
+      syncMsg.classList.add('done');
+    }, 1500);
+
+    setTimeout(() => {
+      overlay.classList.remove('show');
+      reveal(score, pct, name, postFailed);
+    }, 3500);
+  });
+
+  function reveal(score, pct, name, postFailed){
+    // lock + grade each question
     QUESTIONS.forEach((item, qi) => {
-      document.querySelectorAll('input[name="q' + qi + '"]').forEach(inp => inp.disabled = true);
+      document.querySelectorAll(`input[name="q${qi}"]`).forEach(i => i.disabled = true);
       const chosen = answers[qi];
-      const correctOpt = document.getElementById("opt-" + qi + "-" + item.correct);
-      correctOpt.classList.add("correct");
-      const fb = document.getElementById("fb-" + qi);
-      if (chosen === item.correct) {
-        fb.className = "feedback good show";
-        fb.innerHTML = '<span class="tag">Correct &#10003;</span>' + item.why;
-      } else {
-        const chosenOpt = document.getElementById("opt-" + qi + "-" + chosen);
-        if (chosenOpt) chosenOpt.classList.add("wrong");
-        fb.className = "feedback bad show";
-        fb.innerHTML = '<span class="tag">Missed &#10007;</span>' + item.why;
+      const correctIdx = item.correct;
+
+      const correctLabel = document.querySelector(`.opt[data-q="${qi}"][data-o="${correctIdx}"]`);
+      if (correctLabel) correctLabel.classList.add('correct');
+
+      if (chosen !== correctIdx && chosen !== null) {
+        const wrongLabel = document.querySelector(`.opt[data-q="${qi}"][data-o="${chosen}"]`);
+        if (wrongLabel) wrongLabel.classList.add('wrong');
       }
+
+      const fb = document.getElementById('fb'+qi);
+      const ok = chosen === correctIdx;
+      fb.className = 'feedback show ' + (ok ? 'ok' : 'no');
+      fb.innerHTML = ok
+        ? `<span class="tag">Correct</span><br>${item.explain}`
+        : `<span class="tag">Missed</span> — correct answer is ${LETTERS[correctIdx]}.<br>${item.explain}`;
     });
 
-    document.getElementById("scoreBig").textContent = result.score + " / " + result.outOf;
-    document.getElementById("scoreSub").textContent = result.percent + "%";
-
-    let verdict;
-    if (result.score === 10) verdict = "Perfect. You were paying attention.";
-    else if (result.score >= 8) verdict = "Solid. Review the ones you missed.";
-    else if (result.score >= 6) verdict = "Watch the presentation again \u2014 key details were missed.";
-    else verdict = "Go back and rewatch the full presentation before your next shift.";
+    // summary
+    let verdict = verdictFor(score);
     if (postFailed) verdict += " Screenshot this and send it to me.";
 
-    document.getElementById("verdict").textContent = verdict;
-    const res = document.getElementById("results");
-    res.classList.add("show");
-    submitBtn.style.display = "none";
-    res.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById('rScore').textContent = `${score}/${QUESTIONS.length}`;
+    document.getElementById('rPct').textContent = `${pct}% · ${PERIOD_WEEK}`;
+    document.getElementById('rVerdict').textContent = verdict;
+    document.getElementById('rWho').textContent = name ? `Logged for ${name}` : '';
+
+    submitEl.style.display = 'none';
+    const res = document.getElementById('result');
+    res.classList.add('show');
+    res.scrollIntoView({ behavior:'smooth', block:'start' });
   }
+
+  updateProgress();
 </script>
 </body>
 </html>
