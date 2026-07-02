@@ -271,64 +271,64 @@ const POST_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgr
 
 const QUESTIONS = [
   {
-    q: "What is our anchor set for P06W3?",
-    opts: ["C041 Frozen Potatoes", "C046 Frozen Breakfast", "C093 Traditional Mexican Foods", "C115 Foil & Wrap"],
+    q: "What is our anchor set for P06W3, and how many hours is it?",
+    opts: ["C041 Frozen Potatoes at 5 hours", "C046 Frozen Breakfast at 10 hours", "C076 Peanut Butter & Jelly at 8 hours", "C093 Traditional Mexican at 5 hours"],
     ans: 1,
-    exp: "C046 Frozen Breakfast is the anchor set this week at 8 hours, with the Natural Foods integration."
+    exp: "C046 Frozen Breakfast leads the week at 10 hours, integrating the Natural Foods assortment to the center of the set."
   },
   {
-    q: "Under the 20-minute out-of-case rule, what must you do with the natural doors before moving any shelves in C046?",
-    opts: ["Cover the product with thermal blankets", "Pull the product and move it to the back room freezer", "Shift the product to an adjacent open door", "Leave the product in place and work around it"],
+    q: "What is the time limit at the heart of the Deep Freeze Protocol?",
+    opts: ["10 minutes", "15 minutes", "20 minutes", "30 minutes"],
+    ans: 2,
+    exp: "The 20-minute limit is the heartbeat of the Deep Freeze Protocol. Product cannot sit out of the case longer than that."
+  },
+  {
+    q: "In Step 2 of the Deep Freeze Protocol, where does all pulled product go?",
+    opts: ["Onto covered carts in the aisle", "Immediately to the backroom freezer", "Into an adjacent open door", "To the receiving dock cooler"],
     ans: 1,
-    exp: "Pull the full natural doors completely out and stage the product in the back room freezer to protect temperatures before shelf work begins."
+    exp: "Step 2 is The Stage: move all pulled product immediately to the backroom freezer to protect temperatures. Do not leave product sitting out."
   },
   {
     q: "Which freezer case brands have the discontinued white grid shelves that must be preserved?",
     opts: ["Hussmann, Hill, and Zero Zone", "Tyler, Kyser, and Warren", "Arneg, Costan, and Bonnet", "True, Turbo Air, and Beverage-Air"],
     ans: 1,
-    exp: "Older Tyler, Kyser, or Warren cases have the discontinued white grid shelves. They must be preserved."
+    exp: "Tyler, Kyser, and Warren legacy cases have the discontinued white grid shelves. They must be preserved."
   },
   {
     q: "What must you do with the brackets on those white grid shelves?",
-    opts: ["Bag them and label the bag with the store number", "Hand them to the department head for storage", "Zip-tie all three pieces per shelf directly to the grid shelves", "Mail them back through the reclaim process"],
+    opts: ["Bag them and label the bag with the store number", "Hand them to the department head for storage", "Zip-tie them to the grid shelves immediately during the set", "Mail them back through the reclaim process"],
     ans: 2,
-    exp: "Zip-tie the brackets — all three pieces per shelf — directly to the grid shelves so they don't get lost. Without the brackets, the shelves are worthless."
+    exp: "Zip-tie the brackets to the grid shelves immediately during the frozen breakfast set. The shelves and brackets are completely worthless without each other."
   },
   {
     q: "Which two of our stores are converting from MX to UX planograms on C041 Frozen Potatoes?",
     opts: ["19 and 23", "31 and 215", "53 and 682", "459 and 658"],
     ans: 2,
-    exp: "Stores 53 and 682 are the two District 8 stores converting from MX to UX planograms on Frozen Potatoes."
+    exp: "Stores 53 and 682 are our two converting stores. Verify via the 2026 mapping files prior to any shelf adjustment."
   },
   {
-    q: "What is the correct top-to-bottom flow for the C093 Traditional Mexican Foods reflow?",
-    opts: ["Taco Kits, Better For You, OB, then shells by brand", "Shells by brand, OB, Better For You, then Taco Kits", "OB, Taco Kits, shells by brand, then Better For You", "Better For You, Taco Kits, OB, then shells by brand"],
-    ans: 0,
-    exp: "Top to bottom: Taco Kits first, then Better For You, then OB, and finally the rest of the shells blocked by brand."
-  },
-  {
-    q: "In C204 Enhanced Water, where do the BAI drinks move?",
-    opts: ["To the well at the base of the set", "From a right-side block to shelf 6", "To the top shelf next to Propel", "Out of the set entirely — they're deleted"],
-    ans: 1,
-    exp: "BAI drinks are the only flow change — they move from the right-side block over to shelf 6."
-  },
-  {
-    q: "C115 Foil & Wrap and C213 Cat Litter both require a POG name update. What is it?",
-    opts: ["Department 03 to Department 01", "Department 01 to Department 03", "Department 01 to Department 08", "Division 701 to Division 703"],
-    ans: 1,
-    exp: "Both sets require updating the POG names from Department 01 to Department 03. The version change applies to all ten of our stores."
-  },
-  {
-    q: "In C011 RTD Tea, what replaces the Arizona Tea and Liquid Death duplication on the bottom cooler shelf?",
-    opts: ["Pure Leaf 18.5 oz", "Gold Peak sweet tea", "Brisk 33.81 fluid ounce", "Peace Tea tallboys"],
+    q: "In the C093 Traditional Mexican reflow, what sits directly beneath the taco kits?",
+    opts: ["Conventional shells by brand block", "Our Brands (OB)", "Better For You (BFY)", "Salsa and toppings"],
     ans: 2,
-    exp: "Pull the Arizona Tea and Liquid Death duplication and replace it with the Brisk 33.81 fluid ounce."
+    exp: "Second tier is Better For You, positioned directly beneath the kits. Then Our Brands, with conventional shells organized by brand block on the bottom tiers."
   },
   {
-    q: "Looking ahead to P06W4, which three of our stores will undergo High Volume WIC conversions with C094 Infant Formula?",
-    opts: ["23, 31, and 53", "19, 28, and 215", "391, 459, and 658", "28, 682, and 215"],
+    q: "The C099 Hot Cereal planner calls for an additional pusher, but none were ordered. What is the first option?",
+    opts: ["Order new pushers and delay the set", "Use existing pushers on hand — standard RTE cereal pushers work", "Skip pushers entirely for this set", "Borrow pushers from a neighboring store"],
     ans: 1,
-    exp: "Stores 19, 28, and 215 get the High Volume WIC conversions with next week's Infant Formula set. Plan for it."
+    exp: "First option: use existing pushers on hand — standard RTE cereal pushers will work. Then check upstairs/fixture rooms, then pull from top-shelf single cups if they're denting packaging."
+  },
+  {
+    q: "In the C076 Peanut Butter & Jelly set, which item relocates in from the Deli?",
+    opts: ["Nutella hazelnut spread", "Mike's Hot Honey", "Bonne Maman preserves", "Justin's almond butter"],
+    ans: 1,
+    exp: "Mike's Hot Honey moves from C455 (Deli/Specialty Cheese) into the C076 PB&J honey subcommodity set."
+  },
+  {
+    q: "Looking ahead to Period 7, what changes over that you should review beforehand?",
+    opts: ["The Vestcom shipping origin", "The Natural Foods Innovations NCAP", "The Deep Freeze Protocol time limit", "The Fresh Step litter assortment"],
+    ans: 1,
+    exp: "The Natural Foods Innovations NCAP changes over in P7 — suppliers are changing and items are moving to inline sets. Review it before Period 7 lands."
   }
 ];
 
