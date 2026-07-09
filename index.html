@@ -1,467 +1,208 @@
-<!-- briefing-builder-test 2026-07-03T10:38:30.6972611-07:00 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P06W3 Team Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>P06W4 Team Quiz</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #1B2A4A;
-    --teal: #0891B2;
-    --orange: #F59E0B;
-    --red: #DC2626;
-    --light: #F0F4F8;
-    --green: #16A34A;
-    --yellow-bg: #FEF3C7;
-    --blue-bg: #ECFEFF;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--light);
-    color: var(--navy);
-    line-height: 1.5;
-    padding-bottom: 60px;
-  }
-  header {
-    background: var(--navy);
-    color: #fff;
-    padding: 24px 16px 20px;
-    text-align: center;
-    border-bottom: 4px solid var(--teal);
-  }
-  header h1 {
-    font-family: 'Space Mono', monospace;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-  }
-  header p {
-    color: var(--teal);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    margin-top: 6px;
-  }
-  .progress-wrap {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: var(--navy);
-    padding: 8px 16px 10px;
-  }
-  .progress-track {
-    background: rgba(255,255,255,0.15);
-    border-radius: 99px;
-    height: 10px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--teal), var(--orange));
-    border-radius: 99px;
-    transition: width 0.3s ease;
-  }
-  .progress-label {
-    color: #fff;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    text-align: right;
-    margin-top: 4px;
-  }
-  main { max-width: 640px; margin: 0 auto; padding: 16px; }
-  .name-card, .q-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(27,42,74,0.12);
-    padding: 16px;
-    margin-bottom: 16px;
-    border-top: 4px solid var(--teal);
-  }
-  .name-card label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: block;
-    margin-bottom: 8px;
-  }
-  .name-card input {
-    width: 100%;
-    padding: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    border: 2px solid var(--navy);
-    border-radius: 8px;
-    outline: none;
-  }
-  .name-card input:focus { border-color: var(--teal); }
-  .q-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--teal);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-  .q-text { font-weight: 700; font-size: 1rem; margin-bottom: 12px; }
-  .opt {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px;
-    border: 2px solid #dbe4ee;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    font-size: 0.95rem;
-  }
-  .opt:active { background: var(--blue-bg); }
-  .opt.selected { border-color: var(--teal); background: var(--blue-bg); }
-  .opt-letter {
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    color: var(--navy);
-    flex-shrink: 0;
-  }
-  .quiz-locked .opt { cursor: default; pointer-events: none; }
-  .opt.correct-ans {
-    border-color: var(--green);
-    background: #F0FDF4;
-  }
-  .opt.wrong-pick {
-    border-color: var(--red);
-    background: #FEF2F2;
-    text-decoration: line-through;
-  }
-  .feedback {
-    display: none;
-    font-size: 0.85rem;
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-top: 4px;
-  }
-  .feedback.show { display: block; }
-  .feedback.good { background: #F0FDF4; color: var(--green); font-weight: 700; }
-  .feedback.bad { background: var(--yellow-bg); color: var(--navy); }
-  .feedback.bad strong { color: var(--red); }
-  #submitBtn {
-    display: block;
-    width: 100%;
-    padding: 16px;
-    font-family: 'Space Mono', monospace;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #fff;
-    background: var(--teal);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  #submitBtn:disabled {
-    background: #9db2c4;
-    cursor: not-allowed;
-  }
-  #submitHint {
-    text-align: center;
-    font-size: 0.8rem;
-    color: #5b6b82;
-    margin-top: 8px;
-  }
-  #resultCard {
-    display: none;
-    background: var(--navy);
-    color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 16px;
-    border-top: 4px solid var(--orange);
-  }
-  #resultCard .score {
-    font-family: 'Space Mono', monospace;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: var(--orange);
-  }
-  #resultCard .verdict { margin-top: 8px; font-size: 1rem; }
-  .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(27,42,74,0.85);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
-  .overlay.active { display: flex; }
-  .overlay-box {
-    background: #fff;
-    border-radius: 16px;
-    padding: 32px 40px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  }
-  .spinner {
-    width: 44px;
-    height: 44px;
-    border: 5px solid var(--blue-bg);
-    border-top-color: var(--teal);
-    border-radius: 50%;
-    margin: 0 auto 14px;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .sync-msg {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--navy);
-  }
-  .sync-msg.done { color: var(--green); }
+:root{--navy:#1B2A4A;--teal:#0891B2;--orange:#F59E0B;--red:#DC2626;--green:#15803D;--light:#F0F4F8;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:#1e293b;padding-bottom:60px}
+header{background:var(--navy);color:#fff;padding:22px 18px;border-bottom:4px solid var(--teal)}
+header h1{font-family:'Space Mono',monospace;font-size:1.15rem;letter-spacing:.04em}
+header p{font-size:.85rem;opacity:.8;margin-top:6px}
+.progress-wrap{position:sticky;top:0;background:var(--navy);padding:0;z-index:5}
+.progress{height:6px;background:#33415c}
+.progress-fill{height:100%;width:0;background:var(--orange);transition:width .25s}
+main{max-width:640px;margin:0 auto;padding:16px}
+.name-card,.q-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(27,42,74,.12)}
+.name-card label{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--navy);display:block;margin-bottom:6px}
+.name-card input{width:100%;padding:12px;border:2px solid #cbd5e1;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif}
+.name-card input:focus{outline:none;border-color:var(--teal)}
+.q-num{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--teal);font-weight:700;margin-bottom:4px}
+.q-text{font-weight:700;font-size:1rem;margin-bottom:10px}
+.opt{display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;border:2px solid #e2e8f0;border-radius:8px;background:#fff;font-size:.92rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:border-color .15s}
+.opt.sel{border-color:var(--teal);background:#ECFEFF}
+.opt.correct{border-color:var(--green);background:#DCFCE7}
+.opt.wrong{border-color:var(--red);background:#FEE2E2;text-decoration:line-through}
+.opt:disabled{cursor:default;opacity:1;color:#1e293b}
+.feedback{font-size:.85rem;margin-top:6px;padding:10px;border-radius:8px;display:none}
+.feedback.good{display:block;background:#DCFCE7;color:var(--green)}
+.feedback.bad{display:block;background:#FEF3C7;color:#92400E}
+.submit-btn{width:100%;padding:16px;border:0;border-radius:10px;background:var(--orange);color:#fff;font-weight:700;font-size:1.05rem;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px}
+.submit-btn:disabled{background:#cbd5e1;cursor:not-allowed}
+.verdict{display:none;background:var(--navy);color:#fff;border-radius:12px;padding:20px;margin-top:16px;text-align:center}
+.verdict .score{font-family:'Space Mono',monospace;font-size:2rem;color:var(--orange)}
+.verdict p{margin-top:8px;font-size:.95rem}
+.overlay{position:fixed;inset:0;background:rgba(27,42,74,.9);display:none;align-items:center;justify-content:center;z-index:50}
+.overlay.show{display:flex}
+.overlay-box{background:#fff;border-radius:14px;padding:32px 40px;text-align:center;min-width:240px}
+.spinner{width:40px;height:40px;border:4px solid #e2e8f0;border-top-color:var(--teal);border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sync-msg{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--navy)}
+.sync-msg.done{color:var(--green);font-weight:700}
 </style>
 </head>
 <body>
-
 <header>
-  <h1>P06W3 TEAM QUIZ</h1>
-  <p>DISTRICT 8 &middot; 10 QUESTIONS</p>
+  <h1>P06W4 TEAM QUIZ</h1>
+  <p>10 questions from this week's briefing. Answer everything, enter your name, and hit submit.</p>
 </header>
-
-<div class="progress-wrap">
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-label" id="progressLabel">0 / 10 ANSWERED</div>
-</div>
-
+<div class="progress-wrap"><div class="progress"><div class="progress-fill" id="fill"></div></div></div>
 <main>
   <div class="name-card">
-    <label for="nameInput">YOUR NAME (REQUIRED)</label>
-    <input type="text" id="nameInput" placeholder="First and last name" autocomplete="name">
+    <label for="name">YOUR NAME (REQUIRED)</label>
+    <input type="text" id="name" placeholder="First and last name" autocomplete="name">
   </div>
-
-  <div id="resultCard">
-    <div class="score" id="scoreText"></div>
-    <div class="verdict" id="verdictText"></div>
-  </div>
-
-  <div id="quizContainer"></div>
-
-  <button id="submitBtn" disabled>Submit Quiz</button>
-  <p id="submitHint">Enter your name and answer all 10 questions to submit.</p>
+  <div id="quiz"></div>
+  <button class="submit-btn" id="submit" disabled>Submit Answers</button>
+  <div class="verdict" id="verdict"></div>
 </main>
-
 <div class="overlay" id="overlay">
   <div class="overlay-box">
-    <div class="spinner" id="spinner"></div>
-    <div class="sync-msg" id="syncMsg">Buffering...</div>
+    <div class="spinner" id="spin"></div>
+    <div class="sync-msg" id="syncmsg">Buffering...</div>
   </div>
 </div>
-
 <script>
-const PERIOD_WEEK = "P06W3";
-const POST_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+const PERIOD_WEEK = "P06W4";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
 
-const QUESTIONS = [
-  {
-    q: "What is our anchor set for P06W3, and how many hours is it?",
-    opts: ["C041 Frozen Potatoes at 5 hours", "C046 Frozen Breakfast at 10 hours", "C076 Peanut Butter & Jelly at 8 hours", "C093 Traditional Mexican at 5 hours"],
-    ans: 1,
-    exp: "C046 Frozen Breakfast leads the week at 10 hours, integrating the Natural Foods assortment to the center of the set."
-  },
-  {
-    q: "What is the time limit at the heart of the Deep Freeze Protocol?",
-    opts: ["10 minutes", "15 minutes", "20 minutes", "30 minutes"],
-    ans: 2,
-    exp: "The 20-minute limit is the heartbeat of the Deep Freeze Protocol. Product cannot sit out of the case longer than that."
-  },
-  {
-    q: "In Step 2 of the Deep Freeze Protocol, where does all pulled product go?",
-    opts: ["Onto covered carts in the aisle", "Immediately to the backroom freezer", "Into an adjacent open door", "To the receiving dock cooler"],
-    ans: 1,
-    exp: "Step 2 is The Stage: move all pulled product immediately to the backroom freezer to protect temperatures. Do not leave product sitting out."
-  },
-  {
-    q: "Which freezer case brands have the discontinued white grid shelves that must be preserved?",
-    opts: ["Hussmann, Hill, and Zero Zone", "Tyler, Kyser, and Warren", "Arneg, Costan, and Bonnet", "True, Turbo Air, and Beverage-Air"],
-    ans: 1,
-    exp: "Tyler, Kyser, and Warren legacy cases have the discontinued white grid shelves. They must be preserved."
-  },
-  {
-    q: "What must you do with the brackets on those white grid shelves?",
-    opts: ["Bag them and label the bag with the store number", "Hand them to the department head for storage", "Zip-tie them to the grid shelves immediately during the set", "Mail them back through the reclaim process"],
-    ans: 2,
-    exp: "Zip-tie the brackets to the grid shelves immediately during the frozen breakfast set. The shelves and brackets are completely worthless without each other."
-  },
-  {
-    q: "Which two of our stores are converting from MX to UX planograms on C041 Frozen Potatoes?",
-    opts: ["19 and 23", "31 and 215", "53 and 682", "459 and 658"],
-    ans: 2,
-    exp: "Stores 53 and 682 are our two converting stores. Verify via the 2026 mapping files prior to any shelf adjustment."
-  },
-  {
-    q: "In the C093 Traditional Mexican reflow, what sits directly beneath the taco kits?",
-    opts: ["Conventional shells by brand block", "Our Brands (OB)", "Better For You (BFY)", "Salsa and toppings"],
-    ans: 2,
-    exp: "Second tier is Better For You, positioned directly beneath the kits. Then Our Brands, with conventional shells organized by brand block on the bottom tiers."
-  },
-  {
-    q: "The C099 Hot Cereal planner calls for an additional pusher, but none were ordered. What is the first option?",
-    opts: ["Order new pushers and delay the set", "Use existing pushers on hand — standard RTE cereal pushers work", "Skip pushers entirely for this set", "Borrow pushers from a neighboring store"],
-    ans: 1,
-    exp: "First option: use existing pushers on hand — standard RTE cereal pushers will work. Then check upstairs/fixture rooms, then pull from top-shelf single cups if they're denting packaging."
-  },
-  {
-    q: "In the C076 Peanut Butter & Jelly set, which item relocates in from the Deli?",
-    opts: ["Nutella hazelnut spread", "Mike's Hot Honey", "Bonne Maman preserves", "Justin's almond butter"],
-    ans: 1,
-    exp: "Mike's Hot Honey moves from C455 (Deli/Specialty Cheese) into the C076 PB&J honey subcommodity set."
-  },
-  {
-    q: "Looking ahead to Period 7, what changes over that you should review beforehand?",
-    opts: ["The Vestcom shipping origin", "The Natural Foods Innovations NCAP", "The Deep Freeze Protocol time limit", "The Fresh Step litter assortment"],
-    ans: 1,
-    exp: "The Natural Foods Innovations NCAP changes over in P7 — suppliers are changing and items are moving to inline sets. Review it before Period 7 lands."
-  }
+const QS = [
+ {q:"What is the top priority this week?",
+  o:["Coffee reset at all stores","Check stands / check lanes — complete by end of week","Frozen Vegetables before Wednesday","Vestcom box returns"],
+  a:1, why:"Check stands and check lanes are the stated top priority — complete by end of week, no exceptions."},
+ {q:"The coffee planogram estimate is built on an 8-foot bag set, but our average store runs about 20 feet. How many hours should you plan for on Coffee?",
+  o:["6 hours","8 hours","11 hours","15 hours"],
+  a:2, why:"Plan for 11 hours. The calendar estimate undersells it — the test run went 28 feet."},
+ {q:"What was the coffee method that worked on the test run?",
+  o:["One person working left to right","Two people starting at both ends — pull Dunkin and Kroger into carts, then move Seattle's Best","Set the Starbucks fixture first, then work outward","Pull the entire wall before setting anything"],
+  a:1, why:"Two people, both ends: pull all the Dunkin and Kroger into carts, then move the Seattle's Best."},
+ {q:"On the Frozen Vegetables reset, what do you do with the shelf heights printed on the planogram?",
+  o:["Follow them exactly","Disregard them and use the adjusted heights from the notes","Only use them on 8-door sets","Ask the store manager to choose"],
+  a:1, why:"Disregard the printed heights — the POG scrunches the set with a big air gap. Use the adjusted heights (0/11/21/31/41/51), confirmed against the older 59–61 inch cases."},
+ {q:"On refrigerated and frozen sets this week, what is the maximum time product can be out of the case?",
+  o:["10 minutes","20 minutes","30 minutes","45 minutes"],
+  a:1, why:"20 minutes is the cold-chain rule on every refrigerated/frozen set this week."},
+ {q:"What shelf change happens in the jelly section on the PBJ reset?",
+  o:["Two shelves are removed from each bay","One shelf is added per bay — the new shelf 5 at 5 inches","All shelves move up 2 inches","Jelly converts to pegboard"],
+  a:1, why:"Jelly gains one shelf per bay — the new shelf 5 at 5 inches, fitting the existing wide gap. The shelf removals happen on the peanut butter side."},
+ {q:"Which District 8 stores convert to the VX (community segmented, high-WIC) planogram on Infant Formula?",
+  o:["19, 28, 215","23, 31, 53","391, 459, 658","All ten stores"],
+  a:0, why:"Stores 19, 28, and 215 are flagged High Volume WIC and convert to VX. Everyone else verifies segmentation and follows the POG designated for their location — MX and VX are not interchangeable."},
+ {q:"What do you do with the artisan bread romance tags during the Bread reset?",
+  o:["Toss them with the deletes","Hand them to the front end","Do NOT throw them away — hold onto them","Mail them back in the Vestcom box"],
+  a:2, why:"Hold onto the romance tags — they must not be thrown away. Reference photos are in the briefing."},
+ {q:"On the fuel sets, who moves product between the store and the fuel center?",
+  o:["Our team, using totes","Store and fuel center personnel only — we are not permitted to transport it in either direction","Whoever finishes their section first","The vendor rep"],
+  a:1, why:"Hard rule: we never transport product between the store and fuel center in either direction. Coordinate with store management and fuel staff — they move it."},
+ {q:"You're at one of the eight stores where the branded primary battery end (V675 F005) is unmapped. What do you do with the strips in your Vestcom box?",
+  o:["Toss all battery-end strips","Toss ONLY the strips labeled V675 F005 and set the second battery end normally","Set both battery ends anyway","Return all strips to me unsorted"],
+  a:1, why:"There are TWO battery-end POGs and only V675 F005 was unmapped. Check the POG name printed on the strips — toss only the F005 strips, cross that line off the worksheet, and set the second end per the POG PDFs."}
 ];
 
-const answers = new Array(QUESTIONS.length).fill(null);
-let locked = false;
+const quiz = document.getElementById('quiz');
+const answers = new Array(QS.length).fill(null);
+QS.forEach((item, i) => {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.innerHTML = `<div class="q-num">QUESTION ${i+1} OF ${QS.length}</div><div class="q-text">${item.q}</div>` +
+    item.o.map((opt, j) => `<button class="opt" data-q="${i}" data-o="${j}">${String.fromCharCode(65+j)}. ${opt}</button>`).join('') +
+    `<div class="feedback" id="fb${i}"></div>`;
+  quiz.appendChild(card);
+});
 
-const quizContainer = document.getElementById("quizContainer");
-const nameInput = document.getElementById("nameInput");
-const submitBtn = document.getElementById("submitBtn");
-const submitHint = document.getElementById("submitHint");
-const progressFill = document.getElementById("progressFill");
-const progressLabel = document.getElementById("progressLabel");
-
-QUESTIONS.forEach((item, qi) => {
-  const card = document.createElement("div");
-  card.className = "q-card";
-  card.id = "q" + qi;
-  let optsHtml = "";
-  item.opts.forEach((opt, oi) => {
-    optsHtml += '<div class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
-      '<span class="opt-letter">' + "ABCD"[oi] + '.</span><span>' + opt + '</span></div>';
+document.querySelectorAll('.opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const q = +btn.dataset.q, o = +btn.dataset.o;
+    answers[q] = o;
+    document.querySelectorAll(`.opt[data-q="${q}"]`).forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    updateState();
   });
-  card.innerHTML = '<div class="q-num">QUESTION ' + (qi + 1) + ' OF ' + QUESTIONS.length + '</div>' +
-    '<div class="q-text">' + item.q + '</div>' + optsHtml +
-    '<div class="feedback" id="fb' + qi + '"></div>';
-  quizContainer.appendChild(card);
 });
 
-quizContainer.addEventListener("click", function(e) {
-  if (locked) return;
-  const opt = e.target.closest(".opt");
-  if (!opt) return;
-  const qi = parseInt(opt.dataset.q, 10);
-  const oi = parseInt(opt.dataset.o, 10);
-  answers[qi] = oi;
-  document.querySelectorAll('#q' + qi + ' .opt').forEach(el => el.classList.remove("selected"));
-  opt.classList.add("selected");
-  updateProgress();
-});
+const nameInput = document.getElementById('name');
+nameInput.addEventListener('input', updateState);
 
-nameInput.addEventListener("input", updateProgress);
-
-function updateProgress() {
-  const answered = answers.filter(a => a !== null).length;
-  progressFill.style.width = (answered / QUESTIONS.length * 100) + "%";
-  progressLabel.textContent = answered + " / " + QUESTIONS.length + " ANSWERED";
-  const ready = answered === QUESTIONS.length && nameInput.value.trim().length > 0;
-  submitBtn.disabled = !ready;
-  submitHint.style.display = ready ? "none" : "block";
+function updateState(){
+  const done = answers.filter(a => a !== null).length;
+  document.getElementById('fill').style.width = (done / QS.length * 100) + '%';
+  document.getElementById('submit').disabled = !(done === QS.length && nameInput.value.trim().length > 0);
 }
 
-function getVerdict(score) {
-  if (score === 10) return "Perfect. You were paying attention.";
-  if (score >= 8) return "Solid. Review the ones you missed.";
-  if (score >= 6) return "Watch the presentation again — key details were missed.";
-  return "Go back and rewatch the full presentation before your next shift.";
-}
-
-submitBtn.addEventListener("click", function() {
-  if (locked) return;
-  locked = true;
-  document.body.classList.add("quiz-locked");
-  submitBtn.disabled = true;
-
+document.getElementById('submit').addEventListener('click', () => {
+  const btn = document.getElementById('submit');
+  btn.disabled = true;
+  nameInput.disabled = true;
   let score = 0;
   const missed = [];
-  QUESTIONS.forEach((item, qi) => {
-    const picked = answers[qi];
-    const opts = document.querySelectorAll('#q' + qi + ' .opt');
-    const fb = document.getElementById("fb" + qi);
-    opts[item.ans].classList.add("correct-ans");
-    if (picked === item.ans) {
+  QS.forEach((item, i) => {
+    const chosen = answers[i];
+    document.querySelectorAll(`.opt[data-q="${i}"]`).forEach(b => {
+      b.disabled = true;
+      const o = +b.dataset.o;
+      if (o === item.a) b.classList.add('correct');
+      else if (o === chosen) b.classList.add('wrong');
+    });
+    const fb = document.getElementById('fb' + i);
+    if (chosen === item.a) {
       score++;
-      fb.className = "feedback show good";
-      fb.textContent = "Correct.";
+      fb.className = 'feedback good';
+      fb.textContent = 'Correct.';
     } else {
-      opts[picked].classList.add("wrong-pick");
-      missed.push(qi + 1);
-      fb.className = "feedback show bad";
-      fb.innerHTML = "<strong>Not quite.</strong> " + item.exp;
+      missed.push(i + 1);
+      fb.className = 'feedback bad';
+      fb.textContent = item.why;
     }
   });
 
-  const percent = Math.round(score / QUESTIONS.length * 100);
-  const name = nameInput.value.trim();
-  nameInput.disabled = true;
+  const percent = Math.round(score / QS.length * 100);
+  let msg;
+  if (score === 10) msg = "Perfect. You were paying attention.";
+  else if (score >= 8) msg = "Solid. Review the ones you missed.";
+  else if (score >= 6) msg = "Watch the presentation again — key details were missed.";
+  else msg = "Go back and rewatch the full presentation before your next shift.";
 
-  const overlay = document.getElementById("overlay");
-  const spinner = document.getElementById("spinner");
-  const syncMsg = document.getElementById("syncMsg");
-  overlay.classList.add("active");
-  spinner.style.display = "block";
-  syncMsg.textContent = "Buffering...";
-  syncMsg.classList.remove("done");
+  const payload = {
+    periodWeek: PERIOD_WEEK,
+    name: nameInput.value.trim(),
+    score: score,
+    outOf: QS.length,
+    percent: percent,
+    missed: missed.join(', ') || 'none'
+  };
+
+  const overlay = document.getElementById('overlay');
+  const syncmsg = document.getElementById('syncmsg');
+  const spin = document.getElementById('spin');
+  overlay.classList.add('show');
+  spin.style.display = 'block';
+  syncmsg.className = 'sync-msg';
+  syncmsg.textContent = 'Buffering...';
 
   let postFailed = false;
-  try {
-    fetch(POST_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({
-        timestamp: new Date().toISOString(),
-        periodWeek: PERIOD_WEEK,
-        name: name,
-        score: score,
-        outOf: QUESTIONS.length,
-        percent: percent,
-        missedQuestions: missed.join(", ") || "None"
-      })
-    }).catch(function() { postFailed = true; });
-  } catch (err) {
-    postFailed = true;
-  }
+  fetch(ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  }).catch(() => { postFailed = true; });
 
-  setTimeout(function() {
-    spinner.style.display = "none";
-    syncMsg.textContent = "Your results have been submitted.";
-    syncMsg.classList.add("done");
+  setTimeout(() => {
+    spin.style.display = 'none';
+    syncmsg.className = 'sync-msg done';
+    syncmsg.textContent = 'Your results have been submitted.';
+    setTimeout(() => {
+      overlay.classList.remove('show');
+      const v = document.getElementById('verdict');
+      v.style.display = 'block';
+      let extra = postFailed ? '<p><b>Screenshot this and send to me.</b></p>' : '';
+      v.innerHTML = `<div class="score">${score}/${QS.length}</div><p>${msg}</p>${extra}`;
+      v.scrollIntoView({behavior: 'smooth'});
+    }, 2000);
   }, 1500);
-
-  setTimeout(function() {
-    overlay.classList.remove("active");
-    const resultCard = document.getElementById("resultCard");
-    document.getElementById("scoreText").textContent = score + " / " + QUESTIONS.length;
-    let verdict = getVerdict(score);
-    if (postFailed) verdict += " Screenshot this and send it to me.";
-    document.getElementById("verdictText").textContent = verdict;
-    resultCard.style.display = "block";
-    resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
-    submitBtn.style.display = "none";
-  }, 2000);
 });
 </script>
 </body>
