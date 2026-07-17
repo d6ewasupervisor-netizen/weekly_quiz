@@ -3,204 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P06W4 Team Quiz</title>
+<title>P07W1 Team Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--teal:#0891B2;--orange:#F59E0B;--red:#DC2626;--green:#15803D;--light:#F0F4F8;}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--light);color:#1e293b;padding-bottom:60px}
-header{background:var(--navy);color:#fff;padding:22px 18px;border-bottom:4px solid var(--teal)}
-header h1{font-family:'Space Mono',monospace;font-size:1.15rem;letter-spacing:.04em}
-header p{font-size:.85rem;opacity:.8;margin-top:6px}
-.progress-wrap{position:sticky;top:0;background:var(--navy);padding:0;z-index:5}
-.progress{height:6px;background:#33415c}
-.progress-fill{height:100%;width:0;background:var(--orange);transition:width .25s}
-main{max-width:640px;margin:0 auto;padding:16px}
-.name-card,.q-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(27,42,74,.12)}
-.name-card label{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--navy);display:block;margin-bottom:6px}
-.name-card input{width:100%;padding:12px;border:2px solid #cbd5e1;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif}
-.name-card input:focus{outline:none;border-color:var(--teal)}
-.q-num{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--teal);font-weight:700;margin-bottom:4px}
-.q-text{font-weight:700;font-size:1rem;margin-bottom:10px}
-.opt{display:block;width:100%;text-align:left;padding:12px;margin-bottom:8px;border:2px solid #e2e8f0;border-radius:8px;background:#fff;font-size:.92rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:border-color .15s}
-.opt.sel{border-color:var(--teal);background:#ECFEFF}
-.opt.correct{border-color:var(--green);background:#DCFCE7}
-.opt.wrong{border-color:var(--red);background:#FEE2E2;text-decoration:line-through}
-.opt:disabled{cursor:default;opacity:1;color:#1e293b}
-.feedback{font-size:.85rem;margin-top:6px;padding:10px;border-radius:8px;display:none}
-.feedback.good{display:block;background:#DCFCE7;color:var(--green)}
-.feedback.bad{display:block;background:#FEF3C7;color:#92400E}
-.submit-btn{width:100%;padding:16px;border:0;border-radius:10px;background:var(--orange);color:#fff;font-weight:700;font-size:1.05rem;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px}
-.submit-btn:disabled{background:#cbd5e1;cursor:not-allowed}
-.verdict{display:none;background:var(--navy);color:#fff;border-radius:12px;padding:20px;margin-top:16px;text-align:center}
-.verdict .score{font-family:'Space Mono',monospace;font-size:2rem;color:var(--orange)}
-.verdict p{margin-top:8px;font-size:.95rem}
-.overlay{position:fixed;inset:0;background:rgba(27,42,74,.9);display:none;align-items:center;justify-content:center;z-index:50}
-.overlay.show{display:flex}
-.overlay-box{background:#fff;border-radius:14px;padding:32px 40px;text-align:center;min-width:240px}
-.spinner{width:40px;height:40px;border:4px solid #e2e8f0;border-top-color:var(--teal);border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.sync-msg{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--navy)}
-.sync-msg.done{color:var(--green);font-weight:700}
+  :root { --navy:#1B2A4A; --teal:#0891B2; --orange:#F59E0B; --light:#F0F4F8; --red:#DC2626; --green:#16A34A; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:var(--light); color:var(--navy); padding-bottom:60px; }
+  .topbar { height:6px; background:var(--teal); }
+  header { background:var(--navy); color:#fff; padding:28px 20px 22px; }
+  header .kicker { font-family:'Space Mono',monospace; color:var(--orange); font-size:13px; letter-spacing:3px; text-transform:uppercase; }
+  header h1 { font-size:26px; margin-top:6px; }
+  header p { color:#A8C4D8; font-size:14px; margin-top:6px; }
+  .progress-wrap { position:sticky; top:0; z-index:50; background:var(--light); padding:10px 20px 6px; }
+  .progress-track { height:10px; background:#DCE6EF; border-radius:6px; overflow:hidden; }
+  .progress-fill { height:100%; width:0%; background:var(--teal); border-radius:6px; transition:width .25s; }
+  .progress-label { font-family:'Space Mono',monospace; font-size:12px; color:#5A7089; margin-top:5px; }
+  .container { max-width:680px; margin:0 auto; padding:16px 16px 0; }
+  .namecard { background:#fff; border-radius:14px; padding:18px; box-shadow:0 3px 12px rgba(27,42,74,.10); margin-bottom:18px; }
+  .namecard label { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); font-weight:700; }
+  .namecard input { width:100%; margin-top:8px; padding:12px 14px; font-size:16px; font-family:'DM Sans',sans-serif; border:2px solid #DCE6EF; border-radius:10px; }
+  .namecard input:focus { outline:none; border-color:var(--teal); }
+  .q { background:#fff; border-radius:14px; padding:18px; box-shadow:0 3px 12px rgba(27,42,74,.10); margin-bottom:16px; }
+  .q .qnum { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px; color:var(--teal); font-weight:700; }
+  .q h3 { font-size:17px; margin:6px 0 12px; line-height:1.4; }
+  .opt { display:flex; gap:10px; align-items:flex-start; border:2px solid #DCE6EF; border-radius:10px; padding:12px; margin-bottom:8px; cursor:pointer; font-size:15px; line-height:1.35; transition:border-color .15s, background .15s; }
+  .opt:hover { border-color:var(--teal); }
+  .opt input { margin-top:2px; accent-color:var(--teal); }
+  .opt.sel { border-color:var(--teal); background:#ECFEFF; }
+  .locked .opt { cursor:default; }
+  .opt.correct { border-color:var(--green); background:#F0FDF4; }
+  .opt.wrong { border-color:var(--red); background:#FEF2F2; text-decoration:line-through; }
+  .feedback { display:none; margin-top:10px; font-size:14px; border-radius:10px; padding:12px; line-height:1.45; }
+  .feedback.good { display:block; background:#F0FDF4; color:var(--green); font-weight:700; }
+  .feedback.bad { display:block; background:#FEF2F2; color:var(--red); }
+  .feedback.bad b { color:var(--navy); }
+  .submit-wrap { padding:8px 0 20px; }
+  #submitBtn { width:100%; padding:16px; font-family:'Space Mono',monospace; font-size:16px; font-weight:700; letter-spacing:2px; text-transform:uppercase; background:var(--orange); color:var(--navy); border:none; border-radius:12px; cursor:pointer; }
+  #submitBtn:disabled { background:#DCE6EF; color:#8FA3B8; cursor:not-allowed; }
+  #results { display:none; background:var(--navy); color:#fff; border-radius:14px; padding:24px; margin-bottom:18px; text-align:center; }
+  #results .score { font-family:'Space Mono',monospace; font-size:44px; font-weight:700; color:var(--orange); }
+  #results .verdict { margin-top:10px; font-size:16px; line-height:1.45; color:#DCE6EF; }
+  .overlay { display:none; position:fixed; inset:0; background:rgba(27,42,74,.85); z-index:100; align-items:center; justify-content:center; }
+  .overlay.show { display:flex; }
+  .overlay-box { background:#fff; border-radius:16px; padding:36px 44px; text-align:center; min-width:260px; }
+  .spinner { width:48px; height:48px; border:5px solid #DCE6EF; border-top-color:var(--teal); border-radius:50%; margin:0 auto 18px; animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .sync-msg { font-family:'Space Mono',monospace; font-size:15px; font-weight:700; color:var(--navy); }
+  .sync-msg.done { color:var(--green); }
 </style>
 </head>
 <body>
+<div class="topbar"></div>
 <header>
-  <h1>P06W4 TEAM QUIZ</h1>
-  <p>10 questions from this week's briefing. Answer everything, enter your name, and hit submit.</p>
+  <div class="kicker">Period 7 &middot; Week 1 &middot; District 8</div>
+  <h1>Briefing Quiz &mdash; 20 Questions</h1>
+  <p>Straight from this week's presentation, weekly work and bakery training both. Answer everything, then submit.</p>
 </header>
-<div class="progress-wrap"><div class="progress"><div class="progress-fill" id="fill"></div></div></div>
-<main>
-  <div class="name-card">
-    <label for="name">YOUR NAME (REQUIRED)</label>
-    <input type="text" id="name" placeholder="First and last name" autocomplete="name">
+<div class="progress-wrap">
+  <div class="progress-track"><div class="progress-fill" id="pfill"></div></div>
+  <div class="progress-label" id="plabel">0 / 20 answered</div>
+</div>
+<div class="container">
+  <div class="namecard">
+    <label for="nameInput">Your Name (required)</label>
+    <input id="nameInput" type="text" placeholder="First and last name" autocomplete="name">
   </div>
   <div id="quiz"></div>
-  <button class="submit-btn" id="submit" disabled>Submit Answers</button>
-  <div class="verdict" id="verdict"></div>
-</main>
+  <div id="results"><div class="score" id="scoreTxt"></div><div class="verdict" id="verdictTxt"></div></div>
+  <div class="submit-wrap"><button id="submitBtn" disabled>Submit Answers</button></div>
+</div>
+
 <div class="overlay" id="overlay">
   <div class="overlay-box">
     <div class="spinner" id="spin"></div>
-    <div class="sync-msg" id="syncmsg">Buffering...</div>
+    <div class="sync-msg" id="syncMsg">Buffering...</div>
   </div>
 </div>
+
 <script>
-const PERIOD_WEEK = "P06W4";
+const PERIOD_WEEK = "P07W1";
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
 
-const QS = [
- {q:"What is the top priority this week?",
-  o:["Coffee reset at all stores","Check stands / check lanes — complete by end of week","Frozen Vegetables before Wednesday","Vestcom box returns"],
-  a:1, why:"Check stands and check lanes are the stated top priority — complete by end of week, no exceptions."},
- {q:"The coffee planogram estimate is built on an 8-foot bag set, but our average store runs about 20 feet. How many hours should you plan for on Coffee?",
-  o:["6 hours","8 hours","11 hours","15 hours"],
-  a:2, why:"Plan for 11 hours. The calendar estimate undersells it — the test run went 28 feet."},
- {q:"What was the coffee method that worked on the test run?",
-  o:["One person working left to right","Two people starting at both ends — pull Dunkin and Kroger into carts, then move Seattle's Best","Set the Starbucks fixture first, then work outward","Pull the entire wall before setting anything"],
-  a:1, why:"Two people, both ends: pull all the Dunkin and Kroger into carts, then move the Seattle's Best."},
- {q:"On the Frozen Vegetables reset, what do you do with the shelf heights printed on the planogram?",
-  o:["Follow them exactly","Disregard them and use the adjusted heights from the notes","Only use them on 8-door sets","Ask the store manager to choose"],
-  a:1, why:"Disregard the printed heights — the POG scrunches the set with a big air gap. Use the adjusted heights (0/11/21/31/41/51), confirmed against the older 59–61 inch cases."},
- {q:"On refrigerated and frozen sets this week, what is the maximum time product can be out of the case?",
-  o:["10 minutes","20 minutes","30 minutes","45 minutes"],
-  a:1, why:"20 minutes is the cold-chain rule on every refrigerated/frozen set this week."},
- {q:"What shelf change happens in the jelly section on the PBJ reset?",
-  o:["Two shelves are removed from each bay","One shelf is added per bay — the new shelf 5 at 5 inches","All shelves move up 2 inches","Jelly converts to pegboard"],
-  a:1, why:"Jelly gains one shelf per bay — the new shelf 5 at 5 inches, fitting the existing wide gap. The shelf removals happen on the peanut butter side."},
- {q:"Which District 8 stores convert to the VX (community segmented, high-WIC) planogram on Infant Formula?",
-  o:["19, 28, 215","23, 31, 53","391, 459, 658","All ten stores"],
-  a:0, why:"Stores 19, 28, and 215 are flagged High Volume WIC and convert to VX. Everyone else verifies segmentation and follows the POG designated for their location — MX and VX are not interchangeable."},
- {q:"What do you do with the artisan bread romance tags during the Bread reset?",
-  o:["Toss them with the deletes","Hand them to the front end","Do NOT throw them away — hold onto them","Mail them back in the Vestcom box"],
-  a:2, why:"Hold onto the romance tags — they must not be thrown away. Reference photos are in the briefing."},
- {q:"On the fuel sets, who moves product between the store and the fuel center?",
-  o:["Our team, using totes","Store and fuel center personnel only — we are not permitted to transport it in either direction","Whoever finishes their section first","The vendor rep"],
-  a:1, why:"Hard rule: we never transport product between the store and fuel center in either direction. Coordinate with store management and fuel staff — they move it."},
- {q:"You're at one of the eight stores where the branded primary battery end (V675 F005) is unmapped. What do you do with the strips in your Vestcom box?",
-  o:["Toss all battery-end strips","Toss ONLY the strips labeled V675 F005 and set the second battery end normally","Set both battery ends anyway","Return all strips to me unsorted"],
-  a:1, why:"There are TWO battery-end POGs and only V675 F005 was unmapped. Check the POG name printed on the strips — toss only the F005 strips, cross that line off the worksheet, and set the second end per the POG PDFs."}
+const QUESTIONS = [
+ { q:"What is the total number of Compass hours on the board this week?",
+   opts:["42 hours","41.5 hours","38 hours","40.5 hours"], a:1,
+   ex:"The line-item math lands at 41.5 hours — Tea's 12 and Hair Care's 9 are the two big rocks inside it." },
+ { q:"In the tea sequencing that works, what is the FIRST move?",
+   opts:["Pull the Natural section","Start at Bay 1 and work across","Set the bottom and top shelves first","Adjust every shelf except the top"], a:2,
+   ex:"Bottom and top shelves come first. Then you pull Natural and set those shelves, and only after that do you adjust the rest." },
+ { q:"The new tea flow BEGINS with which block?",
+   opts:["Black tea big packs","NF Teas, Lattes, and Concentrates","Iced tea","Green tea"], a:1,
+   ex:"The set opens with the natural foods teas, lattes, and concentrates — and that natural block travels end to end. Iced tea moved to the END of the set." },
+ { q:"C056 rides along with the fruit snacks reset. Where does that work get recorded?",
+   opts:["Under C056","Under C033","Split between both","Under C164"], a:1,
+   ex:"C056 gets NII strips, but every bit of the work is recorded under C033." },
+ { q:"What is the required action on the Bear Fruit variety packs?",
+   opts:["Return remaining stock to the vendor","Set them as-is until the new package arrives","Hold all stock in the backroom","Work with the store on a temporary solution and the markdown or removal of remaining stock"], a:3,
+   ex:"The packages are too large for the space and a change is coming — until then, it's a temporary solution with the store plus markdown/removal of what's left." },
+ { q:"In dry dinner mixes, where does the new Goodles 4-pack land?",
+   opts:["Bottom shelf with the 8-packs","Top shelf with the other natural cups","Eye level next to Kraft","End cap"], a:1,
+   ex:"Goodles 4-pack goes top shelf with the natural cups. It's the Kraft/Velveeta/Kroger 8-packs that drop to the bottom shelf." },
+ { q:"Refrigerated Italian product can be out of the case for a maximum of how long?",
+   opts:["15 minutes","20 minutes","30 minutes","No limit if it goes back cold"], a:1,
+   ex:"C074 carries a 20-minute max out of the case. (Careful — the BAKERY refrigerated/frozen limit is a different number.)" },
+ { q:"In NF coffee & tea, where does Oregon Chai move?",
+   opts:["To the bottom shelf","To the top shelf","Out of the set entirely","To the end of the run"], a:1,
+   ex:"Oregon Chai moves to the top shelf where it previously sat on the bottom — shelves reposition to even the white space, so double-check spacing after." },
+ { q:"Hair care runs roughly 3 adds for every delete. What does that mean you should plan for?",
+   opts:["Extra deletes to pull","Overstock being created","Empty facings","A full-set teardown"], a:1,
+   ex:"Three adds per delete means product coming in faster than it's leaving — overstock WILL be created, so plan for it." },
+ { q:"In Pro Hair, which brand LEADS the 8-foot-and-up planograms?",
+   opts:["Paul Mitchell","Matrix","Redken","COSRX"], a:2,
+   ex:"Lead with Redken in the 8-foot+ POGs, with the Men's block now bottom right of those same sets." },
+ { q:"A store denies you a set. What exactly do I need from you, immediately?",
+   opts:["A photo of the empty fixture","The name and title of the person denying, and the reason given","An EOD note only","A hotline case number"], a:1,
+   ex:"Set denials come to me immediately with the name and title of who's denying and the reason. Don't sit on it and don't work around it." },
+ { q:"Which sequence matches the daily rhythm in the order the day actually runs?",
+   opts:["Shifts by 3 → cut-ins by 9 → out by 2:30","Cut-ins by 9 → out of the store by 2:30 → shifts and EODs in by 3","Out by 2:30 → cut-ins by 9 → EODs by 3","Cut-ins by 9 → EODs by 3 → out by 2:30"], a:1,
+   ex:"Cut-ins wrapped by 9 AM, out of the store by 2:30, shifts and EODs turned in by 3 PM — with the store number in every EOD subject line." },
+ { q:"Next week's cookies NII features which Oreo limited time flavor?",
+   opts:["Pumpkin Spice","Apple Pie","Salted Caramel","Birthday Cake"], a:1,
+   ex:"Oreo Limited Time Apple Pie headlines the 2-hour cookies NII in week two." },
+ { q:"Bakery: when photographing tiered tables, what's the rule?",
+   opts:["One wide shot is enough","Photograph the front AND the back","Photos only if something changed","Only photograph the top tier"], a:1,
+   ex:"Tiered tables get photographed front AND back, every time — one side never tells the whole story." },
+ { q:"Bakery: a facing's product isn't moving in the reset. What happens with its black ID tag?",
+   opts:["The existing tag stays","It still gets a NEW black ID tag","Only new items get tags","Tags are optional on unchanged facings"], a:1,
+   ex:"A new black ID tag goes down for EVERY facing — even if the product isn't moving. Centered, fully hidden, oriented the way the product faces." },
+ { q:"Bakery, missing tag, NO handheld printer available. What's the process?",
+   opts:["Skip the facing and note it","Handwrite the price on a blank tag","Blank tag plus a Post-it with the UPC; the store prints the white label on the Telson and affixes it","Wait for the next reset"], a:2,
+   ex:"Without a printer: blank tag + Post-it with the UPC, and the store uses the Telson to print the white label and place it over the tag. Never skip." },
+ { q:"Bakery refrigerated and frozen product is never outside the case more than…",
+   opts:["15 minutes","20 minutes","10 minutes","One lap of the department"], a:0,
+   ex:"15 minutes, hard rule, not negotiable. (The 20-minute number belongs to refrigerated Italian on the grocery side.)" },
+ { q:"Bakery strips hang with the open edge facing which way — and why?",
+   opts:["Up, so tags slide in easily","Down, to prevent crumb buildup","Toward the aisle, for visibility","It doesn't matter"], a:1,
+   ex:"Open edge DOWN — that's what keeps crumbs from collecting inside the strip." },
+ { q:"Bakery racks and baskets: where do the new tags go?",
+   opts:["Front of the rack, customer-facing","Strictly on the BACK of the rack, never the front","Either side works","On the shelf edge below"], a:1,
+   ex:"New tags go strictly on the back of the rack — never the front. That's the rule people miss." },
+ { q:"Per the District 8 completion standard, when is a bakery set considered done?",
+   opts:["When the product is faced and photos are taken","When the planogram book is swapped","When all six checks are done — including the store walk-through while still on site","When the bakery team says it looks good"], a:2,
+   ex:"All six: 100% complete, fresh tags, materials handled, book swapped, photos captured, and the walk-through with the bakery team or management while on site. A set is not done until all six are done. That's the standard." }
 ];
 
 const quiz = document.getElementById('quiz');
-const answers = new Array(QS.length).fill(null);
-QS.forEach((item, i) => {
-  const card = document.createElement('div');
-  card.className = 'q-card';
-  card.innerHTML = `<div class="q-num">QUESTION ${i+1} OF ${QS.length}</div><div class="q-text">${item.q}</div>` +
-    item.o.map((opt, j) => `<button class="opt" data-q="${i}" data-o="${j}">${String.fromCharCode(65+j)}. ${opt}</button>`).join('') +
-    `<div class="feedback" id="fb${i}"></div>`;
-  quiz.appendChild(card);
+QUESTIONS.forEach((item, qi) => {
+  const div = document.createElement('div');
+  div.className = 'q'; div.id = 'q' + qi;
+  div.innerHTML = '<div class="qnum">QUESTION ' + String(qi+1).padStart(2,'0') + ' / 20</div>' +
+    '<h3>' + item.q + '</h3>' +
+    item.opts.map((o, oi) =>
+      '<label class="opt" data-q="'+qi+'" data-o="'+oi+'"><input type="radio" name="q'+qi+'" value="'+oi+'"><span>' + o + '</span></label>'
+    ).join('') +
+    '<div class="feedback" id="fb'+qi+'"></div>';
+  quiz.appendChild(div);
 });
 
-document.querySelectorAll('.opt').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const q = +btn.dataset.q, o = +btn.dataset.o;
-    answers[q] = o;
-    document.querySelectorAll(`.opt[data-q="${q}"]`).forEach(b => b.classList.remove('sel'));
-    btn.classList.add('sel');
-    updateState();
+const answers = new Array(QUESTIONS.length).fill(null);
+let locked = false;
+
+document.querySelectorAll('.opt input').forEach(inp => {
+  inp.addEventListener('change', e => {
+    if (locked) return;
+    const lbl = e.target.closest('.opt');
+    const qi = +lbl.dataset.q, oi = +lbl.dataset.o;
+    answers[qi] = oi;
+    document.querySelectorAll('#q'+qi+' .opt').forEach(x => x.classList.remove('sel'));
+    lbl.classList.add('sel');
+    updateProgress();
   });
 });
+document.getElementById('nameInput').addEventListener('input', updateProgress);
 
-const nameInput = document.getElementById('name');
-nameInput.addEventListener('input', updateState);
-
-function updateState(){
+function updateProgress() {
   const done = answers.filter(a => a !== null).length;
-  document.getElementById('fill').style.width = (done / QS.length * 100) + '%';
-  document.getElementById('submit').disabled = !(done === QS.length && nameInput.value.trim().length > 0);
+  document.getElementById('pfill').style.width = (done / QUESTIONS.length * 100) + '%';
+  document.getElementById('plabel').textContent = done + ' / ' + QUESTIONS.length + ' answered';
+  const name = document.getElementById('nameInput').value.trim();
+  document.getElementById('submitBtn').disabled = !(done === QUESTIONS.length && name.length > 0 && !locked);
 }
 
-document.getElementById('submit').addEventListener('click', () => {
-  const btn = document.getElementById('submit');
-  btn.disabled = true;
-  nameInput.disabled = true;
-  let score = 0;
-  const missed = [];
-  QS.forEach((item, i) => {
-    const chosen = answers[i];
-    document.querySelectorAll(`.opt[data-q="${i}"]`).forEach(b => {
-      b.disabled = true;
-      const o = +b.dataset.o;
-      if (o === item.a) b.classList.add('correct');
-      else if (o === chosen) b.classList.add('wrong');
+function verdictFor(score) {
+  const pct = score / QUESTIONS.length;
+  if (pct === 1) return "Perfect. You were paying attention.";
+  if (pct >= 0.8) return "Solid. Review the ones you missed.";
+  if (pct >= 0.6) return "Watch the presentation again — key details were missed.";
+  return "Go back and rewatch the full presentation before your next shift.";
+}
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  if (locked) return;
+  locked = true;
+  document.getElementById('submitBtn').disabled = true;
+
+  let score = 0; const missed = [];
+  QUESTIONS.forEach((item, qi) => {
+    const qdiv = document.getElementById('q' + qi);
+    qdiv.classList.add('locked');
+    const picked = answers[qi];
+    qdiv.querySelectorAll('.opt').forEach(lbl => {
+      const oi = +lbl.dataset.o;
+      lbl.querySelector('input').disabled = true;
+      if (oi === item.a) lbl.classList.add('correct');
+      if (oi === picked && picked !== item.a) lbl.classList.add('wrong');
     });
-    const fb = document.getElementById('fb' + i);
-    if (chosen === item.a) {
+    const fb = document.getElementById('fb' + qi);
+    if (picked === item.a) {
       score++;
-      fb.className = 'feedback good';
-      fb.textContent = 'Correct.';
+      fb.className = 'feedback good'; fb.textContent = 'Correct.';
     } else {
-      missed.push(i + 1);
+      missed.push(qi + 1);
       fb.className = 'feedback bad';
-      fb.textContent = item.why;
+      fb.innerHTML = '<b>Not quite.</b> ' + item.ex;
     }
   });
 
-  const percent = Math.round(score / QS.length * 100);
-  let msg;
-  if (score === 10) msg = "Perfect. You were paying attention.";
-  else if (score >= 8) msg = "Solid. Review the ones you missed.";
-  else if (score >= 6) msg = "Watch the presentation again — key details were missed.";
-  else msg = "Go back and rewatch the full presentation before your next shift.";
+  const name = document.getElementById('nameInput').value.trim();
+  const pct = Math.round(score / QUESTIONS.length * 100);
+  let verdict = verdictFor(score);
 
   const payload = {
+    timestamp: new Date().toISOString(),
     periodWeek: PERIOD_WEEK,
-    name: nameInput.value.trim(),
+    name: name,
     score: score,
-    outOf: QS.length,
-    percent: percent,
-    missed: missed.join(', ') || 'none'
+    outOf: QUESTIONS.length,
+    percent: pct,
+    missedQuestions: missed.join(', ')
   };
 
   const overlay = document.getElementById('overlay');
-  const syncmsg = document.getElementById('syncmsg');
   const spin = document.getElementById('spin');
+  const msg = document.getElementById('syncMsg');
   overlay.classList.add('show');
   spin.style.display = 'block';
-  syncmsg.className = 'sync-msg';
-  syncmsg.textContent = 'Buffering...';
+  msg.className = 'sync-msg'; msg.textContent = 'Buffering...';
 
   let postFailed = false;
   fetch(ENDPOINT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   }).catch(() => { postFailed = true; });
 
   setTimeout(() => {
     spin.style.display = 'none';
-    syncmsg.className = 'sync-msg done';
-    syncmsg.textContent = 'Your results have been submitted.';
+    msg.className = 'sync-msg done';
+    msg.textContent = 'Your results have been submitted.';
     setTimeout(() => {
       overlay.classList.remove('show');
-      const v = document.getElementById('verdict');
-      v.style.display = 'block';
-      let extra = postFailed ? '<p><b>Screenshot this and send to me.</b></p>' : '';
-      v.innerHTML = `<div class="score">${score}/${QS.length}</div><p>${msg}</p>${extra}`;
-      v.scrollIntoView({behavior: 'smooth'});
+      if (postFailed) verdict += ' Screenshot this and send it to me.';
+      document.getElementById('scoreTxt').textContent = score + ' / ' + QUESTIONS.length;
+      document.getElementById('verdictTxt').textContent = verdict;
+      const res = document.getElementById('results');
+      res.style.display = 'block';
+      res.scrollIntoView({ behavior: 'smooth' });
     }, 2000);
   }, 1500);
 });
