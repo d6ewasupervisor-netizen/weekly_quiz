@@ -2,216 +2,300 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>P07W2 Pop Quiz — District 8</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P07W3 Pop Quiz</title>
 <style>
-:root{--navy:#1B2A4A;--teal:#0891B2;--orange:#F59E0B;--red:#DC2626;--green:#16A34A;--light:#ECFEFF;--yel:#FEF3C7}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#F0F4F8;color:var(--navy);padding-bottom:120px}
-header{background:var(--navy);padding:22px 18px 18px;position:sticky;top:0;z-index:50}
-header .eye{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2.5px;color:var(--teal);font-weight:700}
-header h1{font-size:23px;color:#fff;margin:6px 0 3px;line-height:1.15}
-header p{font-size:13px;color:#9FB3C8}
-.pwrap{height:7px;background:#33456B;border-radius:4px;margin-top:14px;overflow:hidden}
-.pbar{height:100%;width:0;background:var(--teal);transition:width .25s}
-.pct{font-family:'Space Mono',monospace;font-size:11px;color:#9FB3C8;margin-top:7px;letter-spacing:1.5px}
-main{padding:18px 14px}
-.namebox{background:#fff;border-radius:12px;padding:16px;margin-bottom:20px;border-left:6px solid var(--orange)}
-.namebox label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--teal);font-weight:700;display:block;margin-bottom:8px}
-.namebox input{width:100%;font-family:'DM Sans',sans-serif;font-size:17px;padding:12px 14px;border:2px solid #CFE0E8;border-radius:9px;color:var(--navy)}
-.namebox input:focus{outline:none;border-color:var(--teal)}
-.q{background:#fff;border-radius:12px;padding:17px;margin-bottom:16px;box-shadow:0 2px 6px rgba(27,42,74,.09)}
-.qn{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--teal);font-weight:700;margin-bottom:8px}
-.qt{font-size:16.5px;line-height:1.45;font-weight:500;margin-bottom:14px}
-.opt{display:flex;align-items:flex-start;gap:11px;border:2px solid #DCE7ED;border-radius:9px;padding:12px 13px;margin-bottom:9px;cursor:pointer;font-size:15.5px;line-height:1.4}
+:root{
+  --navy:#1B2A4A; --teal:#0891B2; --orange:#F59E0B; --red:#DC2626;
+  --yel:#FEF3C7; --light:#ECFEFF; --grn:#16a34a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Carlito,Calibri,"Segoe UI",sans-serif;
+  background:#f0f4f8; color:var(--navy);
+  padding:0 0 40px; -webkit-text-size-adjust:100%;
+}
+header{background:var(--navy);color:#fff;padding:26px 20px 22px;border-bottom:6px solid var(--teal)}
+header .kick{color:var(--teal);font-size:13px;letter-spacing:3px;font-weight:700;text-transform:uppercase}
+header h1{font-size:30px;margin-top:6px;letter-spacing:-.5px}
+header p{font-size:14px;color:#cbd5e1;margin-top:6px}
+#bar{height:8px;background:#cbd5e1}
+#fill{height:100%;width:0;background:var(--orange);transition:width .3s}
+.wrap{max-width:680px;margin:0 auto;padding:20px 16px}
+.namebox{background:#fff;border-left:6px solid var(--teal);padding:16px;margin-bottom:22px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.namebox label{display:block;font-size:14px;font-weight:700;margin-bottom:8px;text-transform:uppercase;
+  letter-spacing:1px;color:var(--teal)}
+.namebox input{width:100%;padding:13px;font-size:17px;border:2px solid #cbd5e1;border-radius:6px;
+  font-family:inherit}
+.namebox input:focus{outline:0;border-color:var(--teal)}
+.q{background:#fff;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.07);overflow:hidden}
+.q .qh{background:var(--navy);color:#fff;padding:12px 16px;display:flex;gap:10px;align-items:flex-start}
+.q .n{background:var(--teal);border-radius:5px;padding:1px 9px;font-weight:700;font-size:14px;flex:none;
+  margin-top:2px}
+.q .qt{font-size:16px;line-height:1.4}
+.opts{padding:8px}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:12px 12px;border:2px solid #e2e8f0;
+  border-radius:7px;margin-bottom:7px;cursor:pointer;font-size:16px;line-height:1.35}
 .opt:last-child{margin-bottom:0}
-.opt .ltr{font-family:'Space Mono',monospace;font-weight:700;color:var(--teal);flex:none}
+.opt .ltr{font-weight:700;color:var(--teal);flex:none}
 .opt.sel{border-color:var(--teal);background:var(--light)}
-.locked .opt{cursor:default}
-.opt.right{border-color:var(--green);background:#E9F9EE}
-.opt.right .ltr{color:var(--green)}
-.opt.wrong{border-color:var(--red);background:#FDECEC;text-decoration:line-through;opacity:.75}
-.opt.wrong .ltr{color:var(--red);text-decoration:none}
-.fb{margin-top:12px;border-radius:9px;padding:12px 13px;font-size:14.5px;line-height:1.45}
-.fb.ok{background:#E9F9EE;border-left:5px solid var(--green);color:#14532D}
-.fb.no{background:var(--yel);border-left:5px solid var(--red);color:#7A1010}
-.fb b{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;display:block;margin-bottom:5px}
-#sub{position:fixed;left:0;right:0;bottom:0;padding:13px 14px;background:rgba(240,244,248,.97);border-top:2px solid #CFE0E8}
-#sub button{width:100%;padding:16px;border:0;border-radius:11px;background:var(--orange);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;cursor:pointer}
-#sub button:disabled{background:#C3CFDB;color:#8496A8;cursor:not-allowed}
-#score{background:var(--navy);border-radius:14px;padding:26px 20px;margin-bottom:20px;text-align:center;display:none}
-#score .n{font-family:'Space Mono',monospace;font-size:52px;font-weight:700;color:var(--orange);line-height:1}
-#score .o{font-size:14px;color:#9FB3C8;letter-spacing:2px;font-family:'Space Mono',monospace;margin-top:8px}
-#score .v{font-size:17px;color:#fff;margin-top:16px;line-height:1.45}
-.overlay{position:fixed;inset:0;background:rgba(27,42,74,.94);display:flex;align-items:center;justify-content:center;z-index:900}
-.overlay-box{background:#fff;border-radius:16px;padding:34px 30px;text-align:center;min-width:250px}
-.spinner{width:46px;height:46px;border:5px solid #DCE7ED;border-top-color:var(--teal);border-radius:50%;margin:0 auto 18px;animation:spin .8s linear infinite}
+.opt input{display:none}
+.opt.right{border-color:var(--grn);background:#dcfce7}
+.opt.wrong{border-color:var(--red);background:#fee2e2;text-decoration:line-through;opacity:.8}
+.fb{display:none;padding:13px 16px;font-size:15px;line-height:1.45;border-top:2px solid #e2e8f0}
+.fb.ok{background:#dcfce7;color:#14532d}
+.fb.no{background:var(--yel);color:#7f1d1d}
+.fb b{display:block;margin-bottom:3px;text-transform:uppercase;font-size:12px;letter-spacing:1.5px}
+#submit{width:100%;padding:18px;font-size:19px;font-weight:700;font-family:inherit;color:#fff;
+  background:var(--teal);border:0;border-radius:8px;cursor:pointer;margin-top:6px}
+#submit:disabled{background:#94a3b8;cursor:not-allowed}
+#result{display:none;background:var(--navy);color:#fff;padding:26px 20px;margin-top:22px;text-align:center}
+#result .score{font-size:56px;font-weight:700;color:var(--orange);line-height:1}
+#result .pct{font-size:16px;color:#cbd5e1;margin-top:4px}
+#result .verdict{font-size:19px;margin-top:16px;line-height:1.4}
+.overlay{position:fixed;inset:0;background:rgba(27,42,74,.94);display:flex;align-items:center;
+  justify-content:center;z-index:999}
+.overlay-box{text-align:center;color:#fff;padding:30px}
+.spinner{width:56px;height:56px;border:6px solid rgba(255,255,255,.22);border-top-color:var(--orange);
+  border-radius:50%;margin:0 auto 20px;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.sync-msg{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:1.5px;color:var(--navy);font-weight:700}
-.sync-msg.done{color:var(--green)}
+.sync-msg{font-size:19px;letter-spacing:.5px}
+.sync-msg.done{color:#4ade80;font-weight:700}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="eye">RETAIL ODYSSEY &middot; DISTRICT 8</div>
-  <h1>P07W2 Pop Quiz</h1>
-  <p>10 questions &middot; open book &middot; all answers are in the briefing</p>
-  <div class="pwrap"><div class="pbar" id="pbar"></div></div>
-  <div class="pct" id="pct">0 OF 10 ANSWERED</div>
+  <div class="kick">District 8 &middot; Division 701</div>
+  <h1>P07W3 Pop Quiz</h1>
+  <p>Ten questions. Open book &mdash; everything is in the briefing.</p>
 </header>
+<div id="bar"><div id="fill"></div></div>
 
-<main>
+<div class="wrap">
+
   <div class="namebox">
-    <label for="nm">YOUR NAME</label>
-    <input id="nm" type="text" placeholder="First and last name" autocomplete="name">
+    <label for="nm">Your name</label>
+    <input id="nm" type="text" placeholder="First and last" autocomplete="name">
   </div>
-  <div id="score"><div class="n" id="sn">0</div><div class="o" id="so">OUT OF 10</div><div class="v" id="sv"></div></div>
-  <div id="qs"></div>
-</main>
 
-<div id="sub"><button id="btn" disabled>Answer all 10 questions to submit</button></div>
+  <div id="quiz"></div>
+
+  <button id="submit" disabled>Answer all 10 to submit</button>
+
+  <div id="result">
+    <div class="score" id="sc">0/10</div>
+    <div class="pct" id="pc">0%</div>
+    <div class="verdict" id="vd"></div>
+  </div>
+
+</div>
 
 <script>
-const PERIOD_WEEK = "P07W2";
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+const PERIOD_WEEK = "P07W3";
+const POST_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
 
-const QUESTIONS = [
-{q:"On the C059 Frozen Chicken integration, how many shelves come out of each natural door?",
- o:["One","Two","Three","It varies by store"],a:1,
- e:"Pull two shelves out of each natural door, then align what is left to the regular set."},
-{q:"What do you check before you start on C064 Eggs?",
- o:["That the Vestcom box is unopened","Your y-positions, so the Kroger 60 count can double stack","The expiration dates on every carton","Whether the store has a natural set"],a:1,
- e:"Shelf moves may be needed so the Kroger 60 count double stacks. It is a top seller, and finding out after you have set the whole thing means doing it twice."},
-{q:"On the new C064 Eggs vertical flow, what sits at the top?",
- o:["Organic","Conventional","Pasture Raised","Cage Free"],a:3,
- e:"Top to bottom the flow is Cage Free, Free Range, Pasture Raised, Organic, then conventional."},
-{q:"On C065 Cheese, where do the 8oz and 16oz Kroger chunks go?",
- o:["Out of the well and up into shelf ready packaging","Down into the well from shelf 2","To the bottom shelf with the individually wrapped","They stay exactly where they are"],a:0,
- e:"The chunks move out of the well and up into shelf ready packaging. Individually wrapped slices then drop into the well in the space they vacate."},
-{q:"The 17oz Uncle Ben's shelf ready packaging boxes run about three quarters of an inch wider than the strip space. What do you do?",
- o:["Leave those items off the set until it is corrected","Move the adjacent strip over to make room","Set it per the planogram and keep moving","Reprint the tags at a smaller size"],a:2,
- e:"The space is there overall, but your tag alignment will look off. It has been reported and it is being worked. Set it per the planogram."},
-{q:"What is the correct sequence for the C173 lip care move?",
- o:["Shift shelves 3 through 8 down two, then pull the lip care, then place it up top","Pull all the lip care out first, shift shelves 3 through 8 down two, then place the lip care up top","Move the lip care one shelf at a time from the bottom up","Place the lip care up top first, then adjust shelves around it"],a:1,
- e:"Lip care comes out first, then the shelves move, then it goes up top. Working it one shelf at a time means fighting the set the whole way."},
-{q:"What is the status of the C174 allergy rack, version 901F2?",
- o:["It is a priority set this week","It ships separately and arrives Friday","It was added by mistake and has been pulled from sign-outs and tablet sign-offs","It replaces the main C174 set"],a:2,
- e:"The rack was added in error and pulled. Toss any allergy rack strips you received. The C174 set itself is still yours to run."},
-{q:"During a reset, one or two digital shelf labels come off the set. What is the rule?",
- o:["Pull the full set of labels and box them in the back","Move or re-associate them as needed, and coordinate with the store for additional tags","Reprint paper tags to cover the gap","Leave the gaps and note it on your EOD"],a:1,
- e:"Never pull digital shelf labels off a full set and box them in the back. Move or re-associate the one or two that come off, and coordinate with the store if you need more."},
-{q:"Store 31 is confirming the C062 yogurt strip. What subject line goes on the email?",
- o:["Strip Verification 31","31 Strip Verification C062","C062 Strip Verification","Strip Verification - your name"],a:1,
- e:"Store number, then the words Strip Verification, then the category number. Your name and the planogram details go in the body."},
-{q:"On the P07W4 Central Pet resets, what do you do first in each set?",
- o:["Place the new items as they arrive","Pull the deletes to open the set up","Process the credits","Set the right side of the aisle"],a:1,
- e:"Review the add-delete list, then pull deletes first to open the set up. Work planograms in aisle order and set the left side before the right."}
+const Q = [
+{
+  q:"On C121 Cigarettes, what takes over the final four feet of the planogram?",
+  o:["A Tobacco Derived Nicotine and Vape expansion",
+     "An expanded cigarette carton section",
+     "A lighter and accessory display",
+     "Overflow space for leaf tobacco"],
+  a:0,
+  e:"The last four feet becomes the Tobacco Derived Nicotine and Vape expansion. Carton items come out of the bottom, non-visible portion of the set to make that room."
+},
+{
+  q:"Who installs the pushers in the new Tobacco Derived Nicotine area?",
+  o:["We do, as part of the reset",
+     "The tobacco vendors, after we finish",
+     "Store management, before we arrive",
+     "Nobody &mdash; that section does not use pushers"],
+  a:1,
+  e:"Tobacco vendors come in behind us and install those pushers. We set to planogram and leave the pushers alone."
+},
+{
+  q:"C038 Frozen Pizza is published at fifteen hours. What did the test set actually come in at?",
+  o:["Twelve hours","Ten hours","Six or seven hours, depending on set size","Fifteen hours, as published"],
+  a:2,
+  e:"Six hours on one set size and seven on the other &mdash; less than half the printed estimate. That correction is known across the whole division."
+},
+{
+  q:"In the new C038 main set flow, where does Kroger land?",
+  o:["Between Red Baron and DiGiorno, where it already sits",
+     "Between DiGiorno and Freschetta",
+     "At the far end, past California Kitchen",
+     "Split across both ends of the door"],
+  a:1,
+  e:"Kroger moves out from between Red Baron and DiGiorno and lands between DiGiorno and Freschetta. On a reverse flow store that puts it on the right side of DiGiorno instead of the left."
+},
+{
+  q:"What happens to Tombstone and full-size Red Baron in the single serve doors?",
+  o:["They stay put and gain facings",
+     "They move up to the top shelf",
+     "They move out into the main set",
+     "They are deleted from the category"],
+  a:2,
+  e:"The single serve doors become single serve only, so Tombstone and any full-size Red Baron move out into the main set."
+},
+{
+  q:"What is the required left-to-right flow on C675 Functional Beverage?",
+  o:["Protein Dairy Drinks, Kombucha, Functional Sodas",
+     "Functional Sodas, Protein Dairy Drinks, Kombucha",
+     "Kombucha, Functional Sodas, Protein Dairy Drinks",
+     "Kombucha, Protein Dairy Drinks, Functional Sodas"],
+  a:2,
+  e:"Kombucha on the left, Functional Sodas in the middle, Protein Dairy Drinks on the right. That flow is the whole point of the update."
+},
+{
+  q:"Lifeway Kefirs move into C675 this week. What happens to their placement in Yogurt?",
+  o:["It is pulled as soon as C675 is set",
+     "They stay dual-placed in both sets until the Yogurt reset in Period 8 Week 4",
+     "They stay dual-placed permanently",
+     "The Yogurt placement moves to an endcap"],
+  a:1,
+  e:"They stay dual-placed in both sets until the Yogurt reset in Period 8 Week 4. You are adding a placement, not removing one."
+},
+{
+  q:"Before starting C066 Refrigerated Dough, what should you do?",
+  o:["Order replacement pushers through the hotline",
+     "Wait for the Nestle reps to arrive first",
+     "Dig for the Pillsbury trays already delivered and possibly buried in the back room",
+     "Set the traditional dough section first, then break-and-bake"],
+  a:2,
+  e:"Pillsbury trays were delivered last week and the week before and may be buried in the back room. Hunt them down before deciding they never showed up."
+},
+{
+  q:"On a bakery bunker or mobile case, how are the black identification tags secured?",
+  o:["Cut magnetic tape to the size of the tag and adhere the tag to the tape",
+     "Clipped into the channel guide",
+     "Placed loose under the product",
+     "Stapled to the case liner"],
+  a:0,
+  e:"Cut magnetic tape to tag size and stick the tag to the tape. If the case will not take magnetic tape, use double-sided sticky tape instead."
+},
+{
+  q:"How long can bakery refrigerated and frozen product be outside the case?",
+  o:["Ten minutes","Fifteen minutes","Twenty minutes","Thirty minutes"],
+  a:1,
+  e:"Fifteen minutes on the bakery sets. That is tighter than the twenty minutes on the grocery-side refrigerated sets &mdash; two different clocks."
+}
 ];
 
-let answers = new Array(QUESTIONS.length).fill(null);
+const LT = ["A","B","C","D"];
+const picks = {};
 let locked = false;
 
-const qs = document.getElementById('qs');
-QUESTIONS.forEach((Q,i)=>{
-  const d=document.createElement('div'); d.className='q'; d.id='q'+i;
-  let h='<div class="qn">QUESTION '+(i+1)+' OF '+QUESTIONS.length+'</div><div class="qt">'+Q.q+'</div>';
-  Q.o.forEach((o,j)=>{ h+='<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="ltr">'+'ABCD'[j]+'</span><span>'+o+'</span></div>'; });
-  d.innerHTML=h; qs.appendChild(d);
+const quiz = document.getElementById('quiz');
+Q.forEach((item, i) => {
+  const d = document.createElement('div');
+  d.className = 'q';
+  d.innerHTML =
+    '<div class="qh"><span class="n">' + (i+1) + '</span><span class="qt">' + item.q + '</span></div>' +
+    '<div class="opts">' + item.o.map((t,j) =>
+      '<label class="opt" data-q="' + i + '" data-o="' + j + '">' +
+      '<span class="ltr">' + LT[j] + '</span><span>' + t + '</span>' +
+      '<input type="radio" name="q' + i + '"></label>').join('') + '</div>' +
+    '<div class="fb" id="fb' + i + '"></div>';
+  quiz.appendChild(d);
 });
 
-document.addEventListener('click',e=>{
-  const el=e.target.closest('.opt'); if(!el||locked) return;
-  const qi=+el.dataset.q, oi=+el.dataset.o;
-  document.querySelectorAll('.opt[data-q="'+qi+'"]').forEach(x=>x.classList.remove('sel'));
-  el.classList.add('sel'); answers[qi]=oi; refresh();
+document.querySelectorAll('.opt').forEach(el => {
+  el.addEventListener('click', () => {
+    if (locked) return;
+    const qi = +el.dataset.q, oi = +el.dataset.o;
+    document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(s => s.classList.remove('sel'));
+    el.classList.add('sel');
+    picks[qi] = oi;
+    refresh();
+  });
 });
 
-document.getElementById('nm').addEventListener('input',refresh);
+document.getElementById('nm').addEventListener('input', refresh);
 
 function refresh(){
-  const n=answers.filter(a=>a!==null).length;
-  document.getElementById('pbar').style.width=(n/QUESTIONS.length*100)+'%';
-  document.getElementById('pct').textContent=n+' OF '+QUESTIONS.length+' ANSWERED';
-  const nm=document.getElementById('nm').value.trim();
-  const btn=document.getElementById('btn');
-  const ready=(n===QUESTIONS.length && nm.length>1);
-  btn.disabled=!ready;
-  btn.textContent = ready ? 'Submit Quiz' : (nm.length>1 ? 'Answer all '+QUESTIONS.length+' questions to submit' : 'Enter your name to submit');
+  const n = Object.keys(picks).length;
+  document.getElementById('fill').style.width = (n / Q.length * 100) + '%';
+  const named = document.getElementById('nm').value.trim().length > 1;
+  const btn = document.getElementById('submit');
+  btn.disabled = !(n === Q.length && named);
+  btn.textContent = btn.disabled
+    ? (n < Q.length ? 'Answer all 10 to submit' : 'Enter your name to submit')
+    : 'Submit my answers';
 }
 
-function verdict(s){
-  if(s===10) return "Perfect. You were paying attention.";
-  if(s>=8) return "Solid. Review the ones you missed.";
-  if(s>=6) return "Watch the presentation again — key details were missed.";
-  return "Go back and rewatch the full presentation before your next shift.";
-}
+document.getElementById('submit').addEventListener('click', () => {
+  if (locked) return;
+  locked = true;
+  document.getElementById('submit').style.display = 'none';
 
-document.getElementById('btn').addEventListener('click',()=>{
-  if(locked) return;
-  locked=true;
-  const ov=document.createElement('div');
-  ov.className='overlay';
-  ov.innerHTML='<div class="overlay-box"><div class="spinner"></div><div class="sync-msg">Buffering...</div></div>';
-  document.body.appendChild(ov);
-  setTimeout(()=>{
-    ov.querySelector('.spinner').style.display='none';
-    const m=ov.querySelector('.sync-msg');
-    m.textContent='Your results have been submitted.';
-    m.classList.add('done');
-    setTimeout(()=>{ ov.remove(); reveal(); },2000);
-  },1500);
-  grade();
+  let score = 0; const missed = [];
+  Q.forEach((item, i) => {
+    const chosen = picks[i];
+    const ok = chosen === item.a;
+    if (ok) score++; else missed.push(i+1);
+    document.querySelectorAll('.opt[data-q="' + i + '"]').forEach(el => {
+      const oi = +el.dataset.o;
+      if (oi === item.a) el.classList.add('right');
+      else if (oi === chosen) el.classList.add('wrong');
+      el.classList.remove('sel');
+    });
+    const fb = document.getElementById('fb' + i);
+    fb.className = 'fb ' + (ok ? 'ok' : 'no');
+    fb.innerHTML = '<b>' + (ok ? 'Correct' : 'Not quite') + '</b>' + item.e;
+    fb.style.display = 'block';
+  });
+
+  const pct = Math.round(score / Q.length * 100);
+  let verdict;
+  if (score === 10) verdict = "Perfect. You were paying attention.";
+  else if (score >= 8) verdict = "Solid. Review the ones you missed.";
+  else if (score >= 6) verdict = "Watch the presentation again \u2014 key details were missed.";
+  else verdict = "Go back and rewatch the full presentation before your next shift.";
+
+  showOverlay(function(sent){
+    document.getElementById('sc').textContent = score + '/' + Q.length;
+    document.getElementById('pc').textContent = pct + '%';
+    document.getElementById('vd').textContent =
+      verdict + (sent ? '' : ' Screenshot this and send it to me.');
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  post(score, pct, missed);
 });
 
-let RESULT={score:0,missed:[],posted:false};
-
-function grade(){
-  let s=0; const missed=[];
-  QUESTIONS.forEach((Q,i)=>{ if(answers[i]===Q.a) s++; else missed.push(i+1); });
-  RESULT.score=s; RESULT.missed=missed;
-  const body={
-    timestamp:new Date().toISOString(),
-    periodWeek:PERIOD_WEEK,
-    name:document.getElementById('nm').value.trim(),
-    score:s,
-    outOf:QUESTIONS.length,
-    percent:Math.round(s/QUESTIONS.length*100),
-    missedQuestions:missed.join(', ')
-  };
-  fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body)})
-    .then(()=>{RESULT.posted=true;}).catch(()=>{RESULT.posted=false;});
-}
-
-function reveal(){
-  document.querySelectorAll('.q').forEach(d=>d.classList.add('locked'));
-  QUESTIONS.forEach((Q,i)=>{
-    const picked=answers[i], ok=picked===Q.a;
-    document.querySelectorAll('.opt[data-q="'+i+'"]').forEach(el=>{
-      const oi=+el.dataset.o;
-      el.classList.remove('sel');
-      if(oi===Q.a) el.classList.add('right');
-      else if(oi===picked) el.classList.add('wrong');
-    });
-    const fb=document.createElement('div');
-    fb.className='fb '+(ok?'ok':'no');
-    fb.innerHTML='<b>'+(ok?'CORRECT':'MISSED')+'</b>'+Q.e;
-    document.getElementById('q'+i).appendChild(fb);
+let posted = null;
+function post(score, pct, missed){
+  const body = JSON.stringify({
+    timestamp: new Date().toISOString(),
+    periodWeek: PERIOD_WEEK,
+    name: document.getElementById('nm').value.trim(),
+    score: score,
+    outOf: Q.length,
+    percent: pct,
+    missed: missed.join(', ')
   });
-  const s=RESULT.score;
-  document.getElementById('sn').textContent=s;
-  document.getElementById('so').textContent='OUT OF '+QUESTIONS.length+' &middot; '+Math.round(s/QUESTIONS.length*100)+'%';
-  let v=verdict(s);
-  if(!RESULT.posted) v+=" Screenshot this and send it to me.";
-  document.getElementById('sv').textContent=v;
-  document.getElementById('score').style.display='block';
-  document.getElementById('btn').disabled=true;
-  document.getElementById('btn').textContent='Submitted — '+s+'/'+QUESTIONS.length;
-  window.scrollTo({top:0,behavior:'smooth'});
+  fetch(POST_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:body})
+    .then(() => { posted = true; })
+    .catch(() => { posted = false; });
 }
 
-refresh();
+function showOverlay(done){
+  const ov = document.createElement('div');
+  ov.className = 'overlay';
+  ov.innerHTML = '<div class="overlay-box"><div class="spinner"></div>' +
+                 '<div class="sync-msg" id="sm">Buffering...</div></div>';
+  document.body.appendChild(ov);
+  setTimeout(() => {
+    ov.querySelector('.spinner').style.display = 'none';
+    const sm = document.getElementById('sm');
+    sm.textContent = 'Your results have been submitted.';
+    sm.className = 'sync-msg done';
+    setTimeout(() => { ov.remove(); done(posted !== false); }, 2000);
+  }, 1500);
+}
 </script>
 </body>
 </html>
