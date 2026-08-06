@@ -3,299 +3,363 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>P07W3 Pop Quiz</title>
+<title>P07W4 Pop Quiz — District 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#1B2A4A; --teal:#0891B2; --orange:#F59E0B; --red:#DC2626;
-  --yel:#FEF3C7; --light:#ECFEFF; --grn:#16a34a;
+  --green:#15803D; --yellow:#FEF3C7; --ice:#ECFEFF; --line:#D8E2ED;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:Carlito,Calibri,"Segoe UI",sans-serif;
-  background:#f0f4f8; color:var(--navy);
-  padding:0 0 40px; -webkit-text-size-adjust:100%;
+  font-family:'DM Sans',system-ui,sans-serif; background:#F2F6FA; color:var(--navy);
+  line-height:1.5; padding:0 0 60px; -webkit-text-size-adjust:100%;
 }
-header{background:var(--navy);color:#fff;padding:26px 20px 22px;border-bottom:6px solid var(--teal)}
-header .kick{color:var(--teal);font-size:13px;letter-spacing:3px;font-weight:700;text-transform:uppercase}
-header h1{font-size:30px;margin-top:6px;letter-spacing:-.5px}
-header p{font-size:14px;color:#cbd5e1;margin-top:6px}
-#bar{height:8px;background:#cbd5e1}
-#fill{height:100%;width:0;background:var(--orange);transition:width .3s}
-.wrap{max-width:680px;margin:0 auto;padding:20px 16px}
-.namebox{background:#fff;border-left:6px solid var(--teal);padding:16px;margin-bottom:22px;
-  box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.namebox label{display:block;font-size:14px;font-weight:700;margin-bottom:8px;text-transform:uppercase;
-  letter-spacing:1px;color:var(--teal)}
-.namebox input{width:100%;padding:13px;font-size:17px;border:2px solid #cbd5e1;border-radius:6px;
-  font-family:inherit}
-.namebox input:focus{outline:0;border-color:var(--teal)}
-.q{background:#fff;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.07);overflow:hidden}
-.q .qh{background:var(--navy);color:#fff;padding:12px 16px;display:flex;gap:10px;align-items:flex-start}
-.q .n{background:var(--teal);border-radius:5px;padding:1px 9px;font-weight:700;font-size:14px;flex:none;
-  margin-top:2px}
-.q .qt{font-size:16px;line-height:1.4}
-.opts{padding:8px}
-.opt{display:flex;gap:11px;align-items:flex-start;padding:12px 12px;border:2px solid #e2e8f0;
-  border-radius:7px;margin-bottom:7px;cursor:pointer;font-size:16px;line-height:1.35}
-.opt:last-child{margin-bottom:0}
-.opt .ltr{font-weight:700;color:var(--teal);flex:none}
-.opt.sel{border-color:var(--teal);background:var(--light)}
-.opt input{display:none}
-.opt.right{border-color:var(--grn);background:#dcfce7}
-.opt.wrong{border-color:var(--red);background:#fee2e2;text-decoration:line-through;opacity:.8}
-.fb{display:none;padding:13px 16px;font-size:15px;line-height:1.45;border-top:2px solid #e2e8f0}
-.fb.ok{background:#dcfce7;color:#14532d}
-.fb.no{background:var(--yel);color:#7f1d1d}
-.fb b{display:block;margin-bottom:3px;text-transform:uppercase;font-size:12px;letter-spacing:1.5px}
-#submit{width:100%;padding:18px;font-size:19px;font-weight:700;font-family:inherit;color:#fff;
-  background:var(--teal);border:0;border-radius:8px;cursor:pointer;margin-top:6px}
-#submit:disabled{background:#94a3b8;cursor:not-allowed}
-#result{display:none;background:var(--navy);color:#fff;padding:26px 20px;margin-top:22px;text-align:center}
-#result .score{font-size:56px;font-weight:700;color:var(--orange);line-height:1}
-#result .pct{font-size:16px;color:#cbd5e1;margin-top:4px}
-#result .verdict{font-size:19px;margin-top:16px;line-height:1.4}
-.overlay{position:fixed;inset:0;background:rgba(27,42,74,.94);display:flex;align-items:center;
-  justify-content:center;z-index:999}
-.overlay-box{text-align:center;color:#fff;padding:30px}
-.spinner{width:56px;height:56px;border:6px solid rgba(255,255,255,.22);border-top-color:var(--orange);
-  border-radius:50%;margin:0 auto 20px;animation:spin .8s linear infinite}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+
+header{background:var(--navy);color:#fff;padding:30px 0 26px;border-top:8px solid var(--teal);margin-bottom:0}
+header .wrap{padding:0 20px}
+.tag{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:3px;color:#5FC7DE;text-transform:uppercase}
+header h1{font-size:29px;font-weight:700;margin-top:8px;line-height:1.15}
+header p{color:#B9D4E8;font-size:15px;margin-top:10px}
+
+.progwrap{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);
+  padding:12px 0 0;box-shadow:0 2px 10px rgba(27,42,74,.06)}
+.progwrap .wrap{padding:0 20px}
+.progrow{display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;
+  font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#64748B;padding-bottom:8px}
+.progbar{height:6px;background:#E2E8F0;border-radius:99px;overflow:hidden;margin-bottom:12px}
+.progfill{height:100%;width:0;background:var(--teal);border-radius:99px;transition:width .25s ease}
+
+.namebox{background:#fff;border:1px solid var(--line);border-left:6px solid var(--orange);
+  border-radius:12px;padding:20px;margin:22px 0}
+.namebox label{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--navy);display:block;margin-bottom:10px;font-weight:700}
+.namebox input{width:100%;padding:14px 15px;font-size:17px;font-family:inherit;color:var(--navy);
+  border:2px solid var(--line);border-radius:9px;background:#fff}
+.namebox input:focus{outline:none;border-color:var(--teal)}
+
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 20px;margin-bottom:18px}
+.q.correct{border-color:var(--green);background:#F3FBF5}
+.q.wrong{border-color:var(--red);background:#FEF6F6}
+.qnum{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--teal);
+  text-transform:uppercase;font-weight:700;margin-bottom:9px}
+.q.correct .qnum{color:var(--green)}
+.q.wrong .qnum{color:var(--red)}
+.qtext{font-size:18px;font-weight:500;margin-bottom:16px;line-height:1.42}
+
+.opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:2px solid var(--line);
+  border-radius:10px;margin-bottom:9px;cursor:pointer;background:#fff;transition:.12s}
+.opt:last-of-type{margin-bottom:0}
+.opt:hover{border-color:#A9C3D8}
+.opt input{margin:0;flex:none;width:20px;height:20px;accent-color:var(--teal);margin-top:1px}
+.opt span{font-size:16px;line-height:1.4}
+.opt .ltr{font-family:'Space Mono',monospace;font-weight:700;color:#64748B;flex:none}
+.opt.sel{border-color:var(--teal);background:var(--ice)}
+.opt.right{border-color:var(--green);background:#E6F7EC}
+.opt.right .ltr{color:var(--green)}
+.opt.bad{border-color:var(--red);background:#FDECEC}
+.opt.bad .ltr{color:var(--red)}
+.opt.bad span:not(.ltr){text-decoration:line-through;opacity:.7}
+.locked .opt{cursor:default}
+.locked .opt:hover{border-color:var(--line)}
+.locked .opt.right:hover{border-color:var(--green)}
+.locked .opt.bad:hover{border-color:var(--red)}
+
+.fb{margin-top:14px;padding:13px 15px;border-radius:9px;font-size:15.5px;line-height:1.5;display:none}
+.fb.show{display:block}
+.fb.ok{background:#E6F7EC;border-left:5px solid var(--green)}
+.fb.no{background:var(--yellow);border-left:5px solid var(--orange)}
+.fb b{font-weight:700}
+
+#submit{width:100%;padding:18px;font-size:18px;font-weight:700;font-family:inherit;
+  background:var(--teal);color:#fff;border:none;border-radius:11px;cursor:pointer;margin-top:8px;
+  letter-spacing:.4px}
+#submit:disabled{background:#B6C6D6;cursor:not-allowed}
+
+#result{display:none;background:var(--navy);color:#fff;border-radius:14px;padding:30px 24px;
+  margin-top:26px;text-align:center;border-top:8px solid var(--orange)}
+#result.show{display:block}
+#score{font-family:'Space Mono',monospace;font-size:56px;font-weight:700;line-height:1}
+#pct{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:3px;color:#5FC7DE;
+  text-transform:uppercase;margin-top:10px}
+#verdict{font-size:19px;color:#DCEBF7;margin-top:20px;line-height:1.5}
+
+/* ---- submit overlay ---- */
+.overlay{position:fixed;inset:0;background:rgba(27,42,74,.94);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:24px}
+.overlay.show{display:flex}
+.overlay-box{background:#fff;border-radius:16px;padding:44px 34px;text-align:center;
+  max-width:340px;width:100%;border-top:8px solid var(--teal)}
+.spinner{width:52px;height:52px;margin:0 auto 22px;border:6px solid #E2E8F0;
+  border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.sync-msg{font-size:19px;letter-spacing:.5px}
-.sync-msg.done{color:#4ade80;font-weight:700}
+.sync-msg{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--navy);font-weight:700}
+.sync-msg.done{color:var(--green);letter-spacing:.5px;text-transform:none;font-size:17px;
+  font-family:'DM Sans',sans-serif}
+footer{text-align:center;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;
+  color:#93A5B8;text-transform:uppercase;margin-top:34px}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="kick">District 8 &middot; Division 701</div>
-  <h1>P07W3 Pop Quiz</h1>
-  <p>Ten questions. Open book &mdash; everything is in the briefing.</p>
-</header>
-<div id="bar"><div id="fill"></div></div>
+<header><div class="wrap">
+  <div class="tag">P07W4 &middot; Week 28 &middot; District 8</div>
+  <h1>Pop Quiz</h1>
+  <p>Ten questions on this week's briefing. Answer them all, then submit.</p>
+</div></header>
+
+<div class="progwrap"><div class="wrap">
+  <div class="progrow"><span id="ptext">0 of 10 answered</span><span id="pname">Name required</span></div>
+  <div class="progbar"><div class="progfill" id="pfill"></div></div>
+</div></div>
 
 <div class="wrap">
-
   <div class="namebox">
     <label for="nm">Your name</label>
-    <input id="nm" type="text" placeholder="First and last" autocomplete="name">
+    <input id="nm" type="text" autocomplete="name" placeholder="First and last name">
   </div>
 
   <div id="quiz"></div>
 
-  <button id="submit" disabled>Answer all 10 to submit</button>
+  <button id="submit" disabled>Submit answers</button>
 
   <div id="result">
-    <div class="score" id="sc">0/10</div>
-    <div class="pct" id="pc">0%</div>
-    <div class="verdict" id="vd"></div>
+    <div id="score">0/10</div>
+    <div id="pct">0 percent</div>
+    <div id="verdict"></div>
   </div>
 
+  <footer>Retail Odyssey &middot; Division 701</footer>
 </div>
 
-<script>
-const PERIOD_WEEK = "P07W3";
-const POST_URL = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+<div class="overlay" id="ov"><div class="overlay-box">
+  <div class="spinner" id="spin"></div>
+  <div class="sync-msg" id="sync">Buffering...</div>
+</div></div>
 
-const Q = [
+<script>
+var PERIOD_WEEK = "P07W4";
+var ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
+
+var Q = [
 {
-  q:"On C121 Cigarettes, what takes over the final four feet of the planogram?",
-  o:["A Tobacco Derived Nicotine and Vape expansion",
-     "An expanded cigarette carton section",
-     "A lighter and accessory display",
-     "Overflow space for leaf tobacco"],
+  q:"At the stores folding the economy doors into Frozen Premium Meals, your economy doors are currently on the far right. What happens?",
+  o:["They stay put and you set around them",
+     "They move to the opposite end and the whole set shifts one door",
+     "They get pulled out of the set entirely",
+     "You split them, half on each end"],
+  a:1,
+  e:"Economy leads the set. If it is already on the far right it moves to the opposite end, which slides the entire set over one door. If economy is already leading on the left, it is just a regular update."
+},
+{
+  q:"Your pet box is missing the new item strip for leads, collars and accessories. What do you do?",
+  o:["Skip that planogram until a strip arrives",
+     "Set it from the planogram book and keep moving",
+     "Call the hotline and wait for a replacement",
+     "Reuse the old strip and mark it up by hand"],
+  a:1,
+  e:"That strip never generated. It is not coming, and it is not an error you caused. Set the planogram out of the planogram book and keep going. If something else looks wrong, email me first."
+},
+{
+  q:"Which District 8 store had every pet strip generate correctly?",
+  o:["31","215","658","19"],
+  a:2,
+  e:"658 was the only clean store in the district this week. Nine of the other ten had at least one pet strip fail."
+},
+{
+  q:"On the pet resets, which planograms should you crew first?",
+  o:["Cat toys and cat pans",
+     "Rawhide and health and wellness",
+     "Training pads and beds",
+     "Leads, collars and accessories"],
+  a:2,
+  e:"Training pads and beds are the heaviest lift in nearly every store, running an hour and a half to two and a half hours each. Get crew on those first, not last."
+},
+{
+  q:"How are pet reset credits handled?",
+  o:["Code 33 in Movista, complete with the receiver, finished by August 31",
+     "Code 33 in Movista, boxed and held for the next visit",
+     "Any unsold item can be credited, no deadline",
+     "Credits go on the EOD, no system entry needed"],
   a:0,
-  e:"The last four feet becomes the Tobacco Derived Nicotine and Vape expansion. Carton items come out of the bottom, non-visible portion of the set to make that room."
+  e:"Discontinued items only are eligible. Code 33 in Movista, complete the credit with the receiver, then destroy or donate at store. All reset credits must be finished by August 31 — do not let them trail the set."
 },
 {
-  q:"Who installs the pushers in the new Tobacco Derived Nicotine area?",
-  o:["We do, as part of the reset",
-     "The tobacco vendors, after we finish",
-     "Store management, before we arrive",
-     "Nobody &mdash; that section does not use pushers"],
+  q:"Natural Foods Snacks is listed as an NII on the paperwork. How should you actually plan it?",
+  o:["As an NII, strips and tags only",
+     "As an update, and expect a lot of overstock",
+     "As a maintenance pass, deletes only",
+     "As a vendor set, hand it to the department"],
   a:1,
-  e:"Tobacco vendors come in behind us and install those pushers. We set to planogram and leave the pushers alone."
+  e:"It is listed as an NII but it is an update. That is known division wide. The facing changes generate a lot of overstock, so decide where that product is going before you open the set."
 },
 {
-  q:"C038 Frozen Pizza is published at fifteen hours. What did the test set actually come in at?",
-  o:["Twelve hours","Ten hours","Six or seven hours, depending on set size","Fifteen hours, as published"],
-  a:2,
-  e:"Six hours on one set size and seven on the other &mdash; less than half the printed estimate. That correction is known across the whole division."
+  q:"In Natural Foods Snacks, how do Siete and Boulder end up?",
+  o:["Side by side, Siete on the left",
+     "Both moving to the endcap",
+     "Over and under, Boulder on top",
+     "Over and under, Siete on top"],
+  a:3,
+  e:"Siete and Boulder go to an over and under configuration — Siete on top, Boulder below."
 },
 {
-  q:"In the new C038 main set flow, where does Kroger land?",
-  o:["Between Red Baron and DiGiorno, where it already sits",
-     "Between DiGiorno and Freschetta",
-     "At the far end, past California Kitchen",
-     "Split across both ends of the door"],
+  q:"Dressings and Dips is only an hour. Why does it lead the day?",
+  o:["The strips expire if they sit too long",
+     "It is a produce set and that department needs their case back early",
+     "It has the most new items of any set this week",
+     "It has to be done before the frozen sets thaw"],
   a:1,
-  e:"Kroger moves out from between Red Baron and DiGiorno and lands between DiGiorno and Freschetta. On a reverse flow store that puts it on the right side of DiGiorno instead of the left."
+  e:"It is a produce set, so it goes first unless I have told you otherwise that week. Getting in and out ahead of their morning keeps us welcome in that department. Carrots rides along with this set and gets recorded under it."
 },
 {
-  q:"What happens to Tombstone and full-size Red Baron in the single serve doors?",
-  o:["They stay put and gain facings",
-     "They move up to the top shelf",
-     "They move out into the main set",
-     "They are deleted from the category"],
-  a:2,
-  e:"The single serve doors become single serve only, so Tombstone and any full-size Red Baron move out into the main set."
-},
-{
-  q:"What is the required left-to-right flow on C675 Functional Beverage?",
-  o:["Protein Dairy Drinks, Kombucha, Functional Sodas",
-     "Functional Sodas, Protein Dairy Drinks, Kombucha",
-     "Kombucha, Functional Sodas, Protein Dairy Drinks",
-     "Kombucha, Protein Dairy Drinks, Functional Sodas"],
-  a:2,
-  e:"Kombucha on the left, Functional Sodas in the middle, Protein Dairy Drinks on the right. That flow is the whole point of the update."
-},
-{
-  q:"Lifeway Kefirs move into C675 this week. What happens to their placement in Yogurt?",
-  o:["It is pulled as soon as C675 is set",
-     "They stay dual-placed in both sets until the Yogurt reset in Period 8 Week 4",
-     "They stay dual-placed permanently",
-     "The Yogurt placement moves to an endcap"],
+  q:"Bonfire Burrito switched to shelf-ready packaging. Where do the trays come from?",
+  o:["They are in the Vestcom box with the strips",
+     "The supplier ships them straight to the store",
+     "They come on the Kompass cart with the planograms",
+     "The store orders them through the receiver"],
   a:1,
-  e:"They stay dual-placed in both sets until the Yogurt reset in Period 8 Week 4. You are adding a placement, not removing one."
+  e:"The supplier ships the shelf-ready trays direct to the store, not through Vestcom. If yours have not landed, set the rest of the maintenance and come back for it."
 },
 {
-  q:"Before starting C066 Refrigerated Dough, what should you do?",
-  o:["Order replacement pushers through the hotline",
-     "Wait for the Nestle reps to arrive first",
-     "Dig for the Pillsbury trays already delivered and possibly buried in the back room",
-     "Set the traditional dough section first, then break-and-bake"],
+  q:"Next week on Refrigerated Juice, stores 23, 215 and 459 are exception stores. What does that mean for them?",
+  o:["They set the juice a day later than everyone else",
+     "They get full strips instead of new item strips",
+     "They do not use the automation-generated planogram",
+     "They skip the update entirely this period"],
   a:2,
-  e:"Pillsbury trays were delivered last week and the week before and may be buried in the back room. Hunt them down before deciding they never showed up."
-},
-{
-  q:"On a bakery bunker or mobile case, how are the black identification tags secured?",
-  o:["Cut magnetic tape to the size of the tag and adhere the tag to the tape",
-     "Clipped into the channel guide",
-     "Placed loose under the product",
-     "Stapled to the case liner"],
-  a:0,
-  e:"Cut magnetic tape to tag size and stick the tag to the tape. If the case will not take magnetic tape, use double-sided sticky tape instead."
-},
-{
-  q:"How long can bakery refrigerated and frozen product be outside the case?",
-  o:["Ten minutes","Fifteen minutes","Twenty minutes","Thirty minutes"],
-  a:1,
-  e:"Fifteen minutes on the bakery sets. That is tighter than the twenty minutes on the grocery-side refrigerated sets &mdash; two different clocks."
+  e:"Those three are exception stores, so the automation-generated planogram will not match what is on their fixture. Every other store converts to the automation version."
 }
 ];
 
-const LT = ["A","B","C","D"];
-const picks = {};
-let locked = false;
+var LTR = ["A","B","C","D"];
+var picked = {}, locked = false;
+var quizEl = document.getElementById("quiz");
 
-const quiz = document.getElementById('quiz');
-Q.forEach((item, i) => {
-  const d = document.createElement('div');
-  d.className = 'q';
-  d.innerHTML =
-    '<div class="qh"><span class="n">' + (i+1) + '</span><span class="qt">' + item.q + '</span></div>' +
-    '<div class="opts">' + item.o.map((t,j) =>
-      '<label class="opt" data-q="' + i + '" data-o="' + j + '">' +
-      '<span class="ltr">' + LT[j] + '</span><span>' + t + '</span>' +
-      '<input type="radio" name="q' + i + '"></label>').join('') + '</div>' +
-    '<div class="fb" id="fb' + i + '"></div>';
-  quiz.appendChild(d);
-});
-
-document.querySelectorAll('.opt').forEach(el => {
-  el.addEventListener('click', () => {
-    if (locked) return;
-    const qi = +el.dataset.q, oi = +el.dataset.o;
-    document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(s => s.classList.remove('sel'));
-    el.classList.add('sel');
-    picks[qi] = oi;
-    refresh();
+Q.forEach(function(item, i){
+  var d = document.createElement("div");
+  d.className = "q"; d.id = "q"+i;
+  var html = '<div class="qnum">Question '+(i+1)+'</div><div class="qtext">'+item.q+'</div>';
+  item.o.forEach(function(opt, j){
+    html += '<label class="opt" id="o'+i+'_'+j+'">'
+          + '<input type="radio" name="q'+i+'" value="'+j+'">'
+          + '<span class="ltr">'+LTR[j]+'</span><span>'+opt+'</span></label>';
   });
+  html += '<div class="fb" id="f'+i+'"></div>';
+  d.innerHTML = html;
+  quizEl.appendChild(d);
 });
 
-document.getElementById('nm').addEventListener('input', refresh);
+quizEl.addEventListener("change", function(ev){
+  if (locked) return;
+  var t = ev.target;
+  if (t.type !== "radio") return;
+  var i = parseInt(t.name.substring(1), 10);
+  picked[i] = parseInt(t.value, 10);
+  for (var j = 0; j < Q[i].o.length; j++){
+    document.getElementById("o"+i+"_"+j).classList.remove("sel");
+  }
+  document.getElementById("o"+i+"_"+picked[i]).classList.add("sel");
+  refresh();
+});
+
+document.getElementById("nm").addEventListener("input", refresh);
 
 function refresh(){
-  const n = Object.keys(picks).length;
-  document.getElementById('fill').style.width = (n / Q.length * 100) + '%';
-  const named = document.getElementById('nm').value.trim().length > 1;
-  const btn = document.getElementById('submit');
-  btn.disabled = !(n === Q.length && named);
-  btn.textContent = btn.disabled
-    ? (n < Q.length ? 'Answer all 10 to submit' : 'Enter your name to submit')
-    : 'Submit my answers';
+  var n = Object.keys(picked).length;
+  var nm = document.getElementById("nm").value.trim();
+  document.getElementById("ptext").textContent = n + " of " + Q.length + " answered";
+  document.getElementById("pfill").style.width = (n / Q.length * 100) + "%";
+  document.getElementById("pname").textContent = nm ? "Ready" : "Name required";
+  document.getElementById("submit").disabled = !(n === Q.length && nm.length > 1);
 }
 
-document.getElementById('submit').addEventListener('click', () => {
+document.getElementById("submit").addEventListener("click", function(){
   if (locked) return;
   locked = true;
-  document.getElementById('submit').style.display = 'none';
 
-  let score = 0; const missed = [];
-  Q.forEach((item, i) => {
-    const chosen = picks[i];
-    const ok = chosen === item.a;
-    if (ok) score++; else missed.push(i+1);
-    document.querySelectorAll('.opt[data-q="' + i + '"]').forEach(el => {
-      const oi = +el.dataset.o;
-      if (oi === item.a) el.classList.add('right');
-      else if (oi === chosen) el.classList.add('wrong');
-      el.classList.remove('sel');
-    });
-    const fb = document.getElementById('fb' + i);
-    fb.className = 'fb ' + (ok ? 'ok' : 'no');
-    fb.innerHTML = '<b>' + (ok ? 'Correct' : 'Not quite') + '</b>' + item.e;
-    fb.style.display = 'block';
+  var ov = document.getElementById("ov");
+  var spin = document.getElementById("spin");
+  var sync = document.getElementById("sync");
+  spin.style.display = "block";
+  sync.className = "sync-msg";
+  sync.textContent = "Buffering...";
+  ov.classList.add("show");
+
+  var score = 0, missed = [];
+  Q.forEach(function(item, i){
+    var box = document.getElementById("q"+i);
+    var fb = document.getElementById("f"+i);
+    var mine = picked[i];
+    box.classList.add("locked");
+    document.getElementById("o"+i+"_"+item.a).classList.add("right");
+    document.getElementById("o"+i+"_"+item.a).classList.remove("sel");
+    if (mine === item.a){
+      score++;
+      box.classList.add("correct");
+      fb.className = "fb ok show";
+      fb.innerHTML = "<b>Correct.</b> " + item.e;
+    } else {
+      missed.push(i+1);
+      box.classList.add("wrong");
+      document.getElementById("o"+i+"_"+mine).classList.add("bad");
+      document.getElementById("o"+i+"_"+mine).classList.remove("sel");
+      fb.className = "fb no show";
+      fb.innerHTML = "<b>The answer is " + LTR[item.a] + ".</b> " + item.e;
+    }
+    box.querySelectorAll("input").forEach(function(r){ r.disabled = true; });
   });
 
-  const pct = Math.round(score / Q.length * 100);
-  let verdict;
+  var pct = Math.round(score / Q.length * 100);
+  var verdict;
   if (score === 10) verdict = "Perfect. You were paying attention.";
   else if (score >= 8) verdict = "Solid. Review the ones you missed.";
-  else if (score >= 6) verdict = "Watch the presentation again \u2014 key details were missed.";
+  else if (score >= 6) verdict = "Watch the presentation again — key details were missed.";
   else verdict = "Go back and rewatch the full presentation before your next shift.";
 
-  showOverlay(function(sent){
-    document.getElementById('sc').textContent = score + '/' + Q.length;
-    document.getElementById('pc').textContent = pct + '%';
-    document.getElementById('vd').textContent =
-      verdict + (sent ? '' : ' Screenshot this and send it to me.');
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('result').scrollIntoView({behavior:'smooth', block:'center'});
-  });
-
-  post(score, pct, missed);
-});
-
-let posted = null;
-function post(score, pct, missed){
-  const body = JSON.stringify({
+  var name = document.getElementById("nm").value.trim();
+  var payload = {
     timestamp: new Date().toISOString(),
     periodWeek: PERIOD_WEEK,
-    name: document.getElementById('nm').value.trim(),
+    name: name,
     score: score,
     outOf: Q.length,
     percent: pct,
-    missed: missed.join(', ')
-  });
-  fetch(POST_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:body})
-    .then(() => { posted = true; })
-    .catch(() => { posted = false; });
-}
+    missed: missed.length ? missed.join(", ") : "None"
+  };
 
-function showOverlay(done){
-  const ov = document.createElement('div');
-  ov.className = 'overlay';
-  ov.innerHTML = '<div class="overlay-box"><div class="spinner"></div>' +
-                 '<div class="sync-msg" id="sm">Buffering...</div></div>';
-  document.body.appendChild(ov);
-  setTimeout(() => {
-    ov.querySelector('.spinner').style.display = 'none';
-    const sm = document.getElementById('sm');
-    sm.textContent = 'Your results have been submitted.';
-    sm.className = 'sync-msg done';
-    setTimeout(() => { ov.remove(); done(posted !== false); }, 2000);
+  var sent = true;
+  try {
+    fetch(ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).catch(function(){ sent = false; });
+  } catch (err) { sent = false; }
+
+  setTimeout(function(){
+    spin.style.display = "none";
+    sync.className = "sync-msg done";
+    sync.textContent = "Your results have been submitted.";
   }, 1500);
-}
+
+  setTimeout(function(){
+    ov.classList.remove("show");
+    document.getElementById("score").textContent = score + "/" + Q.length;
+    document.getElementById("pct").textContent = pct + " percent";
+    document.getElementById("verdict").textContent =
+      verdict + (sent ? "" : " Screenshot this and send it to me.");
+    document.getElementById("result").classList.add("show");
+    document.getElementById("submit").style.display = "none";
+    document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 3500);
+});
+
+refresh();
 </script>
 </body>
 </html>
