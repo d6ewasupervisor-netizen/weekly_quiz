@@ -1,267 +1,324 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>P08W1 Quiz &middot; District 8</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P08W2 Quiz — District 8</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#1B2A4A;--teal:#0891B2;--orange:#F59E0B;--red:#DC2626;--green:#0F9D58;--bg:#F0F4F8;--yel:#FEF3C7;--lb:#ECFEFF}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--navy);line-height:1.5;padding-bottom:120px}
-.bar{position:fixed;top:0;left:0;right:0;height:6px;background:#D6E0EC;z-index:60}
-.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--orange));transition:width .3s}
-header{background:var(--navy);color:#fff;padding:38px 20px 30px;text-align:center}
-header .k{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--teal);text-transform:uppercase}
-header h1{font-size:30px;font-weight:700;margin:8px 0 6px}
-header p{font-size:14px;color:#B6C6DE}
-.wrap{max-width:640px;margin:0 auto;padding:20px 16px}
-.namebox{background:#fff;border-radius:14px;padding:18px;box-shadow:0 3px 12px rgba(27,42,74,.09);margin-bottom:22px}
-.namebox label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:700;display:block;margin-bottom:8px}
-.namebox input{width:100%;font-family:'DM Sans',sans-serif;font-size:17px;padding:13px;border:2px solid #D6E0EC;border-radius:10px;outline:none}
-.namebox input:focus{border-color:var(--teal)}
-.q{background:#fff;border-radius:14px;padding:18px;box-shadow:0 3px 12px rgba(27,42,74,.09);margin-bottom:16px}
-.qn{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--teal);font-weight:700;margin-bottom:8px}
-.qt{font-size:17px;font-weight:500;margin-bottom:14px;line-height:1.4}
-.opt{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;border:2px solid #E2E9F2;border-radius:10px;margin-bottom:9px;cursor:pointer;font-size:15px;transition:.15s}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#F0F4F8;color:#1B2A4A;padding:0 0 60px;-webkit-text-size-adjust:100%}
+header{background:#1B2A4A;color:#fff;padding:24px 18px 20px;border-bottom:6px solid #0891B2}
+header .tag{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:3px;color:#F59E0B;text-transform:uppercase}
+header h1{font-size:24px;margin-top:6px;line-height:1.2}
+header p{font-size:14px;color:#AFC4DD;margin-top:8px;line-height:1.45}
+.progwrap{position:sticky;top:0;z-index:5;background:#F0F4F8;padding:10px 18px 8px;border-bottom:1px solid #D8E2EE}
+.progbar{height:8px;background:#D8E2EE;border-radius:99px;overflow:hidden}
+.progfill{height:100%;width:0;background:#0891B2;transition:width .25s}
+.progtxt{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:#5A6B85;margin-top:6px;text-transform:uppercase}
+main{padding:18px}
+.namebox{background:#fff;border-radius:12px;padding:16px;margin-bottom:20px;box-shadow:0 2px 8px rgba(27,42,74,.09)}
+.namebox label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#0891B2;font-weight:700;display:block;margin-bottom:8px}
+.namebox input{width:100%;font-family:'DM Sans',sans-serif;font-size:17px;padding:12px 14px;border:2px solid #D8E2EE;border-radius:8px;background:#F7FAFC}
+.namebox input:focus{outline:0;border-color:#0891B2;background:#fff}
+.q{background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 2px 8px rgba(27,42,74,.09)}
+.qn{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:#0891B2;font-weight:700;text-transform:uppercase}
+.qt{font-size:17px;line-height:1.42;font-weight:500;margin:8px 0 14px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:12px 13px;border:2px solid #E3EAF3;border-radius:9px;margin-bottom:9px;cursor:pointer;font-size:15px;line-height:1.4;background:#fff}
 .opt:last-of-type{margin-bottom:0}
-.opt:active{transform:scale(.99)}
-.opt.sel{border-color:var(--teal);background:var(--lb)}
-.opt .ltr{font-family:'Space Mono',monospace;font-weight:700;color:var(--teal);flex:none;width:17px}
+.opt .ltr{font-family:'Space Mono',monospace;font-weight:700;color:#5A6B85;flex:0 0 auto}
+.opt.sel{border-color:#0891B2;background:#ECFEFF}
+.opt.sel .ltr{color:#0891B2}
+.opt input{display:none}
 .locked .opt{cursor:default}
-.opt.ok{border-color:var(--green);background:#E9F7EF}
-.opt.ok .ltr{color:var(--green)}
-.opt.bad{border-color:var(--red);background:#FDECEC}
-.opt.bad .ltr{color:var(--red)}
-.opt.bad .tx{text-decoration:line-through;opacity:.65}
-.fb{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.45}
-.fb.ok{background:#E9F7EF;border-left:5px solid var(--green)}
-.fb.bad{background:var(--yel);border-left:5px solid var(--red)}
-.fb b{font-weight:700}
-#submit{position:fixed;left:0;right:0;bottom:0;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:rgba(240,244,248,.96);backdrop-filter:blur(8px);border-top:1px solid #D6E0EC;z-index:50}
-#submit button{display:block;width:100%;max-width:608px;margin:0 auto;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;padding:16px;border:none;border-radius:12px;background:var(--teal);color:#fff;cursor:pointer}
-#submit button:disabled{background:#B4C4D6;cursor:not-allowed}
-#result{display:none;background:var(--navy);color:#fff;border-radius:16px;padding:28px 22px;text-align:center;margin-bottom:20px}
-#result .score{font-family:'Space Mono',monospace;font-size:56px;font-weight:700;line-height:1}
-#result .pct{font-size:19px;color:var(--teal);font-weight:700;margin-top:4px}
-#result .verdict{font-size:16px;color:#D5E0EE;margin-top:14px;line-height:1.5}
-.overlay{position:fixed;inset:0;background:rgba(27,42,74,.97);z-index:200;display:none;align-items:center;justify-content:center}
-.overlay.on{display:flex}
-.overlay-box{text-align:center;color:#fff;padding:30px}
-.spinner{width:54px;height:54px;border:5px solid rgba(255,255,255,.2);border-top-color:var(--teal);border-radius:50%;margin:0 auto 20px;animation:sp .8s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.sync-msg{font-family:'Space Mono',monospace;font-size:16px;letter-spacing:2px}
-.sync-msg.done{color:#4ADE80;font-weight:700}
-footer{text-align:center;font-size:13px;color:#6B7F9B;padding:8px 20px 30px;line-height:1.5}
+.opt.right{border-color:#10B981;background:#ECFDF5}
+.opt.right .ltr{color:#059669}
+.opt.wrong{border-color:#DC2626;background:#FEF2F2}
+.opt.wrong .ltr{color:#DC2626}
+.opt.wrong .txt{text-decoration:line-through;opacity:.72}
+.fb{margin-top:12px;padding:12px 13px;border-radius:9px;font-size:14px;line-height:1.45;display:none}
+.fb.show{display:block}
+.fb.ok{background:#ECFDF5;border-left:5px solid #10B981}
+.fb.no{background:#FEF3C7;border-left:5px solid #DC2626}
+.fb b{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px}
+.fb.ok b{color:#059669}
+.fb.no b{color:#DC2626}
+#submit{width:100%;padding:17px;border:0;border-radius:11px;background:#0891B2;color:#fff;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;cursor:pointer;margin-top:6px}
+#submit:disabled{background:#B6C6D8;cursor:not-allowed}
+#result{display:none;background:#1B2A4A;color:#fff;border-radius:12px;padding:24px 18px;text-align:center;margin-bottom:20px}
+#result .score{font-family:'Space Mono',monospace;font-size:48px;font-weight:700;color:#F59E0B;line-height:1}
+#result .pct{font-size:15px;color:#AFC4DD;margin-top:6px}
+#result .verdict{font-size:17px;line-height:1.45;margin-top:14px}
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.93);display:flex;align-items:center;justify-content:center;z-index:99}
+.overlay-box{background:#fff;border-radius:14px;padding:34px 30px;text-align:center;min-width:250px;max-width:82vw}
+.spinner{width:44px;height:44px;margin:0 auto 18px;border:5px solid #D8E2EE;border-top-color:#0891B2;border-radius:50%;animation:spin .85s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sync-msg{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#1B2A4A;font-weight:700}
+.sync-msg.done{color:#059669}
+footer{text-align:center;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:#8C9BB0;text-transform:uppercase;padding:22px 18px 0}
 </style>
 </head>
 <body>
-<div class="bar"><i id="pbar"></i></div>
+
 <header>
-  <div class="k">Period 8 &middot; Week 1 &middot; District 8</div>
-  <h1>Weekly Check</h1>
-  <p>20 questions &middot; about 5 minutes</p>
+  <div class="tag">Period 8 &middot; Week 2 &middot; District 8</div>
+  <h1>Weekly Recap Quiz</h1>
+  <p>Twenty questions, all of it straight from the recap. Answer everything, then submit &mdash; results come to me automatically.</p>
 </header>
 
-<div class="wrap">
-  <div class="namebox">
-    <label for="nm">Your name</label>
-    <input id="nm" type="text" autocomplete="name" placeholder="First and last">
-  </div>
-  <div id="result"></div>
-  <div id="qs"></div>
+<div class="progwrap">
+  <div class="progbar"><div class="progfill" id="progfill"></div></div>
+  <div class="progtxt" id="progtxt">0 of 20 answered</div>
 </div>
 
-<div id="submit"><button id="btn" disabled>Answer all 20 questions</button></div>
-<footer>Results come straight to me automatically.</footer>
+<main>
+  <div class="namebox">
+    <label for="name">Your name</label>
+    <input type="text" id="name" autocomplete="name" placeholder="First and last name">
+  </div>
 
-<div class="overlay" id="ov"><div class="overlay-box">
-  <div class="spinner" id="spin"></div>
-  <div class="sync-msg" id="syncmsg">Buffering...</div>
-</div></div>
+  <div id="result">
+    <div class="score" id="scoreline">0 / 20</div>
+    <div class="pct" id="pctline">0%</div>
+    <div class="verdict" id="verdictline"></div>
+  </div>
+
+  <div id="quiz"></div>
+
+  <button id="submit" disabled>Submit answers</button>
+</main>
+
+<footer>Retail Odyssey &middot; District 8 &middot; Division 701</footer>
 
 <script>
-const PERIOD_WEEK = "P08W1";
+const PERIOD_WEEK = "P08W2";
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
 
-const Q = [
-{q:"How many hours is Hand Body Face this week, and what makes it heavy?",
- o:["8 hours — a full reflow of the set","16 hours — heaviest add and delete activity, almost everything shifts","4 hours — only the acne block changes","12 hours — every shelf drops one notch"],a:1,
- e:"It's 16 hours. There's no reflow and no shelf moves — the weight comes from volume. Nearly every item on the set shifts, mostly side to side."},
+const QUESTIONS = [
+{q:"On the Soap set, where should you start and which direction do you work?",
+ o:["Start in hand soap and work right to left","Start at the far left and work left to right","Start in bar soap and work outward","Start in the middle and work both directions"],
+ a:0,
+ e:"The liquid hand soaps shrink and the rest of the set expands toward them, so starting in hand soap and working right to left is what worked on the test set."},
 
-{q:"Where does the Color Cosmetics crossover material arrive?",
- o:["In your main Vestcom box with everything else","In a separate Vestcom cosmetics box with a pink label","It ships directly to the store manager","It comes the following week"],a:1,
- e:"Separate Vestcom cosmetics box, pink label. It will not be in your main box, so find it before you start rather than after."},
+{q:"What was the known issue with close-outs on the Soap set?",
+ o:["They were tagged twice by mistake","Most of them came through without close-out tags","They were all pulled before we arrived","They were tagged but with the wrong prices"],
+ a:1,
+ e:"Most close-outs were not tagged with close-out tags, so you have to catch them yourself while setting."},
 
-{q:"On Hand Body Face, where does Starface go?",
- o:["In front of Hero Mighty Patch","At the far right end of the set","With the Korean Beauty block","On the bottom shelf"],a:0,
- e:"Starface goes in front of Hero Mighty Patch. Item order inside each brand is exact on this set — that's where it gets away from people."},
+{q:"Who installs the Dr. Squatch rack?",
+ o:["Whoever is on the soap set that day","The store's grocery manager","Their own vendor rep, a few weeks after posting","Nobody &mdash; it ships pre-assembled"],
+ a:2,
+ e:"Their rep visits two to three weeks after posting to install it. We are not setting it and no materials are coming to us for it."},
 
-{q:"What should you stage before starting Hand Body Face?",
- o:["Extra shelf channels","Banana boxes for close-outs and extra pushers","A second Zebra","Replacement rail strips"],a:1,
- e:"The test store filled seven banana boxes with close-outs and needed five extra pushers. Stage them up front instead of hunting mid-set."},
+{q:"In Oral Care, where does nearly all of the eight hours go?",
+ o:["Mouthwash and denture","Toothpaste and adult toothbrushes","Whitening strips","Kids oral care"],
+ a:1,
+ e:"Mouthwash and denture run fast &mdash; a little over an hour for the pair on the test. Toothpaste and adult toothbrushes carry the rest."},
 
-{q:"On Pasta Sauce, which brand now leads the set?",
- o:["Ragu","Prego","Kroger","Rao's"],a:2,
- e:"Kroger leads, then Prego, then Ragu, blocking top to bottom."},
+{q:"On Oral Care sets that are 20 ft and larger, what happens to the vertical toothpaste items on the top shelf?",
+ o:["They stay on top exactly as they are","They flip horizontal and move down into the set next to like items","They move to the bottom shelf as a block","They are deleted from the set"],
+ a:1,
+ e:"On 20 ft and larger they flip horizontal and drop down into the set. On 16 ft and smaller they stay up top to make room for assortment &mdash; check your set size first."},
 
-{q:"Where does Hunts canned sauce end up?",
- o:["It stays underneath alfredo","Opposite end of the planogram, under Kroger on the bottom shelf","Top shelf next to the premium block","It leaves the set entirely"],a:1,
- e:"Hunts moves from under alfredo all the way to the opposite end and sits under Kroger on the bottom shelf."},
+{q:"Where should you start on the toothbrush section?",
+ o:["The bottom shelf","The top shelf","The Our Brands block","Wherever the deletes are heaviest"],
+ a:1,
+ e:"Toothbrushes move mostly side to side, and starting at the top shelf worked best on the test set."},
 
-{q:"Two of you are resetting Pasta Sauce. How do you start?",
- o:["Both start at the alfredo end","One on each end, meet in the middle","Both start in the middle and work outward","One resets while the other pulls close-outs"],a:1,
- e:"Two people start one on each end. Working alone, you start at the alfredo end and move toward the tomato end."},
+{q:"What is the watch-out on denture shelf 2?",
+ o:["The shelf has to be lowered two notches","Wide gaps where the pushers are spread out and barely catch product","The strip does not match the planogram","Two items have to stand up instead of lay down"],
+ a:1,
+ e:"Shelf 2 has a lot of extra space, so the pushers spread out and barely catch the product. It matches the strip &mdash; it just looks a little odd, and the store is fine with it. The stand-up items are on shelf 1."},
 
-{q:"On the tomato end of Pasta Sauce, what's the first move?",
- o:["Slide Ragu over, then pull the Kroger","Pull the Kroger, then slide Ragu and Prego over","Drop the shelf one notch first","Set the premium block first"],a:1,
- e:"Pull the Kroger first, then slide Ragu and Prego over. Doing it the other way boxes you in."},
+{q:"What should you plan for on the Cake D&eacute;cor set?",
+ o:["A full reflow of the whole set","Shelves 2 and 3 moved up to fit the new Wilton Decorating Bags tray","Removing an entire bay","Moving the set to a new aisle"],
+ a:1,
+ e:"There is no structural rework &mdash; new items come into the existing set. Most stores will need shelves 2 and 3 moved up to fit the new tray, so build that into your plan."},
 
-{q:"Bay 5 top shelf on the Pasta Sauce test planogram doesn't fit. What do you do?",
- o:["Email the issue in and wait for a response","Cut one facing from an adjacent item so all three get one facing each","Leave the last two items off the set","Add a shelf to make room"],a:1,
- e:"Cut one facing from the adjacent item so the three sit with one facing each. It's already been reported — no email needed."},
+{q:"Which set should be knocked out first thing unless you have been told otherwise?",
+ o:["Soap","Oral Care","Dry Processed on the Fresh Gourmet overhead racks","Cake D&eacute;cor"],
+ a:2,
+ e:"Dry Processed is a produce set on the Fresh Gourmet overhead racks, and produce sets go first unless another priority has been set for that week."},
 
-{q:"Does Bagels and Cream Cheese have shelf adjustments?",
- o:["No — flow changes only","Yes — mostly vertical movement plus shelf height changes","Only at exception stores","Only where bagels are being removed"],a:1,
- e:"Yes. Movement is mostly vertical and there are a number of shelf height changes. Read the planogram before you start pulling."},
+{q:"How long can product from a temperature-controlled set be left out?",
+ o:["Ten minutes","Twenty minutes","Forty-five minutes","As long as it takes to finish the bay"],
+ a:1,
+ e:"Twenty minutes, no exceptions. Work in batches on the cold sets and it stops being an issue."},
 
-{q:"How long can a refrigerated or frozen set be out of temperature?",
- o:["10 minutes","20 minutes maximum","45 minutes","As long as it takes, if you work fast"],a:1,
- e:"20 minutes maximum. Work out of a cart, not off the floor, and pull in sections."},
+{q:"What happens to vendor branding &mdash; strips and stickers &mdash; on bakery racks?",
+ o:["It gets removed and given to the bakery department","It stays exactly where it is","It gets replaced with our own strips","It comes off only if the rack is being moved"],
+ a:1,
+ e:"That branding is part of the store's agreement with the vendor, so it stays in place. Same goes for the romance identifier tags on artisan bread and Eurobake."},
 
-{q:"Strip orders are sitting in your back room at 31, 53 or 459. What happens?",
- o:["Leave them — they'll be picked up next visit","Install them and tell me, so I can sign the events out","Send them back to the ordering store","Hold them until the category resets again"],a:1,
- e:"Install them and tell me. Those strips were ordered and delivered — the events can't come off my list until somebody puts them up."},
+{q:"On a bakery table reset, where does the new planogram go?",
+ o:["Into the plastic sleeve attached to the table","Onto the Kompass cart","Taped to the end cap","It gets recycled once the set is done"],
+ a:0,
+ e:"Bakery table resets get the new planogram in the plastic sleeve on the table. Everything else goes to the Bakery department so they have it for reference."},
 
-{q:"On C406 Cookies, what happens to branded rack strips like Biscoff?",
- o:["Pull them and replace with new strips","Leave them in place — they stay on the rack","Move them to the bottom shelf","Return them with the close-outs"],a:1,
- e:"Leave them in place. Branded rack strips stay on the rack when you update the set. Those aren't ours to pull."},
+{q:"How often should you be checking in with a store manager?",
+ o:["Only when there is a problem to report","Every visit","Once a week","Only if they approach you first"],
+ a:1,
+ e:"Every visit. We are often in before they are on shift, but you are both walking the store &mdash; stop, say hello, and give them a quick rundown. If there is nothing to report, it is just a hello."},
 
-{q:"You've been assigned surveys. When and where do they get done?",
- o:["One survey for the district, due end of period","Starting Monday, one in every store you work","Only at stores with a reset that week","Whenever you get a spare shift"],a:1,
- e:"Starting Monday, one per store — in every store you work, not one for the district. Do it while you're standing in the building."},
+{q:"What happens to the outgoing limited time edition Oreo flavor?",
+ o:["It gets close-out tags like anything else","Mondelez collects it themselves, and there are no close-out tags","We box it and hand it to the store","It stays on the set until it sells through"],
+ a:1,
+ e:"There are no close-out tags on it &mdash; Mondelez picks up the prior period's edition themselves."},
 
-{q:"What's changing about how you send feedback on the end-of-day app?",
- o:["A feedback hub goes live in the app next week — screenshot it and send it in the moment","Feedback moves to a monthly form","Only leads can submit feedback","Feedback is collected once a year"],a:0,
- e:"A feedback hub goes live in the app next week. Screenshot the problem and send it while it's fresh, instead of trying to remember it three days later."},
+{q:"On the Feminine Hygiene set, how do the seven new items get ordered?",
+ o:["Alphabetically by brand","Biggest to smallest &mdash; sizes 5, 4, 3, 2, 1","Smallest to biggest &mdash; sizes 1, 2, 3, 4, 5","By price point, low to high"],
+ a:1,
+ e:"All seven go into the Always Radiant and Always Infinity block, ordered biggest to smallest. Nothing comes out to make room."},
 
-{q:"Which of these is a DO NOT INSTALL zone for digital shelf labels?",
- o:["Center store grocery","Narrow shelf strips in the spice aisle","Frozen, wine, tobacco and dump bins","Produce and meat"],a:2,
- e:"Frozen, wine, tobacco and dump bins are all off limits — along with fuel center, seasonal, gift cards, American Greetings, lobby, furniture, clip strips and floor displays."},
+{q:"What is the standard for backstock and not-in-set product?",
+ o:["Leave it on the cart for the next visit","Every box leaves the visit clearly labeled","Hand it directly to a manager","Combine it all into one unmarked box"],
+ a:1,
+ e:"Every box gets a label. They are in A Useful Folder in the dump bin &mdash; fax them to yourself, tear or cut them apart, and fasten them to the banana boxes. Blank tags from the price change room work well for this."},
 
-{q:"A digital tag covers another item's barcode. What do you do?",
- o:["Size down to the next smaller tag","Move the neighboring product","Angle the tag and move on","Skip the tag and note it on your EOD"],a:0,
- e:"Size down. That's the whole rule — if it covers another barcode, go smaller. The size you need is printed on the shelf strip."},
+{q:"What do you do with shelves that come out of a set?",
+ o:["Lean them somewhere out of the way in the back","Put them in the appropriate storage area for that specific store","Leave them beside the set for the store to deal with","Stack them on the Kompass cart"],
+ a:1,
+ e:"Every store is laid out differently, so there is no single right answer &mdash; but leaving them leaning against whatever was nearest is the wrong one. Find out where that store wants them and put them there."},
 
-{q:"What's the correct digital shelf label install order?",
- o:["Tag, then channel, then planogram strip","Channel if needed, then planogram strip, then tag","Planogram strip, then tag, then channel","Tag first so you don't forget it"],a:1,
- e:"Channel into the rail if needed, then the planogram strip, then snap in the tag. Never install a tag before the planogram strip."},
+{q:"When should the new items be pulled off the Kompass cart?",
+ o:["In the morning, so they go out with the crew when the reset starts","At the end of the day once the set is finished","Whenever there is a gap in the schedule","Only on visits where there is spare time"],
+ a:0,
+ e:"Pull them in the morning and send them out with the crew at the start of the reset. Putting new product on the shelf is the reason this job exists &mdash; it does not get left to the last hour."},
 
-{q:"It's mid-shift and the store still hasn't given you a Zebra. What now?",
- o:["Work the set and associate tags tomorrow","Keep asking the store until someone helps","Tell me so I can get it resolved — don't wait it out","Skip the digital tags for that set"],a:2,
- e:"Escalate to me. Ask the store first thing in the morning, and if you don't have one by mid-shift, don't burn the day waiting."},
+{q:"What has to happen before anyone works a refrigerated, frozen, cooler or produce set?",
+ o:["They have to have completed a full set on their own first","They have to be walked through that store's cold storage in the back","They have to get manager approval in writing","Nothing specific &mdash; the planogram covers it"],
+ a:1,
+ e:"Every store has a cooler room for produce, a refrigerator for items like kombucha and eggs, a dairy cooler for milk, and a freezer for ice cream and frozen dinners. Product has to land in the right one, so the walkthrough comes before the work, not after."},
 
-{q:"Where do signoff photos go, and what's required in every EOD subject line?",
- o:["Emailed to the store manager; category number in the subject","Loaded into prod under Kompass Maintenance; store number in the subject","Texted to your lead; your name in the subject","Kept on your phone; period and week in the subject"],a:1,
- e:"Photos load into prod under Kompass Maintenance — in tight, in focus, in good light. And the store number goes in the subject line of every EOD, no exceptions."}
+{q:"What is coming in Period 8 Week 4 that affects eight of our ten stores?",
+ o:["A full remodel of the grocery aisles","Paper Housewares combining with Napkins","A district-wide inventory count","The fall spirits reset"],
+ a:1,
+ e:"Paper Housewares and Napkins combine at eight of our ten stores. That brings merchandising changes and real shelving moves, not just an assortment swap."}
 ];
 
-const qs = document.getElementById('qs'), btn = document.getElementById('btn'),
-      bar = document.getElementById('pbar'), nm = document.getElementById('nm'),
-      ov = document.getElementById('ov'), spin = document.getElementById('spin'),
-      syncmsg = document.getElementById('syncmsg'), res = document.getElementById('result');
-const picks = new Array(Q.length).fill(null);
+const LETTERS = ["A","B","C","D"];
+const answers = new Array(QUESTIONS.length).fill(null);
 let locked = false;
-const L = ['A','B','C','D'];
 
-Q.forEach((item, i) => {
-  const d = document.createElement('div');
-  d.className = 'q'; d.id = 'q' + i;
-  d.innerHTML = '<div class="qn">Question ' + (i+1) + ' of ' + Q.length + '</div><div class="qt">' + item.q + '</div>' +
-    item.o.map((o, j) => '<div class="opt" data-q="' + i + '" data-o="' + j + '"><span class="ltr">' + L[j] + '</span><span class="tx">' + o + '</span></div>').join('');
-  qs.appendChild(d);
+const quizEl = document.getElementById("quiz");
+const nameEl = document.getElementById("name");
+const submitEl = document.getElementById("submit");
+
+QUESTIONS.forEach(function(item, qi){
+  const card = document.createElement("div");
+  card.className = "q";
+  card.id = "q" + qi;
+  let html = '<div class="qn">Question ' + (qi + 1) + '</div><div class="qt">' + item.q + '</div>';
+  item.o.forEach(function(opt, oi){
+    html += '<label class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
+            '<span class="ltr">' + LETTERS[oi] + '</span><span class="txt">' + opt + '</span>' +
+            '<input type="radio" name="q' + qi + '"></label>';
+  });
+  html += '<div class="fb" id="fb' + qi + '"></div>';
+  card.innerHTML = html;
+  quizEl.appendChild(card);
 });
 
-qs.addEventListener('click', e => {
-  const el = e.target.closest('.opt');
-  if (!el || locked) return;
-  const qi = +el.dataset.q, oi = +el.dataset.o;
-  document.querySelectorAll('[data-q="' + qi + '"]').forEach(x => x.classList.remove('sel'));
-  el.classList.add('sel');
-  picks[qi] = oi;
+quizEl.addEventListener("click", function(ev){
+  const lab = ev.target.closest(".opt");
+  if (!lab || locked) return;
+  const qi = +lab.dataset.q, oi = +lab.dataset.o;
+  answers[qi] = oi;
+  document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function(el){ el.classList.remove("sel"); });
+  lab.classList.add("sel");
   refresh();
 });
-nm.addEventListener('input', refresh);
+
+nameEl.addEventListener("input", refresh);
 
 function refresh(){
-  const done = picks.filter(p => p !== null).length;
-  bar.style.width = (done / Q.length * 100) + '%';
-  const ready = done === Q.length && nm.value.trim().length > 1;
-  btn.disabled = !ready;
-  btn.textContent = ready ? 'Submit answers' :
-    (done < Q.length ? (Q.length - done) + ' question' + (Q.length - done === 1 ? '' : 's') + ' left' : 'Enter your name');
+  const done = answers.filter(function(a){ return a !== null; }).length;
+  document.getElementById("progfill").style.width = (done / QUESTIONS.length * 100) + "%";
+  document.getElementById("progtxt").textContent = done + " of " + QUESTIONS.length + " answered";
+  submitEl.disabled = locked || done < QUESTIONS.length || nameEl.value.trim().length < 2;
 }
 
-btn.addEventListener('click', () => {
-  if (btn.disabled || locked) return;
-  locked = true; btn.disabled = true;
-  ov.classList.add('on');
-  setTimeout(() => { spin.style.display = 'none'; syncmsg.textContent = 'Your results have been submitted.'; syncmsg.classList.add('done'); }, 1500);
-  setTimeout(() => { ov.classList.remove('on'); grade(); }, 3500);
-});
+function verdictFor(score){
+  if (score === 20) return "Perfect. You were paying attention.";
+  if (score >= 16) return "Solid. Review the ones you missed.";
+  if (score >= 12) return "Watch the recap again \u2014 key details got past you.";
+  return "Go back and watch the full recap before your next shift.";
+}
 
-function grade(){
-  let score = 0; const missed = [];
-  Q.forEach((item, i) => {
-    const box = document.getElementById('q' + i);
-    box.classList.add('locked');
-    const opts = box.querySelectorAll('.opt');
-    const right = picks[i] === item.a;
-    if (right) score++; else missed.push(i + 1);
-    opts.forEach((el, j) => {
-      el.classList.remove('sel');
-      if (j === item.a) el.classList.add('ok');
-      else if (j === picks[i]) el.classList.add('bad');
-    });
-    const fb = document.createElement('div');
-    fb.className = 'fb ' + (right ? 'ok' : 'bad');
-    fb.innerHTML = (right ? '<b>Correct.</b> ' : '<b>Not quite.</b> ') + item.e;
-    box.appendChild(fb);
+submitEl.addEventListener("click", function(){
+  if (submitEl.disabled) return;
+
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  overlay.innerHTML = '<div class="overlay-box"><div class="spinner" id="spin"></div><div class="sync-msg" id="syncmsg">Buffering...</div></div>';
+  document.body.appendChild(overlay);
+
+  let score = 0;
+  const missed = [];
+  QUESTIONS.forEach(function(item, qi){
+    if (answers[qi] === item.a) { score++; } else { missed.push(qi + 1); }
   });
-
-  const pct = Math.round(score / Q.length * 100);
-  let verdict;
-  if (score === 20) verdict = "Perfect. You were paying attention.";
-  else if (score >= 18) verdict = "Solid. Look over the ones you missed before your first shift.";
-  else if (score >= 14) verdict = "Some key details slipped through. Scroll back and read the ones you missed.";
-  else verdict = "Go back through the full briefing before your next shift.";
-
-  res.style.display = 'block';
-  res.innerHTML = '<div class="score">' + score + '/' + Q.length + '</div><div class="pct">' + pct + '%</div>' +
-    '<div class="verdict">' + verdict + '</div>';
-  res.scrollIntoView({behavior:'smooth', block:'center'});
-  btn.textContent = 'Submitted — ' + score + '/' + Q.length;
-
-  post({
+  const pct = Math.round(score / QUESTIONS.length * 100);
+  const payload = {
     timestamp: new Date().toISOString(),
     periodWeek: PERIOD_WEEK,
-    name: nm.value.trim(),
+    name: nameEl.value.trim(),
     score: score,
-    outOf: Q.length,
+    outOf: QUESTIONS.length,
     percent: pct,
-    missedQuestions: missed.join(', ')
-  });
-}
+    missed: missed.join(", ")
+  };
 
-function post(payload){
-  try {
-    fetch(ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify(payload)
-    }).catch(() => {});
-  } catch(e){}
+  let posted = true;
+  fetch(ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).catch(function(){ posted = false; });
+
+  setTimeout(function(){
+    document.getElementById("spin").style.display = "none";
+    const msg = document.getElementById("syncmsg");
+    msg.textContent = "Your results have been submitted.";
+    msg.classList.add("done");
+
+    setTimeout(function(){
+      overlay.remove();
+      reveal(score, pct, posted);
+    }, 2000);
+  }, 1500);
+});
+
+function reveal(score, pct, posted){
+  locked = true;
+  submitEl.disabled = true;
+  submitEl.textContent = "Submitted";
+
+  QUESTIONS.forEach(function(item, qi){
+    const card = document.getElementById("q" + qi);
+    card.classList.add("locked");
+    const opts = card.querySelectorAll(".opt");
+    opts.forEach(function(el, oi){
+      el.classList.remove("sel");
+      if (oi === item.a) el.classList.add("right");
+      else if (oi === answers[qi]) el.classList.add("wrong");
+    });
+    const fb = document.getElementById("fb" + qi);
+    const right = answers[qi] === item.a;
+    fb.className = "fb show " + (right ? "ok" : "no");
+    fb.innerHTML = "<b>" + (right ? "Correct" : "Correct answer: " + LETTERS[item.a]) + "</b>" + item.e;
+  });
+
+  let verdict = verdictFor(score);
+  if (!posted) verdict += " Screenshot this and send it to me.";
+
+  document.getElementById("scoreline").textContent = score + " / " + QUESTIONS.length;
+  document.getElementById("pctline").textContent = pct + "%";
+  document.getElementById("verdictline").textContent = verdict;
+  const res = document.getElementById("result");
+  res.style.display = "block";
+  res.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 refresh();
