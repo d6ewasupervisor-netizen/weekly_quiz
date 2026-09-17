@@ -1,346 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>P09W1 Quiz &middot; District 8</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>District 8 Weekly Quiz &mdash; P09W2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#1B2A4A; --teal:#0891B2; --orange:#F59E0B; --red:#DC2626;
-  --green:#059669; --light:#F0F4F8; --ly:#FEF3C7; --lb:#ECFEFF;
-  --line:#D7E1EE;
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  font-family:'DM Sans',system-ui,sans-serif;background:var(--light);color:var(--navy);
-  line-height:1.5;padding-bottom:120px;
-}
-header{background:var(--navy);color:#fff;padding:28px 20px 26px;position:relative}
-header:after{content:'';position:absolute;left:0;bottom:0;width:100%;height:5px;background:var(--teal)}
-.pw{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:3px;color:#4FD1E5;text-transform:uppercase}
-header h1{font-size:27px;font-weight:700;margin-top:6px;letter-spacing:-.3px}
-header p{font-size:15px;color:#B9CCE6;margin-top:8px}
-
-.bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
-.bar .track{height:6px;background:#E4EBF4}
-.bar .fill{height:6px;width:0;background:var(--teal);transition:width .25s ease}
-.bar .cnt{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;
-  text-transform:uppercase;color:#5A6E90;padding:9px 20px}
-
-main{padding:20px 16px 0;max-width:640px;margin:0 auto}
-
-.namebox{background:#fff;border-radius:12px;padding:18px;margin-bottom:18px;
-  box-shadow:0 2px 10px rgba(27,42,74,.08)}
-label.lbl{display:block;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:8px}
-input[type=text]{width:100%;border:2px solid var(--line);border-radius:9px;padding:13px 14px;
-  font-family:'DM Sans',sans-serif;font-size:17px;color:var(--navy);background:#fff}
-input[type=text]:focus{outline:none;border-color:var(--teal)}
-
-.q{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;
-  box-shadow:0 2px 10px rgba(27,42,74,.08)}
-.q .n{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--orange);
-  font-weight:700;text-transform:uppercase;margin-bottom:7px}
-.q .txt{font-size:18px;font-weight:500;margin-bottom:14px;line-height:1.42}
-.opt{display:flex;align-items:flex-start;gap:11px;border:2px solid var(--line);border-radius:9px;
-  padding:12px 13px;margin-bottom:9px;cursor:pointer;transition:border-color .12s,background .12s}
-.opt:last-of-type{margin-bottom:0}
-.opt .k{font-family:'Space Mono',monospace;font-weight:700;font-size:14px;color:#7A8CA8;
-  min-width:19px;padding-top:1px}
-.opt .v{font-size:16px;line-height:1.38}
-.opt.sel{border-color:var(--teal);background:var(--lb)}
-.opt.sel .k{color:var(--teal)}
-.locked .opt{cursor:default}
-.opt.right{border-color:var(--green);background:#ECFDF5}
-.opt.right .k{color:var(--green)}
-.opt.wrong{border-color:var(--red);background:#FEF2F2}
-.opt.wrong .k{color:var(--red)}
-.opt.wrong .v{text-decoration:line-through;opacity:.75}
-.fb{margin-top:12px;border-radius:9px;padding:12px 13px;font-size:15px;line-height:1.45;display:none}
-.fb.show{display:block}
-.fb.ok{background:#ECFDF5;border-left:5px solid var(--green)}
-.fb.no{background:var(--ly);border-left:5px solid var(--red)}
-.fb b{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;
-  display:block;margin-bottom:5px}
-.fb.ok b{color:var(--green)}
-.fb.no b{color:var(--red)}
-
-.submitwrap{position:fixed;left:0;bottom:0;width:100%;background:#fff;
-  border-top:1px solid var(--line);padding:14px 16px calc(14px + env(safe-area-inset-bottom));z-index:30}
-button#submit{display:block;width:100%;max-width:608px;margin:0 auto;border:none;border-radius:11px;
-  background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;
-  padding:16px;cursor:pointer}
-button#submit:disabled{background:#B9C7D8;cursor:not-allowed}
-
-#result{display:none;background:var(--navy);color:#fff;border-radius:12px;padding:24px 20px;
-  margin-bottom:18px;text-align:center}
-#result .score{font-family:'Space Mono',monospace;font-size:52px;font-weight:700;line-height:1}
-#result .pct{color:#4FD1E5;font-family:'Space Mono',monospace;font-size:14px;letter-spacing:3px;
-  text-transform:uppercase;margin-top:8px}
-#result .verdict{font-size:18px;margin-top:14px;color:#DCE8F7;line-height:1.45}
-
-.overlay{position:fixed;inset:0;background:rgba(27,42,74,.94);z-index:100;
-  display:none;align-items:center;justify-content:center;padding:24px}
-.overlay.show{display:flex}
-.overlay-box{background:#fff;border-radius:14px;padding:34px 28px;text-align:center;
-  min-width:250px;max-width:340px}
-.spinner{width:44px;height:44px;margin:0 auto 18px;border:5px solid #E4EBF4;
-  border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.sync-msg{font-family:'Space Mono',monospace;font-size:14px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--navy);font-weight:700}
-.sync-msg.done{color:var(--green)}
-
-footer{text-align:center;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;
-  text-transform:uppercase;color:#8397B4;padding:26px 20px 10px}
+  :root {
+    --navy:#1B2A4A; --teal:#0891B2; --orange:#F59E0B; --red:#DC2626;
+    --lightyellow:#FEF3C7; --lightblue:#ECFEFF; --bg:#F0F4F8;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--navy); padding-bottom:60px; }
+  header { background:var(--navy); color:#fff; padding:28px 20px 22px; text-align:center; }
+  header .kicker { font-family:'Space Mono',monospace; color:#7dd3e0; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+  header h1 { margin:8px 0 0; font-size:26px; }
+  .progress-wrap { max-width:640px; margin:18px auto 0; padding:0 16px; }
+  .progress-bar { background:#dde6ee; border-radius:999px; height:10px; overflow:hidden; }
+  .progress-fill { background:linear-gradient(90deg,var(--teal),var(--orange)); height:100%; width:0%; transition:width .25s ease; }
+  .progress-label { font-family:'Space Mono',monospace; font-size:12px; color:#46607a; margin-top:6px; text-align:right; }
+  main { max-width:640px; margin:0 auto; padding:16px; }
+  .name-card { background:#fff; border-radius:16px; padding:18px 20px; box-shadow:0 6px 18px rgba(27,42,74,.08); margin-bottom:20px; }
+  .name-card label { font-weight:700; font-size:14px; display:block; margin-bottom:8px; }
+  .name-card input { width:100%; padding:12px 14px; border-radius:10px; border:2px solid #dde6ee; font-size:16px; font-family:'DM Sans',sans-serif; }
+  .name-card input:focus { outline:none; border-color:var(--teal); }
+  .qcard { background:#fff; border-radius:16px; padding:20px; margin-bottom:16px; box-shadow:0 6px 18px rgba(27,42,74,.08); }
+  .qnum { font-family:'Space Mono',monospace; color:var(--teal); font-size:12px; font-weight:700; letter-spacing:1px; }
+  .qtext { font-weight:700; font-size:17px; margin:6px 0 14px; line-height:1.4; }
+  .opt { display:block; width:100%; text-align:left; padding:12px 14px; margin-bottom:10px; border-radius:10px; border:2px solid #dde6ee; background:#fbfdff; font-size:15px; font-family:'DM Sans',sans-serif; cursor:pointer; transition:all .15s ease; }
+  .opt:hover { border-color:var(--teal); }
+  .opt.selected { border-color:var(--navy); background:#eef3f8; font-weight:700; }
+  .opt.correct { background:#dcfce7; border-color:#16a34a; font-weight:700; }
+  .opt.wrong { background:#fee2e2; border-color:var(--red); text-decoration:line-through; }
+  .feedback { margin-top:10px; padding:12px 14px; border-radius:10px; font-size:14px; line-height:1.5; display:none; }
+  .feedback.show { display:block; }
+  .feedback.right { background:var(--lightblue); color:#0e5a6b; }
+  .feedback.miss { background:var(--lightyellow); color:#92400e; }
+  #submitBtn { width:100%; padding:16px; border:none; border-radius:12px; background:var(--navy); color:#fff; font-size:17px; font-weight:700; font-family:'DM Sans',sans-serif; cursor:pointer; margin-top:10px; }
+  #submitBtn:disabled { background:#a9bcce; cursor:not-allowed; }
+  .result-card { background:var(--navy); color:#fff; border-radius:16px; padding:26px 22px; text-align:center; margin-bottom:20px; }
+  .result-score { font-family:'Space Mono',monospace; font-size:42px; font-weight:700; color:var(--orange); }
+  .result-verdict { font-size:17px; margin-top:8px; }
+  .overlay { position:fixed; inset:0; background:rgba(27,42,74,.92); display:flex; align-items:center; justify-content:center; z-index:999; }
+  .overlay-box { background:#fff; border-radius:18px; padding:40px 36px; text-align:center; min-width:240px; }
+  .spinner { width:44px; height:44px; border:5px solid #dde6ee; border-top-color:var(--teal); border-radius:50%; margin:0 auto 18px; animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .sync-msg { font-weight:700; color:var(--navy); font-size:16px; }
+  .hidden { display:none; }
 </style>
 </head>
 <body>
-
 <header>
-  <div class="pw">Period 9 &middot; Week 1</div>
-  <h1>Reset Briefing Check</h1>
-  <p>Twenty questions. All of them are answered in the briefing.</p>
+  <div class="kicker">District 8 &middot; Weekly Check</div>
+  <h1>P09W2 Quiz</h1>
 </header>
-
-<div class="bar">
-  <div class="track"><div class="fill" id="fill"></div></div>
-  <div class="cnt" id="cnt">0 of 20 answered</div>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 / 20 answered</div>
 </div>
-
 <main>
-  <div class="namebox">
-    <label class="lbl" for="name">Your name</label>
-    <input type="text" id="name" autocomplete="name" placeholder="First and last">
+  <div class="name-card">
+    <label for="nameInput">Your name</label>
+    <input type="text" id="nameInput" placeholder="Type your name" autocomplete="off">
   </div>
-
-  <div id="result">
-    <div class="score" id="scoreTxt">0 / 20</div>
-    <div class="pct" id="pctTxt">0%</div>
-    <div class="verdict" id="verdictTxt"></div>
-  </div>
-
-  <div id="quiz"></div>
+  <div id="quizBody"></div>
+  <button id="submitBtn" disabled>Submit Quiz</button>
+  <div id="resultArea"></div>
 </main>
 
-<div class="submitwrap">
-  <button id="submit" disabled>Submit</button>
-</div>
-
-<div class="overlay" id="overlay">
+<div class="overlay hidden" id="overlay">
   <div class="overlay-box">
     <div class="spinner" id="spinner"></div>
-    <div class="sync-msg" id="syncMsg">Buffering&hellip;</div>
+    <div class="sync-msg" id="syncMsg">Buffering...</div>
   </div>
 </div>
 
-<footer>Retail Odyssey &middot; District 8</footer>
-
 <script>
-const PERIOD_WEEK = "P09W1";
+const QUESTIONS = [{"q": "Both Boar\u2019s Head removal sets have hard finish dates already committed to Kroger. Which pair is correct?", "options": ["Store 215 Tuesday 9/22, Store 459 Thursday 9/24", "Store 215 Monday 9/21, Store 459 Wednesday 9/23", "Store 459 Tuesday 9/22, Store 215 Thursday 9/24", "Both stores set Friday 9/25"], "correct": 0, "explain": "Store 215 (Kent) is set for Tuesday, September 22, and store 459 (Renton) is set for Thursday, September 24 \u2014 both already committed to Kroger as completion dates."}, {"q": "At store 215, one section of the Boar\u2019s Head layout goes on hold this visit. Why?", "options": ["The store refused the placement", "It was never mapped, so no strips exist for it", "The fixture arrived damaged", "It's a test-only section"], "correct": 1, "explain": "The salsa/guac run at store 215 was never mapped, so there are no strips for it \u2014 leave the space open until a follow-up visit."}, {"q": "At the Boar\u2019s Head sets, what happens to Boar\u2019s Head\u2019s own branded fixtures and racks?", "options": ["We break them down for disposal", "We leave them in place for Boar\u2019s Head\u2019s team to collect", "We ship them back to Boar\u2019s Head ourselves", "We repurpose them for the new set"], "correct": 1, "explain": "We only pull product, strips, and tags \u2014 Boar\u2019s Head owns their fixtures and racks, so those stay in place for their own team to collect."}, {"q": "If either Boar\u2019s Head set date has to move, what's the expectation?", "options": ["Let me know at the next weekly meeting", "No need to report it, dates are flexible", "Get it to me the same day so it can be passed up", "Email Kroger directly"], "correct": 2, "explain": "The dates were sent to Kroger as our completion commitment, so any slip needs to reach me the same day it happens."}, {"q": "On Cocktail Mixers this week, what has to be on site before the set can start?", "options": ["New strips only", "The extra shelves for each bay", "A signed byway", "A Relay Manager walkthrough"], "correct": 1, "explain": "We\u2019re adding an extra shelf to every bay across the soda and cocktail sets \u2014 those shelves must be on site before the update can begin."}, {"q": "What should you do if a store can\u2019t locate its Mixer shelves?", "options": ["Skip the set entirely", "Pull the delivery signer\u2019s name and have the store search again", "Borrow shelves from another commodity", "Order replacements immediately"], "correct": 1, "explain": "Pull the FedEx/SIA signer\u2019s name from the tracking file and push the store to search again before treating it as a shortage."}, {"q": "What should you check for while resetting Gravy & Dry Mixes?", "options": ["Missing UPC labels", "Expired product", "Correct planogram version only", "Vendor invoices"], "correct": 1, "explain": "The test store pulled two full boxes of expired product out of this set \u2014 verify dates as you reset, don\u2019t assume the shelf is clean."}, {"q": "In the new Gravy & Dry Mixes layout, where do the wet gravies (jars, cans, pouches) go?", "options": ["Top shelf", "Bottom two shelves", "Upper left of the set", "They\u2019re deleted from the set"], "correct": 1, "explain": "All wet gravies drop to the bottom two shelves; dry gravies move to the upper left, with taco and chili seasonings on the upper right."}, {"q": "What\u2019s the rule for product during the Frozen Handheld Snacks reset?", "options": ["Can sit out up to an hour", "Cannot be out of the case longer than 20 minutes", "No time restriction", "Must be refrozen before resetting"], "correct": 1, "explain": "This is a refrigerated/frozen set \u2014 product cannot be left out of the case longer than 20 minutes."}, {"q": "For stores integrating natural into the regular Frozen Handheld set, what removes two shelves?", "options": ["Each existing natural door", "The regular set end caps", "The frozen dessert section", "Nothing is removed"], "correct": 0, "explain": "Integrated stores pull two shelves from each of the current natural doors as part of the full reflow."}, {"q": "On Brooms & Mops, which item relocates to a different section entirely?", "options": ["A broom handle display", "The dish puff item moves into Sponge", "Mop refill heads move into Laundry", "Nothing relocates this update"], "correct": 1, "explain": "The dish puff item moves out of Mops & Brooms and into the Sponge section on the new planogram \u2014 pull it from the old spot and reset it there."}, {"q": "Which three stores are converting Quick Clean from community to mainstream planograms this week?", "options": ["19, 23, 53", "28, 391, 459", "31, 215, 682", "658, 682, 391"], "correct": 1, "explain": "Stores 28, 391, and 459 are converting this week, with P&G shipping extra peg duster arms directly to those three stores."}, {"q": "Besides the standard Baking Mixes reset, what else ships alongside it this week?", "options": ["Nothing extra", "Holiday pallet tag sets", "A new fixture", "A vendor survey"], "correct": 1, "explain": "Stores are also receiving tag sets for holiday pallets \u2014 install those tags alongside the reset."}, {"q": "Which store gets a shelf-height and assortment adjustment in bay 1 on Baking Mixes?", "options": ["215", "391", "459", "682"], "correct": 2, "explain": "Store 459 has a shelf-height and assortment change in bay 1 that needs to be worked to the updated plan."}, {"q": "Why is Commercial Bread worth coordinating with the receiver and bread vendors?", "options": ["To get a discount", "So we can run it first and stay out of their way", "Because it requires vendor tools", "It doesn\u2019t need coordination"], "correct": 1, "explain": "Coordinating lets us complete the set first, ahead of the receiver and bread vendors' own deliveries."}, {"q": "What's the timekeeping rule being enforced this week?", "options": ["Leads clock the whole crew in at once", "Everyone clocks themselves in and out with their own 4-digit PIN", "Time is tracked by the store manager", "No PIN required for anyone"], "correct": 1, "explain": "Everyone self-clocks with their own PIN; leads do not clock teammates in or out. InstaWork reps clock through their own app instead."}, {"q": "Why do strip and tag events need to be keyed as Non-Kompass by the store?", "options": ["It's just a formality", "It's what triggers the location change in clicklist", "It speeds up shipping", "It's required for InstaWork billing"], "correct": 1, "explain": "Signing strip and tag events out as Non-Kompass is what flips the location in clicklist \u2014 remind stores to do it."}, {"q": "Which store has two inventory counts landing mid-week this week?", "options": ["Store 19", "Store 31 (Benson Plaza)", "Store 53", "Store 658"], "correct": 1, "explain": "Store 31 (Benson Plaza) has a home-side count Tuesday and an apparel count Wednesday \u2014 plan around the inventory crew those two days."}, {"q": "What's the mobility cane rack program's install window for District 8?", "options": ["This week only", "September 28 through October 10", "All of October", "It starts next year"], "correct": 1, "explain": "The Drive Medical cane rack install runs September 28 through October 10, one visit per store, staggered across all ten District 8 stores."}, {"q": "What has to be handed to pharmacy staff before leaving a store on the cane rack install?", "options": ["A spare set of hooks", "The laminated Cardinal reorder guide", "A signed byway", "Nothing extra"], "correct": 1, "explain": "A laminated reorder guide ships in the box \u2014 hand it to pharmacy staff before you leave, or they have nothing to reorder against."}];
+const PERIOD_WEEK = "P09W2";
 const ENDPOINT = "https://script.google.com/macros/s/AKfycbzmcP_mKbuBt-pY1zMGhgrgOWae3uI72PreeTaQTHJDc1Uj4oGq424zRRsdZ8YKo8c1/exec";
-
-const QUESTIONS = [
-{q:"On the Broth, Dry Soup and Bouillon update, where does all of the canned broth end up?",
- o:["On the top shelf","On the bottom shelf","Blocked on the right at eye level","Split across the middle two shelves"],a:0,
- e:"Canned broth comes off the bottom and goes to the top. That single move is the reason this set changes shape."},
-
-{q:"Where do the Kitchen Basics stocks go on that same set?",
- o:["They stay where they are","Down to the bottom shelf","Up to the top shelf","Into the bone broth block"],a:1,
- e:"Kitchen Basics drops from the top down to the bottom — it is a straight swap with the canned broth."},
-
-{q:"What sequence came in under estimate on the test set?",
- o:["Build the bone broth block first, then work outward","Strip the whole set and rebuild left to right","Pull the canned broth first and swap it with Kitchen Basics","Do the facings first and move product last"],a:2,
- e:"Pull the canned broth first and swap it with Kitchen Basics, then work the slides. That order is why the test came in under estimate."},
-
-{q:"Where does bouillon move to on the Broth set?",
- o:["To the bottom shelf with the dry soup","Up to eye level","Off the set entirely","Onto the right end cap"],a:1,
- e:"Bouillon moves up to eye level, which is what frees space for the bone broth block to expand."},
-
-{q:"How many hours is Shelf Stable Juice?",
- o:["3 hours","4 hours","6 hours","10 hours"],a:2,
- e:"Six hours — the biggest single block of time on the schedule this week."},
-
-{q:"Why will juice facings differ from one store to the next?",
- o:["The set is going through automation","Each store orders its own assortment","The strips ship incomplete","Store management sets the facings"],a:0,
- e:"Automation on twenty-eight-foot planograms and larger drives store-specific facings. Build what your planogram says, not what the store down the road looks like."},
-
-{q:"How many Kompass hours does District 8 have this week?",
- o:["24","44","45","61"],a:2,
- e:"Forty-five hours across twenty-four categories in six departments."},
-
-{q:"How long can product from a refrigerated or frozen set be out of temp?",
- o:["10 minutes","20 minutes","30 minutes","Until the end of the wave"],a:1,
- e:"Twenty minutes, on every temperature-controlled set. That is why those sets get worked in waves."},
-
-{q:"Why are there four deletes on Packaged Lettuce?",
- o:["Seasonal changeover","The items moved to Natural Foods","80Acres shut down as a company","They failed a quality hold"],a:2,
- e:"80Acres shut down, so every 80Acres item comes out of the set."},
-
-{q:"Which mushrooms are being added?",
- o:["Monterey Baby Bella, Shiitake and Oyster","Kroger Lion's Mane, Trumpet and Maitake","Private Selection Portobello and Cremini","Organic White and Brown blends"],a:1,
- e:"Monterey swaps out; Kroger Lion's Mane, Trumpet and Maitake drop in."},
-
-{q:"On Specialty Cheese, what replaces the Veroni Peppered Salami on charcuterie sets?",
- o:["Private Selection Brie","Salame Toscano","Partanna Olives","Boursin Hot Honey Garlic"],a:1,
- e:"Salame Toscano takes its place on any set that carries charcuterie."},
-
-{q:"What is the rule about moving product between the store and the fuel station?",
- o:["Product can go out but not come back","Product can come back but not go out","We cannot move it in either direction","It is allowed with store manager approval"],a:2,
- e:"Neither direction. Store management walks new product out, and fuel center staff handle discontinued and backstock items on their side."},
-
-{q:"What is different about the tags for the fuel sets?",
- o:["They are REZ tags, wrapped separately in the box","They print at the kiosk","They arrive the following week","They are handwritten from the planogram"],a:0,
- e:"Fuel tags are REZ tags and they come wrapped separately, so find them before you walk out to the kiosk."},
-
-{q:"Which District 8 store has the Boar's Head removal this week?",
- o:["Kent","Renton","Auburn","Issaquah"],a:2,
- e:"Auburn runs this week. Kent and Renton run the following week."},
-
-{q:"How is Boar's Head removal time recorded?",
- o:["Under the Kompass set it replaces","Under the project and sub project codes, billed to Corp Billing","As maintenance hours on the EOD","It is not recorded separately"],a:1,
- e:"It is a non-Kompass project, so it never shows on the Kompass schedule. All time records under the project and sub project codes shown on the sheet, billed to Corp Billing."},
-
-{q:"Three sections at Auburn are on hold. What do you do with the strips that arrived for them?",
- o:["Hang them anyway and note it on the EOD","Toss them and leave those sections as they are","Hold them for the follow-up visit","Send them back with the Vestcom box"],a:1,
- e:"The wrong strips shipped. Toss what you received, leave those three sections untouched, and a follow-up gets scheduled."},
-
-{q:"Before setting anything at the Boar's Head store, what has to be confirmed?",
- o:["That Boar's Head has already pulled their product","That the layout is the August twenty-sixth version","That the deli case is empty","That the strips match the Vestcom manifest"],a:1,
- e:"Check the date in the black box on the layout. If it is anything other than the August twenty-sixth version, stop and call me."},
-
-{q:"What are the conditioning ready times?",
- o:["8 AM weekdays, 9 AM weekends and holidays","9 AM weekdays, 8 AM weekends and holidays","9 AM every day","End of shift, every day"],a:1,
- e:"Nine in the morning on weekdays, eight on weekends and holidays. Condition as you go rather than saving it for the end of the shift."},
-
-{q:"What does the SRP chip on a SATH strip authorize?",
- o:["Stocking the product inside its case","Capping the product with an item lying on top","Blocking the shelf down instead of facing it","Using a shelf front rail"],a:0,
- e:"The SRP chip is the only authorization to stock product inside its case. No chip, no case — pull the product out and stock it."},
-
-{q:"What has to happen with the Cocktail Mixers shelves before next week?",
- o:["Order them through the store's receiving desk","Find them at your store and get receiving to secure them","Wait for them to arrive with the Vestcom box","Install them during this week's sets"],a:1,
- e:"The shelves already shipped ahead of the set — nine of ten District 8 stores show them delivered. Find them and get receiving to hold them somewhere they will not walk off."}
-];
-
-const KEYS = ["A","B","C","D"];
 const answers = new Array(QUESTIONS.length).fill(null);
 let locked = false;
 
-const quizEl = document.getElementById("quiz");
-QUESTIONS.forEach((item, qi) => {
-  const box = document.createElement("div");
-  box.className = "q";
-  box.id = "q" + qi;
-  let html = '<div class="n">Question ' + (qi + 1) + '</div><div class="txt">' + item.q + '</div>';
-  item.o.forEach((opt, oi) => {
-    html += '<div class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
-            '<span class="k">' + KEYS[oi] + '</span><span class="v">' + opt + '</span></div>';
+const quizBody = document.getElementById('quizBody');
+QUESTIONS.forEach((q, qi) => {
+  const card = document.createElement('div');
+  card.className = 'qcard';
+  card.innerHTML = `<div class="qnum">QUESTION ${qi+1} OF ${QUESTIONS.length}</div><div class="qtext">${q.q}</div>`;
+  const optWrap = document.createElement('div');
+  q.options.forEach((optText, oi) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.type = 'button';
+    btn.textContent = String.fromCharCode(65+oi) + '.  ' + optText;
+    btn.addEventListener('click', () => {
+      if (locked) return;
+      answers[qi] = oi;
+      Array.from(optWrap.children).forEach(c => c.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateProgress();
+    });
+    optWrap.appendChild(btn);
   });
-  html += '<div class="fb" id="fb' + qi + '"></div>';
-  box.innerHTML = html;
-  quizEl.appendChild(box);
+  card.appendChild(optWrap);
+  const fb = document.createElement('div');
+  fb.className = 'feedback';
+  fb.id = 'fb-' + qi;
+  card.appendChild(fb);
+  quizBody.appendChild(card);
 });
 
-quizEl.addEventListener("click", (ev) => {
-  if (locked) return;
-  const opt = ev.target.closest(".opt");
-  if (!opt) return;
-  const qi = +opt.dataset.q, oi = +opt.dataset.o;
-  document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(e => e.classList.remove("sel"));
-  opt.classList.add("sel");
-  answers[qi] = oi;
-  refresh();
-});
+const nameInput = document.getElementById('nameInput');
+const submitBtn = document.getElementById('submitBtn');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
 
-document.getElementById("name").addEventListener("input", refresh);
-
-function refresh() {
-  const done = answers.filter(a => a !== null).length;
-  document.getElementById("fill").style.width = (done / QUESTIONS.length * 100) + "%";
-  document.getElementById("cnt").textContent = done + " of " + QUESTIONS.length + " answered";
-  const named = document.getElementById("name").value.trim().length > 1;
-  document.getElementById("submit").disabled = locked || !(named && done === QUESTIONS.length);
+function updateProgress() {
+  const answered = answers.filter(a => a !== null).length;
+  progressFill.style.width = (answered / QUESTIONS.length * 100) + '%';
+  progressLabel.textContent = answered + ' / ' + QUESTIONS.length + ' answered';
+  checkReady();
+}
+nameInput.addEventListener('input', checkReady);
+function checkReady() {
+  const allAnswered = answers.every(a => a !== null);
+  const hasName = nameInput.value.trim().length > 0;
+  submitBtn.disabled = !(allAnswered && hasName);
 }
 
-function verdictFor(score) {
-  if (score === 20) return "Perfect. You were paying attention.";
-  if (score >= 16) return "Solid. Review the ones you missed before your first set.";
-  if (score >= 12) return "Watch the briefing again — key details got past you.";
-  return "Go back and rewatch the full briefing before your next shift.";
+function verdictFor(score, outOf) {
+  const pct = score / outOf;
+  if (score === outOf) return "Perfect. You were paying attention.";
+  if (pct >= 0.8) return "Solid. Review the ones you missed.";
+  if (pct >= 0.6) return "Watch the presentation again \u2014 key details were missed.";
+  return "Go back and rewatch the full presentation before your next shift.";
 }
 
-document.getElementById("submit").addEventListener("click", () => {
+submitBtn.addEventListener('click', () => {
   if (locked) return;
   locked = true;
-  document.getElementById("submit").disabled = true;
+  submitBtn.disabled = true;
 
   let score = 0;
   const missed = [];
-  QUESTIONS.forEach((item, qi) => {
+  QUESTIONS.forEach((q, qi) => {
+    const card = quizBody.children[qi];
+    const optWrap = card.querySelector('div:nth-child(3)');
+    const buttons = Array.from(optWrap.children);
+    buttons.forEach(b => b.disabled = true);
     const chosen = answers[qi];
-    const correct = item.a;
-    if (chosen === correct) score++; else missed.push(qi + 1);
-    document.getElementById("q" + qi).classList.add("locked");
-    document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(el => {
-      const oi = +el.dataset.o;
-      el.classList.remove("sel");
-      if (oi === correct) el.classList.add("right");
-      else if (oi === chosen) el.classList.add("wrong");
-    });
-    const fb = document.getElementById("fb" + qi);
-    fb.className = "fb show " + (chosen === correct ? "ok" : "no");
-    fb.innerHTML = "<b>" + (chosen === correct ? "Correct" : "Correct answer: " + KEYS[correct] + " — " + item.o[correct]) + "</b>" + item.e;
+    const fb = document.getElementById('fb-' + qi);
+    if (chosen === q.correct) {
+      score++;
+      buttons[chosen].classList.add('correct');
+      fb.className = 'feedback show right';
+      fb.textContent = q.explain;
+    } else {
+      buttons[chosen].classList.add('wrong');
+      buttons[q.correct].classList.add('correct');
+      fb.className = 'feedback show miss';
+      fb.textContent = q.explain;
+      missed.push(qi+1);
+    }
   });
 
-  const pct = Math.round(score / QUESTIONS.length * 100);
-  let verdict = verdictFor(score);
+  const overlay = document.getElementById('overlay');
+  const spinner = document.getElementById('spinner');
+  const syncMsg = document.getElementById('syncMsg');
+  overlay.classList.remove('hidden');
 
-  const overlay = document.getElementById("overlay");
-  const spinner = document.getElementById("spinner");
-  const syncMsg = document.getElementById("syncMsg");
-  overlay.classList.add("show");
-  spinner.style.display = "block";
-  syncMsg.className = "sync-msg";
-  syncMsg.textContent = "Buffering\u2026";
+  const payload = {
+    timestamp: new Date().toISOString(),
+    periodWeek: PERIOD_WEEK,
+    name: nameInput.value.trim(),
+    score: score,
+    outOf: QUESTIONS.length,
+    percent: Math.round(score / QUESTIONS.length * 100),
+    missedQuestions: missed.join(', ')
+  };
 
-  let posted = true;
+  let postFailed = false;
   try {
     fetch(ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        Timestamp: new Date().toISOString(),
-        PeriodWeek: PERIOD_WEEK,
-        Name: document.getElementById("name").value.trim(),
-        Score: score,
-        OutOf: QUESTIONS.length,
-        Percent: pct,
-        MissedQuestions: missed.join(", ")
-      })
-    }).catch(() => { posted = false; });
-  } catch (err) { posted = false; }
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    }).catch(() => { postFailed = true; });
+  } catch (e) { postFailed = true; }
 
   setTimeout(() => {
-    spinner.style.display = "none";
-    syncMsg.className = "sync-msg done";
-    syncMsg.textContent = "Your results have been submitted.";
+    spinner.style.display = 'none';
+    syncMsg.style.color = '#16a34a';
+    syncMsg.textContent = 'Your results have been submitted.';
     setTimeout(() => {
-      overlay.classList.remove("show");
-      if (!posted) verdict += " Screenshot this and send it to me.";
-      document.getElementById("scoreTxt").textContent = score + " / " + QUESTIONS.length;
-      document.getElementById("pctTxt").textContent = pct + "%";
-      document.getElementById("verdictTxt").textContent = verdict;
-      document.getElementById("result").style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      overlay.classList.add('hidden');
+      showResult(score, QUESTIONS.length, postFailed);
     }, 2000);
   }, 1500);
 });
 
-refresh();
+function showResult(score, outOf, postFailed) {
+  const resultArea = document.getElementById('resultArea');
+  let verdict = verdictFor(score, outOf);
+  if (postFailed) verdict += ' Screenshot this and send to Tyson.';
+  resultArea.innerHTML = `
+    <div class="result-card">
+      <div class="result-score">${score} / ${outOf}</div>
+      <div class="result-verdict">${verdict}</div>
+    </div>`;
+  resultArea.scrollIntoView({behavior:'smooth'});
+}
 </script>
 </body>
 </html>
